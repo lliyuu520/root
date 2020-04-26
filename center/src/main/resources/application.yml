@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: center
+server:
+  port: 8700
+eureka:
+  client:
+    registerWithEureka: false
+    serviceUrl:
+      defaultZone: http://localhost:8700/eureka
+    fetch-registry: false
+logging:
+  path: E:\\log\\root\\

@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: center
+  profiles:
+    active: 8703
+server:
+  port: 8703
+eureka:
+  client:
+    registerWithEureka: true  #false:不作为一个客户端注册到注册中心
+    serviceUrl:
+      defaultZone: http://center-8702:8702/eureka,http://center-8701:8701/eureka
+    fetch-registry: true
+  instance:
+    hostname: center-8703
+logging:
+  path: E:\\log\\root\\

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: consumer
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8700/eureka/
+server:
+  port: 8720
+feign:
+  hystrix:
+    enabled: true
+management:
+  security:
+    enabled: false
+
+logging:
+  path: E:\\log\\root\\

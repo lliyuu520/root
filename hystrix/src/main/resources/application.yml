@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: hystrix
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8700/eureka/
+server:
+  port: 8740
+management:
+  security:
+    enabled: false
+logging:
+  path: E:\\log\\root\\
