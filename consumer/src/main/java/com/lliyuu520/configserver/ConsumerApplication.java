@@ -1,4 +1,4 @@
-package com.lliyuu520.hystrix;
+package com.lliyuu520.configserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

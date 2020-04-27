@@ -9,7 +9,5 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8700/eureka
     fetch-registry: false
-  instance:
-    hostname: localhost
 logging:
   path: E:\\log\\root\\

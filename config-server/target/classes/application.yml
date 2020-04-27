@@ -1,6 +1,6 @@
 spring:
   application:
-    name: consumer
+    name: turbine
   rabbitmq:
     host: 192.168.0.154
     port: 5672
@@ -11,14 +11,11 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8700/eureka/
 server:
-  port: 8720
-feign:
-  hystrix:
-    enabled: true
-  httpclient:
-    enabled: true
+  port: 8750
 management:
   security:
     enabled: false
 logging:
   path: E:\\log\\root\\
+#turbine:
+#  app-config: consumer

@@ -1,4 +1,4 @@
-package com.lliyuu520.hystrix.service;
+package com.lliyuu520.configserver.service;
 
 import com.lliyuu520.api.response.AjaxResult;
 

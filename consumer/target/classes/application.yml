@@ -1,6 +1,11 @@
 spring:
   application:
     name: consumer
+  rabbitmq:
+    host: 192.168.0.154
+    port: 5672
+    username: admin
+    password: admin
 eureka:
   client:
     serviceUrl:
@@ -13,6 +18,5 @@ feign:
 management:
   security:
     enabled: false
-
 logging:
   path: E:\\log\\root\\
