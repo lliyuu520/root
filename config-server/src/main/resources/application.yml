@@ -8,7 +8,7 @@ spring:
           uri: https://github.com/lliyuu520/root.git
           username: lliyuu520
           password: k3NkNY2JYH4q
-          search-paths: config-repo/center/**
+          search-paths: config-repo
           clone-on-start: true
 eureka:
   client:
