@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      label: master
+      profile: cluster
+      discovery:
+        enabled: true
+        service-id: config-server
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8700/eureka/
+logging:
+  path: E:\\log\\root\\
+#management:
+#  security:
+#    enabled: false

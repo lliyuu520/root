@@ -12,3 +12,4 @@ feign:
     enabled: true
 logging:
   path: E:\\log\\root\\
+h: E:\\log\\root\\
