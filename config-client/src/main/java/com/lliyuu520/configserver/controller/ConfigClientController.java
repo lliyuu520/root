@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/config-client")
 public class ConfigClientController {
-    @Value("eureka.client.serviceUrl.defaultZone")
+    @Value("${eureka.client.serviceUrl.defaultZone}")
     private String defaultZone;
 
     @GetMapping("/test")
