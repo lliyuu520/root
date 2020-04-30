@@ -1,4 +1,4 @@
-package com.lliyuu520.configserver.feign.consumer;
+package com.lliyuu520.configclient.feign.consumer;
 
 import com.lliyuu520.api.response.AjaxResult;
 import feign.hystrix.FallbackFactory;

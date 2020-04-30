@@ -1,10 +1,11 @@
-package com.lliyuu520.configserver;
+package com.lliyuu520.configclient;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.config.server.EnableConfigServer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,12 +16,13 @@ import org.springframework.web.client.RestTemplate;
  * @author lliyuu520
  */
 @SpringBootApplication
+@EnableFeignClients
 @EnableEurekaClient
-@EnableConfigServer
-public class ConfigServerApplication {
+@EnableCircuitBreaker
+public class ConsumerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ConfigServerApplication.class, args);
+        SpringApplication.run(ConsumerApplication.class, args);
     }
 
     @Bean

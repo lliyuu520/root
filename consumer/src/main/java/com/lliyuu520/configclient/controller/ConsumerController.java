@@ -1,7 +1,7 @@
-package com.lliyuu520.configserver.controller;
+package com.lliyuu520.configclient.controller;
 
 import com.lliyuu520.api.response.AjaxResult;
-import com.lliyuu520.configserver.service.ConsumerService;
+import com.lliyuu520.configclient.service.ConsumerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

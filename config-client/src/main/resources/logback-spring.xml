@@ -12,8 +12,8 @@
     <springProperty scope="context" name="loggingPath" source="logging.path"/>
     <springProperty scope="context" name="port" source="server.port"/>
     <property name="APP_ID" value="${appName}"/>
-    <property name="LOG_PATH" value="${loggingPath}"></property>
-    <property name="PORT" value="${port}"></property>
+    <property name="LOG_PATH" value="${loggingPath}"/>
+    <property name="PORT" value="${port}"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!--<include resource="org/springframework/boot/logging/logback/base.xml"/>-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
-    <conversionRule conversionWord="wex"
-                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
-    <conversionRule conversionWord="wEx"
-                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
     <!-- 项目的appid -->
     <property resource="application.yml"/>
-    <springProperty scope="context" name="appName" source="spring.application.name"/>
-    <springProperty scope="context" name="loggingPath" source="logging.path"/>
-    <springProperty scope="context" name="port" source="server.port"/>
-    <property name="APP_ID" value="${appName}"/>
-    <property name="LOG_PATH" value="${loggingPath}"></property>
-    <property name="PORT" value="${port}"></property>
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name" defaultvalue="center"/>
+    <springProperty scope="context" name="LOGGING_PATH" source="logging.path" defaultvalue="E:\\log\\root\\"/>
+    <springProperty scope="context" name="SERVER_PORT" source="server.port" defaultvalue="8700"/>
+    <springProperty scope="context" name="HOSTNAME" source="eureka.instance.hostname" defaultvalue="localhost"/>
+
+    <springProperty scope="context" name="RABBITMQ_HOST" source="spring.rabbitmq.host" defaultvalue="192.168.0.154"/>
+    <springProperty scope="context" name="RABBITMQ_PORT" source="spring.rabbitmq.port" defaultvalue="5672"/>
+    <springProperty scope="context" name="RABBITMQ_USERNAME" source="spring.rabbitmq.username" defaultvalue="admin"/>
+    <springProperty scope="context" name="RABBITMQ_PASSWORD" source="spring.rabbitmq.password" defaultvalue="admin"/>
+
+
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([${APP_NAME:-},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-B3-ParentSpanId:-},%X{X-Span-Export:-}]){yellow} %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35}.%M %L - %msg %n</pattern>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
         </encoder>
     </appender>
     <appender name="FILE_LOG"
@@ -25,130 +29,82 @@
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>DEBUG</level>
         </filter>
-        <file>${LOG_PATH}/${APP_ID}/${PORT}/${APP_ID}.log</file>
+        <file>${LOGGING_PATH}/${APP_NAME}/${SERVER_PORT}/${APP_NAME}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/${APP_ID}/${PORT}/${APP_ID}.log.%d{yyyy-MM-dd}.zip
-            </fileNamePattern>
+            <fileNamePattern>${LOG_PATH}/${appName}/${PORT}/${appName}.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <maxHistory>100</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35}%M %L - %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <appender name="FILE_DEBUG"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>DEBUG</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <file>${LOG_PATH}/${APP_ID}/${PORT}/${APP_ID}_debug.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/${APP_ID}/${PORT}/${APP_ID}_debug.log.%d{yyyy-MM-dd}.zip
-            </fileNamePattern>
-            <maxHistory>10</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35}%M %L - %msg%n</pattern>
-        </encoder>
-    </appender>
-    <appender name="FILE_INFO"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <file>${LOG_PATH}/${APP_ID}/${PORT}/${APP_ID}_info.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/${APP_ID}/${PORT}/${APP_ID}_info.log.%d{yyyy-MM-dd}.zip
-            </fileNamePattern>
-            <maxHistory>10</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35}%M %L - %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <appender name="FILE_WARN"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>WARN</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <file>${LOG_PATH}/${APP_ID}/${PORT}/${APP_ID}_warn.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/${APP_ID}/${PORT}/${APP_ID}_warn.log.%d{yyyy-MM-dd}.zip
-            </fileNamePattern>
-            <maxHistory>10</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35}%M %L - %msg%n</pattern>
-        </encoder>
-    </appender>
-    <appender name="FILE_ERROR"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <file>${LOG_PATH}/${APP_ID}/${PORT}/${APP_ID}_error.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/${APP_ID}/${PORT}/${APP_ID}_error.log.%d{yyyy-MM-dd}.zip
-            </fileNamePattern>
-            <maxHistory>10</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35}%M %L - %msg%n</pattern>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
         </encoder>
     </appender>
 
     <appender name="ASYNC_LOG" class="ch.qos.logback.classic.AsyncAppender">
-        <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
         <discardingThreshold>0</discardingThreshold>
-        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
         <queueSize>512</queueSize>
         <appender-ref ref="FILE_LOG"/>
     </appender>
-    <appender name="ASYNC_LOG_DEBUG" class="ch.qos.logback.classic.AsyncAppender">
-        <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
-        <discardingThreshold>0</discardingThreshold>
-        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
-        <queueSize>512</queueSize>
-        <appender-ref ref="FILE_DEBUG"/>
+
+    <appender name="RABBITMQ" class="org.springframework.amqp.rabbit.logback.AmqpAppender">
+        <layout>
+            <pattern>
+                {
+                "datetime":"%d{yyyy-MM-dd HH:mm:ss.SSS}",
+                "date":"%d{yyyy-MM-dd}",
+                "appName":"${APP_NAME:-}",
+                "port":"${SERVER_PORT:-}",
+                "hostname":"${HOSTNAME:-}",
+                "level": "%level",
+                "trace": "%X{X-B3-TraceId:-}",
+                "span": "%X{X-B3-SpanId:-}",
+                "parent": "%X{X-B3-ParentSpanId:-}",
+                "thread": "%thread",
+                "class": "%logger{35}",
+                "message": "%message",
+                "stackTrace": "%exception{10}"
+                }
+            </pattern>
+        </layout>
+        <addresses>${RABBITMQ_HOST}</addresses>
+        <port>${RABBITMQ_PORT}</port>
+        <username>${RABBITMQ_USERNAME}</username>
+        <password>${RABBITMQ_PASSWORD}</password>
+        <declareExchange>true</declareExchange>
+        <exchangeName>${APP_NAME}.log</exchangeName>
+        <exchangeType>direct</exchangeType>
+        <generateId>true</generateId>
+        <charset>UTF-8</charset>
+        <durable>true</durable>
+        <deliveryMode>NON_PERSISTENT</deliveryMode>
+        <autoDelete>false</autoDelete>
+        <contentType>json</contentType>
+        <routingKeyPattern>center</routingKeyPattern>
     </appender>
-    <appender name="ASYNC_LOG_INFO" class="ch.qos.logback.classic.AsyncAppender">
-        <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
-        <discardingThreshold>0</discardingThreshold>
-        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
-        <queueSize>512</queueSize>
-        <appender-ref ref="FILE_INFO"/>
-    </appender>
-    <appender name="ASYNC_LOG_WARN" class="ch.qos.logback.classic.AsyncAppender">
-        <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
-        <discardingThreshold>0</discardingThreshold>
-        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
-        <queueSize>512</queueSize>
-        <appender-ref ref="FILE_WARN"/>
-    </appender>
-    <appender name="ASYNC_LOG_ERROR" class="ch.qos.logback.classic.AsyncAppender">
-        <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
-        <discardingThreshold>0</discardingThreshold>
-        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
-        <queueSize>512</queueSize>
-        <appender-ref ref="FILE_ERROR"/>
-    </appender>
+
+
+    <!--    <springProfile name="local">-->
+
+    <!--        <logger name="java.sql" level="DEBUG"/>-->
+    <!--        <logger name="org.springframework" level="DEBUG"/>-->
+    <!--        <root level="INFO">-->
+    <!--            <appender-ref ref="STDOUT"/>-->
+    <!--        </root>-->
+    <!--    </springProfile>-->
+    <!--    <springProfile name="!local">-->
+    <!--        <logger name="java.sql" level="INFO"/>-->
+    <!--        <logger name="org.springframework" level="INFO"/>-->
+    <!--        <root level="INFO">-->
+    <!--            <appender-ref ref="ASYNC_LOG"/>-->
+    <!--            <appender-ref ref="RABBITMQ"/>-->
+    <!--        </root>-->
+    <!--    </springProfile>-->
+
+    <logger name="java.sql" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
     <root level="INFO">
-        <!-- appender referenced after it is defined -->
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="ASYNC_LOG"/>
-        <appender-ref ref="ASYNC_LOG_DEBUG"/>
-        <appender-ref ref="ASYNC_LOG_INFO"/>
-        <appender-ref ref="ASYNC_LOG_WARN"/>
-        <appender-ref ref="ASYNC_LOG_ERROR"/>
+        <appender-ref ref="RABBITMQ"/>
     </root>
-    <logger name="org.springframework" level="INFO"/>
 </configuration>
