@@ -9,19 +9,25 @@
         <outputRelativeToContentRoot value="true" />
         <module name="zuul" />
         <module name="api" />
+        <module name="config-server" />
         <module name="provider" />
         <module name="hystrix" />
+        <module name="turbine" />
         <module name="center" />
+        <module name="config-client" />
         <module name="consumer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="api" target="1.8" />
       <module name="center" target="1.8" />
+      <module name="config-client" target="1.8" />
+      <module name="config-server" target="1.8" />
       <module name="consumer" target="1.8" />
       <module name="hystrix" target="1.8" />
       <module name="provider" target="1.8" />
       <module name="root" target="1.8" />
+      <module name="turbine" target="1.8" />
       <module name="zuul" target="1.8" />
     </bytecodeTargetLevel>
   </component>
