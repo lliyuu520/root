@@ -1,26 +1,2 @@
-spring:
-  application:
-    name: center
-  profiles:
-    active: local
-  rabbitmq:
-    host: 192.168.0.154
-    port: 5672
-    username: admin
-    password: admin
 server:
   port: 8700
-eureka:
-  client:
-    registerWithEureka: false
-    serviceUrl:
-      defaultZone: http://localhost:8700/eureka
-    fetch-registry: false
-  instance:
-    hostname: localhost
-logging:
-  path: E:\\log\\root\\
-  config: classpath:logback-spring.xml
-management:
-  security:
-    enabled: false

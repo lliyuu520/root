@@ -80,9 +80,19 @@ public class AjaxResult {
      *
      * @return
      */
-    public static AjaxResult moAuth() {
+    public static AjaxResult noAuth() {
         AjaxResult ajaxResult = AjaxResult.newInstance();
         ajaxResult.setResult(AjaxResultEnum.NO_AUTH);
+        return ajaxResult;
+    }
+    /**
+     * 未登录
+     *
+     * @return
+     */
+    public static AjaxResult noData() {
+        AjaxResult ajaxResult = AjaxResult.newInstance();
+        ajaxResult.setResult(AjaxResultEnum.NO_DATA);
         return ajaxResult;
     }
     /**

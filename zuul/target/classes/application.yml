@@ -1,24 +1,2 @@
-spring:
-  application:
-    name: zuul
 server:
-  port: 8720
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8760/eureka/
-zuul:
-#  ignored-services: "**/test/**"
-  routes:
-    provider:
-      path: /provider/**
-      serviceId: provider
-    consumer:
-      path: /consumer/**
-      serviceId: consumer
-management:
-  security:
-    enabled: false
-logging:
-  level:
-    com.netflix: DEBUG
+  port: 8730

@@ -61,7 +61,11 @@ enum AjaxResultEnum {
     /**
      * token格式错误
      */
-    MALFORMED_JWT(1011, "token格式错误");
+    MALFORMED_JWT(1011, "token格式错误"),
+    /**
+     * token格式错误
+     */
+    NO_DATA(1012, "无数据");
     /**
      * key
      */

@@ -1,3 +1,5 @@
+server:
+  port: 8720
 spring:
   application:
     name: consumer
@@ -6,19 +8,20 @@ spring:
     port: 5672
     username: admin
     password: admin
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8700/eureka/
-server:
-  port: 8720
-feign:
-  hystrix:
-    enabled: true
-  httpclient:
-    enabled: true
-management:
-  security:
-    enabled: false
-logging:
-  path: E:\\log\\root\\
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${mysql_hostname:192.168.0.154}:3306/integral_detail?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=CTT
+    username: root
+    password: root
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    time-zone: GMT+8
+mybatis-plus:
+  checkConfigLocation: true
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-value: 1 #逻辑删除
+      logic-not-delete-value: 0 #逻辑未删除

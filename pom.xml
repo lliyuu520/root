@@ -14,9 +14,7 @@
         <module>center</module>
         <module>provider</module>
         <module>consumer</module>
-        <module>hystrix</module>
         <module>zuul</module>
-        <module>turbine</module>
         <module>config-server</module>
         <module>config-client</module>
 
@@ -100,6 +98,16 @@
                 <artifactId>lombok</artifactId>
                 <version>1.18.12</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>4.6.1</version>
             </dependency>
 
 <!--            <dependency>-->

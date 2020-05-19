@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: center
+  rabbitmq:
+    host: 192.168.0.154
+    port: 5672
+    username: provider
+    password: provider
+eureka:
+  client:
+    registerWithEureka: false # 集群改为true
+    serviceUrl:
+      defaultZone: http://localhost:8700/eureka
+    fetch-registry: false # 集群改为true
+logging:
+  path: E:\\log\\root\\
+management:
+  security:
+    enabled: false
