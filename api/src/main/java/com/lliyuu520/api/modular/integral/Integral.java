@@ -1,11 +1,9 @@
 package com.lliyuu520.api.modular.integral;
 
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 /**
  * 资源
@@ -13,21 +11,27 @@ import lombok.EqualsAndHashCode;
  * @author liliangyu
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class Integral extends Model<Integral> {
+public class Integral implements Serializable {
     /**
      * ID
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
     /**
-     * url
+     * name
      */
     private String name;
     /**
-     * 名称
+     * 积分
      */
     private Integer score;
+    /**
+     * 冻结积分
+     */
+    private Integer frozen;
+    /**
+     * 账户ID
+     */
+    private Long integralId;
 
 
 }

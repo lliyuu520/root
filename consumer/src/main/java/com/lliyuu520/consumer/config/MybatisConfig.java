@@ -1,26 +1,55 @@
 package com.lliyuu520.consumer.config;
 
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+
+import javax.sql.DataSource;
 
 /**
+ * Created with IntelliJ IDEA.
  *
- * mybatis 配置
- * @author liliangyu
- * @date 2019/6/20
+ * @author fansin
+ * @version 1.0
+ * @date 18-2-17 下午6:33
  */
 @Configuration
-//@EnableTransactionManagement
-@MapperScan("com.lliyuu520.consumer.modular.**.mapper")
+@MapperScan(basePackages = "com.lliyuu520.consumer.modular.**.mapper",sqlSessionFactoryRef = "sqlSessionFactory",sqlSessionTemplateRef = "sqlSessionTemplate")
 public class MybatisConfig {
 
+    private String resourcePath = "classpath*:mapper/*.xml";
+
     /**
-     * 分页插件
+     * Sql session factory sql session factory.
+     *
+     * @param dataSource the data source
+     * @return the sql session factory
+     * @throws Exception the exception
      */
     @Bean
-    public PaginationInterceptor paginationInterceptor() {
-        return new PaginationInterceptor();
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource) throws Exception {
+        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+        factoryBean.setDataSource(dataSource);
+        factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(resourcePath));
+        return factoryBean.getObject();
     }
+
+    /**
+     * Sql session template sql session template.
+     *
+     * @param dataSource the data source
+     * @return the sql session template
+     * @throws Exception the exception
+     */
+    @Bean
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("dataSource") DataSource dataSource) throws Exception {
+        SqlSessionTemplate template = new SqlSessionTemplate(sqlSessionFactory(dataSource));
+        return template;
+    }
+
 }

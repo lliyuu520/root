@@ -1,14 +1,14 @@
 package com.lliyuu520.provider.modular.integral.controller;
 
-import cn.hutool.core.bean.BeanUtil;
-import com.lliyuu520.api.modular.integral.Integral;
-import com.lliyuu520.api.response.AjaxResult;
+import com.lliyuu520.provider.modular.integral.mapper.IntegralMapper;
 import com.lliyuu520.provider.modular.integral.service.IntegralService;
 import lombok.extern.slf4j.Slf4j;
+import org.bytesoft.compensable.Compensable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -21,28 +21,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/integral")
 @Slf4j
-public class IntegralController {
+@Compensable(interfaceClass = IntegralService.class, confirmableKey = "integralServiceConfirm", cancellableKey = "integralServiceCancel")
+public class IntegralController implements IntegralService {
 
     @Autowired
-    private IntegralService integralService;
+    private IntegralMapper integralMapper;
 
-    @GetMapping(value = "/{id}")
-    public AjaxResult test(@PathVariable("id") Integer id) {
-        Integral integral = integralService.getById(id);
-        return AjaxResult.success(integral);
-    }
-
+    /**
+     * try 写入冻结 加
+     *
+     * @param integralId
+     * @param frozen
+     * @return
+     */
+    @Override
     @GetMapping(value = "/add")
-    public AjaxResult test(Long integralId ,Integer score) {
-        Integral integral = integralService.getById(integralId);
-        if(BeanUtil.isEmpty(integral)){
-            return AjaxResult.noAuth();
+    @Transactional
+    public void addIntegral(@RequestParam Long integralId, @RequestParam Integer frozen) {
+
+        log.info("------------------PROVIDER 执行尝试开始------------------");
+        System.out.println("integralId=" + integralId);
+        System.out.println("frozen=" + frozen);
+
+        int i = integralMapper.tryAddIntegral(integralId, frozen);
+        if (1 != i) {
+            log.info("------------------PROVIDER 执行尝试出错------------------{}",i);
+            throw new IllegalStateException("ERROR!");
         }
-        Integer score0 = integral.getScore();
-        score0=score0+score;
-        integral.setScore(score0);
-        integralService.updateById(integral);
-        return AjaxResult.success();
+
+        log.info("------------------PROVIDER 执行尝试结束------------------{}",i);
+
+        log.info("成功接受转账 integralId={} frozen={}", integralId, frozen);
+
     }
+
 
 }

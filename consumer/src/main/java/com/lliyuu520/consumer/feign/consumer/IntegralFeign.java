@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface IntegralFeign {
 
     @GetMapping(value = "/integral/add")
-    void add(@RequestParam("integralId") Long integralId,@RequestParam("score") Integer score);
+    void addIntegral(@RequestParam("integralId") Long integralId,@RequestParam("frozen") Integer frozen);
 }
 
 
