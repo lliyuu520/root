@@ -1,0 +1,5 @@
+logging:
+  path: E:\\log\\root\\
+spring:
+  application:
+    name: provider

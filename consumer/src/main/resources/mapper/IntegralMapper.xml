@@ -1,31 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.lliyuu520.consumer.modular.integral.mapper.IntegralMapper">
-    <resultMap id="BaseResultMap" type="com.lliyuu520.api.modular.integral.Integral" >
-        <id column="id" property="id" jdbcType="BIGINT" />
-        <result column="score" property="score" jdbcType="INTEGER" />
-        <result column="name" property="name" jdbcType="VARCHAR" />
+<mapper namespace="com.lliyuu520.root.modular.consumer.mapper.IntegralMapper">
+    <resultMap id="BaseResultMap" type="com.lliyuu520.root.modular.integral.entity.Integral">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="frozen" property="frozen" javaType="INTEGER"/>
-        <result column="integral_id" property="integralId" jdbcType="INTEGER" />
+        <result column="integral_id" property="integralId" jdbcType="INTEGER"/>
     </resultMap>
 
-    <sql id="Base_Column_List" >
+    <sql id="Base_Column_List">
         id, score, name, frozen, integral_id
     </sql>
 
-    <update id="tryReduceIntegral"><![CDATA[
+    <update id="reduceIntegral"><![CDATA[
+        update integral_provider.integral
+        set score=score - #{frozen}
+        where integral_id = #{integralId}
+        ]]></update>
 
-        update integral_provider.integral set frozen=frozen-#{frozen} where integral_id=#{integralId}
-
-    ]]></update>
-    <update id="confirmReduceIntegral"><![CDATA[
-
-        update integral_provider.integral set frozen=frozen+#{frozen} ,score=score-#{frozen} where integral_id=#{integralId}
-
-    ]]></update>
-    <update id="cancelReduceIntegral"><![CDATA[
-
-        update integral_provider.integral set frozen=frozen+#{frozen}  where integral_id=#{integralId}
-
-    ]]></update>
 </mapper>

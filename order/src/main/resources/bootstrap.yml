@@ -1,0 +1,24 @@
+logging:
+  path: E:\\log\\root\\
+spring:
+  application:
+    name: order
+  cloud:
+    config:
+      label: master
+      profile: local
+      discovery:
+        enabled: true
+        service-id: config-server
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${center_host:localhost}:8700/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    prefer-ip-address: true #使用ip,tcc才好分配
+mybatis:
+  check-config-location: true
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:/mapper/*.xml

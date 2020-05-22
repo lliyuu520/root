@@ -16,7 +16,9 @@
         <module>consumer</module>
         <module>zuul</module>
         <module>config-server</module>
-        <module>config-client</module>
+        <module>order</module>
+        <module>account</module>
+        <module>stock</module>
 
     </modules>
 

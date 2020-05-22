@@ -2,7 +2,7 @@ spring:
   application:
     name: center
   rabbitmq:
-    host: ${rabbitmq_hostname:localhost}
+    host: ${rabbitmq_host:localhost}
     port: 5672
     username: provider
     password: provider
@@ -10,10 +10,8 @@ eureka:
   client:
     registerWithEureka: false # 集群改为true
     serviceUrl:
-      defaultZone: http://${center_hostname:localhost}:8700/eureka
+      defaultZone: http://${center_host:localhost}:8700/eureka
     fetch-registry: false # 集群改为true
 logging:
   path: ${log_path:E:\\log\\root\\}
-management:
-  security:
-    enabled: false
+

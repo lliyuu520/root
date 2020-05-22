@@ -2,27 +2,18 @@ spring:
   application:
     name: config-server
   rabbitmq:
-    host: 192.168.0.154
+    host: ${rabbitmq_host:localhost}
     port: 5672
     username: provider
     password: provider
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/lliyuu520/root.git
-          username: lliyuu520
-          password: k3NkNY2JYH4q
-          search-paths: config-repo/**/
-          clone-on-start: true
+
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8700/eureka/
-server:
-  port: 8760
+      defaultZone: http://${center_host:localhost}:8700/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    prefer-ip-address: true #使用ip,tcc才好分配
 logging:
   path: E:\\log\\root\\
-management:
-  security:
-    enabled: false
+

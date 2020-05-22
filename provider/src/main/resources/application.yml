@@ -1,14 +1,14 @@
 server:
-  port: 8710
+  port: 8701
 spring:
   rabbitmq:
-    host: ${rabbitmq_hostname:localhost}
+    host: ${rabbitmq_host:localhost}
     port: 5672
     username: provider
     password: provider
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/integral_provider?useSSL=false
+    url: jdbc:mysql://localhost:3306/integral_provider?useSSL=false&useAffectedRows=true
     username: root
     password: root
     continue-on-error: false
@@ -29,20 +29,20 @@ spring:
       log-validation-errors: true
       time-between-eviction-runs-millis: 30000
       num-tests-per-eviction-run: 20
+      max-idle: 20
   jackson:
     date-format: "yyyy-MM-dd HH:mm:ss"
     time-zone: GMT+8
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://${center_hostname:localhost}:8700/eureka/
+      defaultZone: http://${center_host:localhost}:8700/eureka/
   instance:
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
     prefer-ip-address: true #使用ip,tcc才好分配
-management:
-  security:
-    enabled: false
+
 mybatis:
   check-config-location: true
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:/mapper/*.xml
