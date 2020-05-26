@@ -1,33 +1,50 @@
 package com.lliyuu520.root.modular.account.entity;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * account
- * @author 
+ *
+ * @author lliyuu520
  */
 @Data
+@Entity
 public class Account implements Serializable {
+    /**
+     * 主键
+     */
+    @Id
+    @GeneratedValue
     private Long id;
-
-    private String userId;
-
+    /**
+     * 用户ID
+     */
+    private Long userId;
     /**
      * 用户余额
      */
-    private Long balance;
-
+    private BigDecimal totalMoney;
     /**
      * 冻结金额，扣款暂存余额
      */
-    private Long freezeAmount;
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    private static final long serialVersionUID = 1L;
+    private BigDecimal freezeMoney;
+    /**
+     * 创建时间
+     */
+    @CreatedDate
+    private LocalDateTime createTime;
+    /**
+     * 更新时间
+     */
+    @LastModifiedDate
+    private LocalDateTime updateTime;
 }
