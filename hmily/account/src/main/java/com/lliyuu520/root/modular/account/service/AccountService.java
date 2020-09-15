@@ -5,6 +5,10 @@ import org.dromara.hmily.annotation.Hmily;
 
 import java.math.BigDecimal;
 
+/**
+ * 账户service
+ * @author lliyuu520
+ */
 public interface AccountService {
 
 

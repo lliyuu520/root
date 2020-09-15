@@ -8,11 +8,6 @@
     <springProperty scope="context" name="springAppName" source="spring.application.name"/>
 
     <springProperty scope="context" name="loggingPath" source="logging.path"/>
-    <springProperty scope="context" name="springRabbitmqHost" source="spring.rabbitmq.host"/>
-    <springProperty scope="context" name="springRabbitmqPort" source="spring.rabbitmq.port"/>
-    <springProperty scope="context" name="springRabbitmqUsername" source="spring.rabbitmq.username"/>
-    <springProperty scope="context" name="springRabbitmqPassword" source="spring.rabbitmq.password"/>
-
 
     <!-- 项目的appid -->
     <property name="app_name" value="${springAppName}"/>
@@ -21,12 +16,6 @@
 
     <property name="logging_file" value="${log_path}/${app_name}/${app_name}.log"/>
 
-
-    <!--rabbitmq配置-->
-    <property name="rabbitmq_host" value="${springRabbitmqHost}"/>
-    <property name="rabbitmq_port" value="${springRabbitmqPort}"/>
-    <property name="rabbitmq_username" value="${springRabbitmqUsername}"/>
-    <property name="rabbitmq_password" value="${springRabbitmqPassword}"/>
 
 
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
@@ -57,50 +46,12 @@
         </encoder>
     </appender>
 
-    <!--输出到rabbitmq 需要注意的是输出为json会遇到"的问题,解决办法是强制转化为\",可以避免,这个问题是json导致的,不知道还有啥解决办法-->
-    <appender name="rabbitmq" class="org.springframework.amqp.rabbit.logback.AmqpAppender">
-        <layout>
-            <pattern>
-                {
-                "datetime":"%d{yyyy-MM-dd HH:mm:ss.SSS}",
-                "date":"%d{yyyyMMdd}",
-                "app_name":"${app_name:- }",
-                "level": "%level",
-                "trace": "%X{X-B3-TraceId:- }",
-                "pid": "${PID:- }",
-                "span": "%X{X-B3-SpanId:- }",
-                "parent": "%X{X-B3-ParentSpanId:- }",
-                "thread": "%thread",
-                "logger": "%logger{35}",
-                "message": "%replace(%message){'\"', '\\\"'}",
-                "exception": "%replace(%rEx){'\"', '\\\"'}"
-                }
-            </pattern>
-        </layout>
-        <addresses>${rabbitmq_host}</addresses>
-        <port>${rabbitmq_port}</port>
-        <username>${rabbitmq_username}</username>
-        <password>${rabbitmq_password}</password>
-        <declareExchange>true</declareExchange>
-        <exchangeName>root.log</exchangeName>
-        <exchangeType>direct</exchangeType>
-        <generateId>true</generateId>
-        <charset>UTF-8</charset>
-        <durable>true</durable>
-        <deliveryMode>NON_PERSISTENT</deliveryMode>
-        <autoDelete>false</autoDelete>
-        <contentType>json</contentType>
-        <routingKeyPattern>${app_name}</routingKeyPattern>
-    </appender>
-
     <logger name="org.springframework" level="INFO"/>
-    <logger name="org.apache.ibatis" level="INFO"/>
     <logger name="com.lliyuu520.root" level="INFO" />
+    <logger name="org.dromara.hmily" level="INFO" />
 
     <logger name="java.sql" level="INFO"/>
     <root level="INFO">
         <appender-ref ref="console"/>
-        <!--        <appender-ref ref="file"/>-->
-<!--        <appender-ref ref="rabbitmq"/>-->
     </root>
 </configuration>

@@ -1,13 +1,12 @@
 package com.lliyuu520.root.feign;
 
+import com.lliyuu520.root.vo.AccountVO;
 import org.dromara.hmily.annotation.Hmily;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.math.BigDecimal;
 
 /**
  * @author lliyuu520
@@ -22,7 +21,7 @@ public interface AccountFeign {
      * @return
      */
     @GetMapping(value = "/account/selectByUserId/{userId}")
-    BigDecimal selectByUserId(@PathVariable("userId") String userId);
+    AccountVO selectByUserId(@PathVariable("userId") Long userId);
 
     /**
      * 扣除库存
@@ -33,5 +32,5 @@ public interface AccountFeign {
      */
     @Hmily
     @PostMapping(value = "/account/decreaseAccount")
-    void decreaseAccount(@RequestParam("userId") String userId, @RequestParam("amount") String amount);
+    void decreaseAccount(@RequestParam("userId") Long userId, @RequestParam("amount") String amount);
 }

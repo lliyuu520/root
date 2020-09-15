@@ -5,9 +5,9 @@ spring:
     name: consumer
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${mysql_host:localhost}:3306/consumer?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password: root
+    url: jdbc:mysql://${mysql_host:localhost}:3306/consumer-integral?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: admin
+    password: admin
   jackson:
     date-format: "yyyy-MM-dd HH:mm:ss"
     time-zone: GMT+8
@@ -15,7 +15,7 @@ spring:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto : update
+      ddl-auto : none
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy

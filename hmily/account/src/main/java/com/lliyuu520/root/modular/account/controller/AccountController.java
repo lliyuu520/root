@@ -4,9 +4,10 @@ package com.lliyuu520.root.modular.account.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.lliyuu520.root.modular.account.entity.Account;
 import com.lliyuu520.root.modular.account.service.AccountService;
+import com.lliyuu520.root.vo.AccountVO;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hmily.annotation.Hmily;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -21,10 +22,10 @@ import java.math.BigDecimal;
 @RestController
 @RequestMapping("/account")
 @Slf4j
+@AllArgsConstructor
 public class AccountController {
 
-    @Autowired
-    private AccountService accountService;
+    private final AccountService accountService;
 
 
     /**
@@ -34,13 +35,9 @@ public class AccountController {
      * @return
      */
     @GetMapping("/selectByUserId/{userId}")
-    public BigDecimal selectByUserId(@PathVariable Long userId) {
+    public AccountVO selectByUserId(@PathVariable Long userId) {
         Account account = accountService.selectByUserId(userId);
-        if (BeanUtil.isEmpty(account)) {
-            return new BigDecimal("0.00");
-        } else {
-            return account.getTotalMoney();
-        }
+        return BeanUtil.copyProperties(account, AccountVO.class);
 
     }
 

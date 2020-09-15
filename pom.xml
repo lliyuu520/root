@@ -27,6 +27,7 @@
         <druid.version>1.1.22</druid.version>
         <lombok.version>1.18.12</lombok.version>
         <hutool.version>5.4.2</hutool.version>
+        <fastjson.version>1.2.73</fastjson.version>
     </properties>
 
     <build>
@@ -140,6 +141,16 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <optional>true</optional>
             </dependency>
 
         </dependencies>

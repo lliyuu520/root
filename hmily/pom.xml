@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>account</module>
-        <module>order</module>
+        <module>orderForm</module>
         <module>stock</module>
     </modules>
     <dependencyManagement>

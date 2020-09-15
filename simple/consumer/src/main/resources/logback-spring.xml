@@ -46,10 +46,8 @@
         </encoder>
     </appender>
 
-    <!--输出到rabbitmq 需要注意的是输出为json会遇到"的问题,解决办法是强制转化为\",可以避免,这个问题是json导致的,不知道还有啥解决办法-->
 
     <logger name="org.springframework" level="INFO"/>
-    <logger name="org.apache.ibatis" level="INFO"/>
     <logger name="com.lliyuu520.root" level="INFO" />
 
     <logger name="java.sql" level="INFO"/>

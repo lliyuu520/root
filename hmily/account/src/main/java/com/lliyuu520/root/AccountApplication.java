@@ -2,6 +2,8 @@ package com.lliyuu520.root;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -16,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableFeignClients(basePackages = "com.lliyuu520.root.feign")
 @EnableCircuitBreaker
 @EnableTransactionManagement
-@SpringBootApplication
+@SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 public class AccountApplication {
 
     public static void main(String[] args) {

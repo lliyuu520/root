@@ -4,7 +4,7 @@ package com.lliyuu520.root.modular.stock.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.lliyuu520.root.modular.stock.entity.Inventory;
 import com.lliyuu520.root.modular.stock.service.InventoryService;
-import com.lliyuu520.root.modular.stock.vo.InventoryVO;
+import com.lliyuu520.root.vo.InventoryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

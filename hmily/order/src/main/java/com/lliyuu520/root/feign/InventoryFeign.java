@@ -1,6 +1,6 @@
 package com.lliyuu520.root.feign;
 
-import com.lliyuu520.root.modular.stock.vo.InventoryVO;
+import com.lliyuu520.root.vo.InventoryVO;
 import org.dromara.hmily.annotation.Hmily;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
