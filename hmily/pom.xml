@@ -11,9 +11,9 @@
     <artifactId>hmily</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>account</module>
-        <module>orderForm</module>
-        <module>stock</module>
+        <module>hmily-account</module>
+        <module>hmily-order</module>
+        <module>hmily-stock</module>
     </modules>
     <dependencyManagement>
         <dependencies>
