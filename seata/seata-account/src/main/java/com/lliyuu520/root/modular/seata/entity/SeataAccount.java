@@ -35,10 +35,6 @@ public class SeataAccount implements Serializable {
      */
     private BigDecimal totalMoney;
     /**
-     * 冻结金额，扣款暂存余额
-     */
-    private BigDecimal freezeMoney;
-    /**
      * 创建时间
      */
     @CreatedDate

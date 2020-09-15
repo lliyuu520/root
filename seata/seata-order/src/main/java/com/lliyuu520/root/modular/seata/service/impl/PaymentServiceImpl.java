@@ -12,6 +12,7 @@ import com.lliyuu520.root.modular.seata.service.PaymentService;
 import com.lliyuu520.root.modular.seata.service.SeataOrderService;
 import com.lliyuu520.root.vo.AccountVO;
 import com.lliyuu520.root.vo.InventoryVO;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -76,11 +77,12 @@ public class PaymentServiceImpl implements PaymentService {
      * @param orderId 订单实体
      */
     @Override
+    @GlobalTransactional
     @Transactional(rollbackFor = Exception.class)
     public void pay(Long orderId) {
 
-        seataOrderService.modifyPayStatusById(orderId, OrderStatusEnum.PAYING.getCode());
-        log.info("=========修改订单状态为{}==========", OrderStatusEnum.PAYING.getDesc());
+        seataOrderService.modifyPayStatusById(orderId, OrderStatusEnum.PAY_SUCCESS.getCode());
+        log.info("=========修改订单状态为{}==========", OrderStatusEnum.PAY_SUCCESS.getDesc());
         SeataOrder hmilyOrder = seataOrderService.getById(orderId);
         Long userId = hmilyOrder.getUserId();
         /*
@@ -133,25 +135,5 @@ public class PaymentServiceImpl implements PaymentService {
         log.info("=========执行扣库存==========");
     }
 
-    /**
-     * 确认
-     *
-     * @param orderId
-     */
-    public void confirmOrder(Long orderId) {
-        seataOrderService.modifyPayStatusById(orderId, OrderStatusEnum.PAY_SUCCESS.getCode());
-        log.info("=========修改订单状态为{}==========", OrderStatusEnum.PAY_SUCCESS.getDesc());
 
-    }
-
-    /**
-     * 回滚
-     *
-     * @param orderId
-     */
-    public void cancelOrder(Long orderId) {
-        seataOrderService.modifyPayStatusById(orderId, OrderStatusEnum.PAY_FAIL.getCode());
-        log.info("=========修改订单状态为{}==========", OrderStatusEnum.PAY_FAIL.getDesc());
-
-    }
 }

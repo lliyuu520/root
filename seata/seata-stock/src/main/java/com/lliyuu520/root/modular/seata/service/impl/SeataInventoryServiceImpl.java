@@ -45,48 +45,8 @@ public class SeataInventoryServiceImpl implements SeataInventoryService {
             Integer totalInventory = seataInventory.getTotalInventory();
             totalInventory = totalInventory - productNum;
             seataInventory.setTotalInventory(totalInventory);
-            seataInventory.setLockInventory(productNum);
             seataInventoryRepository.save(seataInventory);
         }
     }
 
-    /**
-     * 扣除冻结
-     *
-     * @param productId
-     * @param productNum
-     * @return
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public void confirmInventory(Long productId, Integer productNum) {
-        log.info("=============执行库存确认=========");
-        Optional<SeataInventory> byProductId = seataInventoryRepository.getByProductId(productId);
-        if (byProductId.isPresent()) {
-            SeataInventory seataInventory = byProductId.get();
-            seataInventory.setLockInventory(seataInventory.getLockInventory() - productNum);
-            seataInventoryRepository.save(seataInventory);
-        }
-
-    }
-
-    /**
-     * 扣除冻结,回退库存
-     *
-     * @param productId
-     * @param productNum
-     * @return
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public void cancelInventory(Long productId, Integer productNum) {
-        log.info("=============执行库存取消=========");
-        Optional<SeataInventory> byProductId = seataInventoryRepository.getByProductId(productId);
-        if (byProductId.isPresent()) {
-            SeataInventory seataInventory = byProductId.get();
-            Integer totalInventory = seataInventory.getTotalInventory();
-            totalInventory = totalInventory + productNum;
-            seataInventory.setTotalInventory(totalInventory);
-            seataInventory.setLockInventory(seataInventory.getLockInventory() - productNum);
-            seataInventoryRepository.save(seataInventory);
-        }
-    }
 }

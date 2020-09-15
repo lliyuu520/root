@@ -48,7 +48,7 @@
 
     <logger name="org.springframework" level="INFO"/>
     <logger name="com.lliyuu520.root" level="INFO" />
-    <logger name="org.dromara.hmily" level="INFO" />
+    <logger name="io.seata" level="debug" />
 
     <logger name="java.sql" level="INFO"/>
     <root level="INFO">

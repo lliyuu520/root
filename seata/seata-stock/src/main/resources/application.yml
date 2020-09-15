@@ -1,5 +1,5 @@
 server:
-  port: 8707
+  port: 8801
   undertow:
     io-threads: 8
     worker-threads: 156
@@ -8,7 +8,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${mysql_host:localhost}:3306/hmily-stock?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${mysql_host:localhost}:3306/stock?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: admin
     password: admin
     schema: classpath:schema.sql
@@ -28,18 +28,7 @@ spring:
     properties:
       hibernate:
         dialect : org.hibernate.dialect.MySQL5Dialect
-
-org:
-  dromara:
-    hmily:
-      serializer: kryo
-      recoverDelayTime: 128
-      retryMax: 30
-      scheduledDelay: 128
-      scheduledThreadMax: 10
-      repositorySupport: redis
-      started: true
-      hmilyRedisConfig:
-        password: redis123
-        hostname: 127.0.0.1
-        port: 6379
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: seate-stock-service-group

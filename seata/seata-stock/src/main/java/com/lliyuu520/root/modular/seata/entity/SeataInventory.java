@@ -41,10 +41,6 @@ public class SeataInventory implements Serializable {
     private Integer totalInventory;
 
     /**
-     * 锁定库存
-     */
-    private Integer lockInventory;
-    /**
      * 创建时间
      */
     @CreatedDate
