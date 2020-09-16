@@ -1,7 +1,8 @@
 package com.lliyuu520.root;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +14,9 @@ import org.springframework.web.client.RestTemplate;
  * @create 2018/1/22
  */
 @EnableFeignClients(basePackages = "com.lliyuu520.root.feign")
+@EnableCircuitBreaker
 @EnableTransactionManagement
-@SpringCloudApplication
+@SpringBootApplication
 public class SeataAccountApplication {
 
     public static void main(String[] args) {

@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author lliyuu520
  * @date 2020/5/2219:13
  */
-@FeignClient(value = "stock")
+@FeignClient(value = "seata-stock")
 public interface SeataInventoryFeign {
     /**
      * 查询库存接口
      * @param productId
      * @return
      */
-    @GetMapping(value = "/inventory/selectByProductId/{productId}")
+    @GetMapping(value = "/seataInventory/selectByProductId/{productId}")
     InventoryVO selectByProductId(@PathVariable("productId") Long productId);
 
     /**
@@ -27,6 +27,6 @@ public interface SeataInventoryFeign {
      * @param productNum
      * @return
      */
-    @PostMapping(value = "/inventory/decreaseInventory")
+    @PostMapping(value = "/seataInventory/decreaseInventory")
     void decreaseInventory(@RequestParam("productId")Long productId,@RequestParam("productNum")Integer productNum);
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @create 2018/1/22
  */
 @RestController
-@RequestMapping("/inventory")
+@RequestMapping("/seataInventory")
 @Slf4j
 @Api(tags = "{库存}")
 @AllArgsConstructor

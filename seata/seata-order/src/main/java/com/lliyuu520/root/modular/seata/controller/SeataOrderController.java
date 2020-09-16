@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @create 2018/1/22
  */
 @RestController
-@RequestMapping("/hmilyOrder")
+@RequestMapping("/seataOrder")
 @Slf4j
 @Api(tags = {"01.订单"})
 @AllArgsConstructor
@@ -37,7 +37,7 @@ public class SeataOrderController {
      * @return
      */
     @ApiOperation("创建订单")
-    @PostMapping("/createHmilyOrder")
+    @PostMapping("/createSeataOrder")
     public AjaxResult createHmilyOrder(@RequestBody OrderDTO orderDTO) {
         paymentService.createHmilyOrder(orderDTO);
         return AjaxResult.success();

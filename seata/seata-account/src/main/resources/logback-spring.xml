@@ -49,7 +49,7 @@
 
     <logger name="org.springframework" level="INFO"/>
     <logger name="java.sql" level="INFO"/>
-    <logger name="io.seata" level="debug" />
+    <logger name="io.seata" level="INFO" />
 
     <root level="INFO">
         <appender-ref ref="console"/>

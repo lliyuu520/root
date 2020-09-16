@@ -20,8 +20,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 -- Table structure for hmilyOrder
 -- ----------------------------
-DROP TABLE IF EXISTS `seata-order`;
-CREATE TABLE `seata-order`  (
+DROP TABLE IF EXISTS `seata_order`;
+CREATE TABLE `seata_order`  (
   `id` bigint NOT NULL COMMENT '主键',
   `order_num` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '订单编号',
   `pay_status` int NULL DEFAULT NULL COMMENT '支付状态',

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author lliyuu520
  * @date 2020/5/2219:13
  */
-@FeignClient(value = "account")
+@FeignClient(value = "seata-account")
 public interface SeataAccountFeign {
     /**
      * 查询库存接口
@@ -19,7 +19,7 @@ public interface SeataAccountFeign {
      * @param userId
      * @return
      */
-    @GetMapping(value = "/account/selectByUserId/{userId}")
+    @GetMapping(value = "/seataAccount/selectByUserId/{userId}")
     AccountVO selectByUserId(@PathVariable("userId") Long userId);
 
     /**
@@ -29,6 +29,6 @@ public interface SeataAccountFeign {
      * @param amount
      * @return
      */
-    @PostMapping(value = "/account/decreaseAccount")
+    @PostMapping(value = "/seataAccount/decreaseAccount")
     void decreaseAccount(@RequestParam("userId") Long userId, @RequestParam("amount") String amount);
 }

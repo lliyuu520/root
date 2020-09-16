@@ -20,8 +20,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 -- Table structure for seataInventory
 -- ----------------------------
-DROP TABLE IF EXISTS `seata-inventory`;
-CREATE TABLE `seata-inventory`  (
+DROP TABLE IF EXISTS `seata_inventory`;
+CREATE TABLE `seata_inventory`  (
   `id` bigint NOT NULL COMMENT '主键',
   `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
   `lock_inventory` int NULL DEFAULT NULL COMMENT '锁定库存',
