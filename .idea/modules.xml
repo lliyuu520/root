@@ -3,13 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/api/api.iml" filepath="$PROJECT_DIR$/api/api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/center/center.iml" filepath="$PROJECT_DIR$/center/center.iml" />
-      <module fileurl="file://$PROJECT_DIR$/config-client/config-client.iml" filepath="$PROJECT_DIR$/config-client/config-client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/config-server/config-server.iml" filepath="$PROJECT_DIR$/config-server/config-server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/consumer/consumer.iml" filepath="$PROJECT_DIR$/consumer/consumer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/provider/provider.iml" filepath="$PROJECT_DIR$/provider/provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/root.iml" filepath="$PROJECT_DIR$/root.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zuul/zuul.iml" filepath="$PROJECT_DIR$/zuul/zuul.iml" />
+      <module fileurl="file://$PROJECT_DIR$/seata/seata.iml" filepath="$PROJECT_DIR$/seata/seata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/seata/seata-account/seata-account.iml" filepath="$PROJECT_DIR$/seata/seata-account/seata-account.iml" />
+      <module fileurl="file://$PROJECT_DIR$/seata/seata-order/seata-order.iml" filepath="$PROJECT_DIR$/seata/seata-order/seata-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/seata/seata-stock/seata-stock.iml" filepath="$PROJECT_DIR$/seata/seata-stock/seata-stock.iml" />
     </modules>
   </component>
 </project>
