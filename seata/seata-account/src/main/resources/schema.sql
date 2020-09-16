@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 -- Table structure for account
 -- ----------------------------
-DROP TABLE IF EXISTS `seata-account`;
+DROP TABLE IF EXISTS seata_account;
 CREATE TABLE `seata-account`  (
   `id` bigint NOT NULL COMMENT '主键',
   `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',

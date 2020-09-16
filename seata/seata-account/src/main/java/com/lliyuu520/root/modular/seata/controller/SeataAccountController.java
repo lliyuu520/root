@@ -19,7 +19,7 @@ import java.math.BigDecimal;
  * @create 2018/1/22
  */
 @RestController
-@RequestMapping("/seateAccount")
+@RequestMapping("/seataAccount")
 @Slf4j
 @AllArgsConstructor
 public class SeataAccountController {

@@ -8,11 +8,11 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${mysql_host:localhost}:3306/hmily-account?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${mysql_host:localhost}:3306/account?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: admin
     password: admin
     schema: classpath:schema.sql
-    initialization-mode: always
+    initialization-mode: never
     data: classpath:data.sql
   jackson:
     date-format: "yyyy-MM-dd HH:mm:ss"
