@@ -1,0 +1,7 @@
+server:
+  port: 8703
+  undertow:
+    io-threads: 8
+    worker-threads: 156
+    buffer-size: 1024
+    direct-buffers: true

@@ -1,0 +1,32 @@
+package com.lliyuu520.root.modular.provider.entity;
+
+
+import com.lliyuu520.root.entity.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+
+/**
+ * @author lliyuu520
+ */
+@Data
+@Entity
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProviderIntegral extends BaseEntity {
+
+    /**
+     * name
+     */
+    private String name;
+    /**
+     * 积分
+     */
+    private Integer score;
+
+
+}
