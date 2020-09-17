@@ -1,0 +1,19 @@
+{
+    "properties": [
+        {
+            "name": "org.dromara.hmily.hmilyRedisConfig.password",
+            "type": "java.lang.String",
+            "description": "redis密码."
+        },
+        {
+            "name": "org.dromara.hmily.hmilyRedisConfig.hostname",
+            "type": "java.lang.String",
+            "description": "redis主机."
+        },
+        {
+            "name": "org.dromara.hmily.hmilyRedisConfig.port",
+            "type": "java.lang.String",
+            "description": "redis端口."
+        }
+    ]
+}
