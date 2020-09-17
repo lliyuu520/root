@@ -33,6 +33,9 @@ public abstract class BaseEntity implements Serializable {
      */
     @UpdateTimestamp
     private LocalDateTime updateTime;
+    /**
+     * 版本
+     */
     @Version
     private Integer version;
 }

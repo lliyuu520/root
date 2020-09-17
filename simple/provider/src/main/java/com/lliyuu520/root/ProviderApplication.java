@@ -1,5 +1,6 @@
 package com.lliyuu520.root;
 
+import com.lliyuu520.root.utils.StartCommand;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -22,6 +23,7 @@ public class ProviderApplication {
 
 
     public static void main(String[] args) {
+        new StartCommand(args);
         SpringApplication.run(ProviderApplication.class, args);
     }
 
