@@ -11,9 +11,9 @@
     <modules>
 
         <module>api</module>
-<!--        <module>simple</module>-->
-<!--        <module>gateway</module>-->
-<!--        <module>hmily</module>-->
+        <module>simple</module>
+        <module>gateway</module>
+        <module>hmily</module>
         <module>seata</module>
 
 
