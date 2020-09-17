@@ -1,8 +1,8 @@
 package com.lliyuu520.root;
 
+import com.lliyuu520.root.utils.StartCommand;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
@@ -15,18 +15,20 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author lliyuu520
  */
-@SpringBootApplication
+@SpringCloudApplication
 @EnableFeignClients(basePackages = "com.lliyuu520.root.feign")
-@EnableCircuitBreaker
 @EnableTransactionManagement
 public class ConsumerApplication {
 
     public static void main(String[] args) {
+        new StartCommand(args);
+
         SpringApplication.run(ConsumerApplication.class, args);
     }
 
     /**
      * 支持ribbon
+     *
      * @return
      */
     @Bean

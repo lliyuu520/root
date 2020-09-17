@@ -1,5 +1,4 @@
 server:
-#  port: 8701
   undertow:
     buffer-size: 1024
     direct-buffers: true

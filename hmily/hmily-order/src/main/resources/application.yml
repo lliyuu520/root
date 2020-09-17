@@ -1,8 +1,5 @@
 server:
-  port: 8705
   undertow:
-    io-threads: 8
-    worker-threads: 156
     buffer-size: 1024
     direct-buffers: true
 spring:

@@ -16,11 +16,11 @@ import java.io.PrintWriter;
  */
 @Configuration
 public class GlobalInterceptor implements HandlerInterceptor {
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
-        String secretKey = request.getHeader("from");
+        String secretKey = request.getHeader("FEIGN");
         if (StrUtil.isEmpty(secretKey)) {
-
             response.setContentType("application/json; charset=utf-8");
             PrintWriter writer = response.getWriter();
             writer.write("error");

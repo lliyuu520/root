@@ -1,5 +1,4 @@
 server:
-  port: 8707
   undertow:
     io-threads: 8
     worker-threads: 156
