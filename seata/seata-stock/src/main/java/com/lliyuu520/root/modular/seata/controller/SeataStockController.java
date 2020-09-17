@@ -2,8 +2,8 @@ package com.lliyuu520.root.modular.seata.controller;
 
 
 import cn.hutool.core.bean.BeanUtil;
-import com.lliyuu520.root.modular.seata.entity.SeataInventory;
-import com.lliyuu520.root.modular.seata.service.SeataInventoryService;
+import com.lliyuu520.root.modular.seata.entity.SeataStock;
+import com.lliyuu520.root.modular.seata.service.SeataStockService;
 import com.lliyuu520.root.vo.InventoryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @Api(tags = "{库存}")
 @AllArgsConstructor
-public class SeataInventoryController {
+public class SeataStockController {
 
 
-    private final SeataInventoryService seataInventoryService;
+    private final SeataStockService seataStockService;
 
 
     /**
@@ -39,8 +39,8 @@ public class SeataInventoryController {
     @ApiOperation("根据产品id查询库存")
     public InventoryVO selectByProductId(@PathVariable Long productId) {
         log.info("根据产品ID查询库存productId={}", productId);
-        SeataInventory seataInventory = seataInventoryService.selectByProductId(productId);
-        return BeanUtil.copyProperties(seataInventory, InventoryVO.class);
+        SeataStock seataStock = seataStockService.selectByProductId(productId);
+        return BeanUtil.copyProperties(seataStock, InventoryVO.class);
 
 
     }
@@ -56,7 +56,7 @@ public class SeataInventoryController {
     @ApiOperation("扣除库存")
     public void decreaseInventory(@RequestParam("productId") Long productId, @RequestParam("productNum") Integer productNum) {
         log.info("扣除库存productId={},productNum={}", productId, productNum);
-        seataInventoryService.decreaseInventory(productId, productNum);
+        seataStockService.decreaseInventory(productId, productNum);
 
     }
 

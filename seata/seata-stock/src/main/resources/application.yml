@@ -11,8 +11,6 @@ spring:
     url: jdbc:mysql://${mysql_host:localhost}:3306/stock?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: admin
     password: admin
-    schema: classpath:schema.sql
-    initialization-mode: never
     data: classpath:data.sql
   jackson:
     date-format: "yyyy-MM-dd HH:mm:ss"

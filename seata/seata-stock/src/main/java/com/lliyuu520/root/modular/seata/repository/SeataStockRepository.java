@@ -1,6 +1,6 @@
 package com.lliyuu520.root.modular.seata.repository;
 
-import com.lliyuu520.root.modular.seata.entity.SeataInventory;
+import com.lliyuu520.root.modular.seata.entity.SeataStock;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -15,7 +15,7 @@ import java.util.Optional;
  * @since 2020/9/1415:21
  */
 @Repository
-public interface SeataInventoryRepository extends JpaRepository<SeataInventory, Serializable>, JpaSpecificationExecutor<SeataInventory> {
+public interface SeataStockRepository extends JpaRepository<SeataStock, Serializable>, JpaSpecificationExecutor<SeataStock> {
 
     /**
      * 根据产品ID查询
@@ -23,5 +23,5 @@ public interface SeataInventoryRepository extends JpaRepository<SeataInventory, 
      * @param productId
      * @return
      */
-    Optional<SeataInventory> getByProductId(Long productId);
+    Optional<SeataStock> getByProductId(Long productId);
 }

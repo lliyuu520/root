@@ -18,7 +18,7 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for seataInventory
+-- Table structure for seataStock
 -- ----------------------------
 DROP TABLE IF EXISTS `seata_inventory`;
 CREATE TABLE `seata_inventory`  (

@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Entity
-public class SeataInventory implements Serializable {
+public class SeataStock implements Serializable {
     /**
      * 主键
      */
