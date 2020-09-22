@@ -1,7 +1,7 @@
 package com.lliyuu520.root.core.entrypoint;
 
 import com.alibaba.fastjson.JSON;
-import com.zmdtech.xlyy.common.response.AjaxResult;
+import com.lliyuu520.root.response.AjaxResult;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 

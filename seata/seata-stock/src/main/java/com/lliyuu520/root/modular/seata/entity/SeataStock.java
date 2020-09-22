@@ -1,16 +1,9 @@
 package com.lliyuu520.root.modular.seata.entity;
 
+import com.lliyuu520.root.entity.BaseEntity;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  * inventory
@@ -18,14 +11,8 @@ import java.time.LocalDateTime;
  * @author lliyuu520
  */
 @Data
-@Entity
-public class SeataStock implements Serializable {
-    /**
-     * 主键
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class SeataStock extends BaseEntity {
+
     /**
      * 产品id
      */
@@ -40,15 +27,5 @@ public class SeataStock implements Serializable {
      */
     private Integer totalInventory;
 
-    /**
-     * 创建时间
-     */
-    @CreatedDate
-    private LocalDateTime createTime;
-    /**
-     * 修改
-     */
-    @LastModifiedDate
-    private LocalDateTime updateTime;
 
 }

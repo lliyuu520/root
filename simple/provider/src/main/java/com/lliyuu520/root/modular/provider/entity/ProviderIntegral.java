@@ -7,16 +7,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-
 /**
  * @author lliyuu520
  */
 @Data
-@Entity
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
 public class ProviderIntegral extends BaseEntity {
 
     /**

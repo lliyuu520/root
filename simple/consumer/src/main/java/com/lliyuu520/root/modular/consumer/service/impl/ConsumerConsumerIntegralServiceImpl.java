@@ -1,8 +1,9 @@
 package com.lliyuu520.root.modular.consumer.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lliyuu520.root.feign.ProviderIntegralFeign;
 import com.lliyuu520.root.modular.consumer.entity.ConsumerIntegral;
-import com.lliyuu520.root.modular.consumer.repository.ConsumerIntegralRepository;
+import com.lliyuu520.root.modular.consumer.mapper.ConsumerIntegralMapper;
 import com.lliyuu520.root.modular.consumer.service.ConsumerIntegralService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,16 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class ConsumerConsumerIntegralServiceImpl implements ConsumerIntegralService {
+public class ConsumerConsumerIntegralServiceImpl extends ServiceImpl<ConsumerIntegralMapper, ConsumerIntegral> implements ConsumerIntegralService {
 
-    private final ConsumerIntegralRepository consumerIntegralRepository;
     private final ProviderIntegralFeign providerIntegralFeign;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void reduceIntegral(Long integralId, Integer frozen) {
-        ConsumerIntegral one = consumerIntegralRepository.getOne(integralId);
+        ConsumerIntegral one = this.baseMapper.selectById(integralId);
         one.setScore(one.getScore() - frozen);
-        consumerIntegralRepository.save(one);
-        providerIntegralFeign.addIntegral(integralId,frozen);
+        this.baseMapper.insert(one);
+        providerIntegralFeign.addIntegral(integralId, frozen);
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class FeignConfiguration  implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate requestTemplate) {
+
         requestTemplate.header("xxx","xxxx");
     }
 }

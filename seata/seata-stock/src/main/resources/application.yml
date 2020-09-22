@@ -12,18 +12,12 @@ spring:
   jackson:
     date-format: "yyyy-MM-dd HH:mm:ss"
     time-zone: GMT+8
-  jpa:
-    database: mysql
-    show-sql: true
-    hibernate:
-      ddl-auto : none
-      naming:
-        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-    properties:
-      hibernate:
-        dialect : org.hibernate.dialect.MySQL5Dialect
-  cloud:
-    alibaba:
-      seata:
-        tx-service-group: seata-stock-service-group
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: del
+    banner: false

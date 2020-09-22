@@ -1,5 +1,6 @@
 package com.lliyuu520.root.modular.seata.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.lliyuu520.root.modular.seata.entity.SeataAccount;
 
 import java.math.BigDecimal;
@@ -8,7 +9,7 @@ import java.math.BigDecimal;
  * 账户service
  * @author lliyuu520
  */
-public interface SeataAccountService {
+public interface SeataAccountService extends IService<SeataAccount> {
 
 
     /**

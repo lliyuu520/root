@@ -1,7 +1,8 @@
 package com.lliyuu520.root.modular.provider.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lliyuu520.root.modular.provider.entity.ProviderIntegral;
-import com.lliyuu520.root.modular.provider.repository.ProviderIntegralRepository;
+import com.lliyuu520.root.modular.provider.mapper.ProviderIntegralMapper;
 import com.lliyuu520.root.modular.provider.service.ProviderIntegralService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class ProviderIntegralServiceImpl implements ProviderIntegralService {
-    private final ProviderIntegralRepository providerIntegralRepository;
+public class ProviderIntegralServiceImpl extends ServiceImpl<ProviderIntegralMapper, ProviderIntegral> implements ProviderIntegralService {
 
 
     /**
@@ -29,8 +29,8 @@ public class ProviderIntegralServiceImpl implements ProviderIntegralService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addProviderIntegral(Long integralId, Integer frozen) {
-        ProviderIntegral one = providerIntegralRepository.getOne(integralId);
+        ProviderIntegral one = this.baseMapper.selectById(integralId);
         one.setScore(one.getScore() + frozen);
-        providerIntegralRepository.save(one);
+        baseMapper.insert(one);
     }
 }

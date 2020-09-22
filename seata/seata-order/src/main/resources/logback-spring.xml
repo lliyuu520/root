@@ -7,7 +7,7 @@
 
     <springProperty scope="context" name="springAppName" source="spring.application.name"/>
 
-    <springProperty scope="context" name="loggingPath" source="logging.path"/>
+    <springProperty scope="context" name="loggingPath" source="logging.file.path"/>
 
     <!-- 项目的appid -->
     <property name="app_name" value="${springAppName}"/>

@@ -1,11 +1,14 @@
 package com.lliyuu520.root.modular.provider.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.lliyuu520.root.modular.provider.entity.ProviderIntegral;
+
 /**
  * IntegralService
  *
  * @author lliyuu520
  */
-public interface ProviderIntegralService {
+public interface ProviderIntegralService extends IService<ProviderIntegral> {
     /**
      * 转账
      *

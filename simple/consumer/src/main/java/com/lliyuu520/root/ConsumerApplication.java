@@ -17,7 +17,6 @@ import org.springframework.web.client.RestTemplate;
  */
 @SpringCloudApplication
 @EnableFeignClients(basePackages = "com.lliyuu520.root.feign")
-@EnableTransactionManagement
 public class ConsumerApplication {
 
     public static void main(String[] args) {

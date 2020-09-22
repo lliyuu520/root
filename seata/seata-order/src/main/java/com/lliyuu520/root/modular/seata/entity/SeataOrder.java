@@ -1,19 +1,10 @@
 package com.lliyuu520.root.modular.seata.entity;
 
 import com.lliyuu520.root.entity.BaseEntity;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.math.BigDecimal;
-import java.util.Date;
 
 
 /**
@@ -23,9 +14,6 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
 public class SeataOrder extends BaseEntity {
 
 
@@ -57,7 +45,6 @@ public class SeataOrder extends BaseEntity {
      * 用户ID
      */
     private Long userId;
-
 
 
 }

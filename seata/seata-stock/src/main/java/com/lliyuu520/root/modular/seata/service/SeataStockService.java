@@ -1,11 +1,12 @@
 package com.lliyuu520.root.modular.seata.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.lliyuu520.root.modular.seata.entity.SeataStock;
 
 /**
  * InventoryService
  * @author lliyuu520*/
-public interface SeataStockService {
+public interface SeataStockService extends IService<SeataStock> {
 
     /**
      * 根据产品id查询库存

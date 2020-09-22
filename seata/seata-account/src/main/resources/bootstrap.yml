@@ -1,5 +1,6 @@
 logging:
-  path: D:\\log\\root\\
+  file:
+    path: D:\\log\\root\\
 spring:
   application:
     name: seata-account

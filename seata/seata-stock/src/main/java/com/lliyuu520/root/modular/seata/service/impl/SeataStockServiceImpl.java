@@ -1,14 +1,15 @@
 package com.lliyuu520.root.modular.seata.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lliyuu520.root.modular.seata.entity.SeataStock;
-import com.lliyuu520.root.modular.seata.repository.SeataStockRepository;
+import com.lliyuu520.root.modular.seata.mapper.SeataStockMapper;
 import com.lliyuu520.root.modular.seata.service.SeataStockService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 /**
  * integralServiceConfirm
@@ -18,14 +19,15 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class SeataStockServiceImpl implements SeataStockService {
+public class SeataStockServiceImpl extends ServiceImpl<SeataStockMapper, SeataStock> implements SeataStockService {
 
-    private final SeataStockRepository seataStockRepository;
 
     @Override
     public SeataStock selectByProductId(Long productId) {
-        Optional<SeataStock> byProductId = seataStockRepository.getByProductId(productId);
-        return byProductId.orElse(new SeataStock());
+
+        LambdaQueryWrapper<SeataStock> query = Wrappers.lambdaQuery(SeataStock.class);
+        query.eq(SeataStock::getProductId, productId);
+        return this.getOne(query);
     }
 
     /**
@@ -39,14 +41,14 @@ public class SeataStockServiceImpl implements SeataStockService {
     @Transactional(rollbackFor = Exception.class)
     public void decreaseInventory(Long productId, Integer productNum) {
         log.info("=============执行库存尝试=========");
-        Optional<SeataStock> byProductId = seataStockRepository.getByProductId(productId);
-        if (byProductId.isPresent()) {
-            SeataStock seataStock = byProductId.get();
-            Integer totalInventory = seataStock.getTotalInventory();
-            totalInventory = totalInventory - productNum;
-            seataStock.setTotalInventory(totalInventory);
-            seataStockRepository.save(seataStock);
-        }
+        LambdaQueryWrapper<SeataStock> query = Wrappers.lambdaQuery(SeataStock.class);
+        query.eq(SeataStock::getProductId, productId);
+        SeataStock seataStock = this.getOne(query);
+        Integer totalInventory = seataStock.getTotalInventory();
+        totalInventory = totalInventory - productNum;
+        seataStock.setTotalInventory(totalInventory);
+        this.save(seataStock);
+
     }
 
 }

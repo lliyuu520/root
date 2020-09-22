@@ -1,5 +1,6 @@
 package com.lliyuu520.root.modular.seata.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.lliyuu520.root.modular.seata.entity.SeataOrder;
 
 /**
@@ -7,7 +8,7 @@ import com.lliyuu520.root.modular.seata.entity.SeataOrder;
  *
  * @author lliyuu520
  */
-public interface SeataOrderService {
+public interface SeataOrderService extends IService<SeataOrder> {
 
     /**
      * 创建订单

@@ -1,10 +1,9 @@
 package com.lliyuu520.root.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -15,27 +14,24 @@ import java.time.LocalDateTime;
  * @since 2020/9/1716:03
  */
 @Data
-@MappedSuperclass
-public abstract class BaseEntity implements Serializable {
+public class BaseEntity implements Serializable {
     /**
      * id
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId
     private Long id;
     /**
      * 创建时间
      */
-    @CreationTimestamp
+    @EqualsAndHashCode.Exclude
     private LocalDateTime createTime;
     /**
      * 更新时间
      */
-    @UpdateTimestamp
+    @EqualsAndHashCode.Exclude
     private LocalDateTime updateTime;
     /**
-     * 版本
+     * 逻辑删除
      */
-    @Version
-    private Integer version;
+    private Integer del;
 }

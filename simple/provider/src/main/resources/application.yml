@@ -5,20 +5,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/provider_integral?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/simple?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: admin
     password: admin
-    schema: classpath:schema.sql
-    initialization-mode: always
-#    data: classpath:schema.sql
-  jackson:
-    date-format: "yyyy-MM-dd HH:mm:ss"
-    time-zone: GMT+8
-  jpa:
-    database: mysql
-    show-sql: true
-    hibernate:
-      naming:
-        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+  profiles:
+    include:
+      - mybatisPlus

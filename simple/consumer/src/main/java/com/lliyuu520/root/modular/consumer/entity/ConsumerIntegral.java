@@ -1,27 +1,16 @@
 package com.lliyuu520.root.modular.consumer.entity;
 
 
+import com.lliyuu520.root.entity.BaseEntity;
 import lombok.Data;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.io.Serializable;
+import lombok.EqualsAndHashCode;
 
 /**
- *
- *
- * @author lliyuu520*/
+ * @author lliyuu520
+ */
 @Data
-@Entity
-public class ConsumerIntegral implements Serializable {
-    /**
-     * ID
-     */
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+@EqualsAndHashCode(callSuper = true)
+public class ConsumerIntegral extends BaseEntity {
     /**
      * name
      */
@@ -30,8 +19,6 @@ public class ConsumerIntegral implements Serializable {
      * 积分
      */
     private Integer score;
-
-
 
 
 }
