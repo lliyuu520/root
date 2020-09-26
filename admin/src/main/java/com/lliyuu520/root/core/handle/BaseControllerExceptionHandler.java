@@ -32,8 +32,7 @@ public class BaseControllerExceptionHandler extends ResponseEntityExceptionHandl
     @ResponseBody
     public AjaxResult ajaxResult(LockedException e) {
         log.error(e.getMessage(), e);
-        return null;
-//        return AjaxResult.lockedAccount();
+        return AjaxResult.noAuth();
     }
 
     /**
@@ -43,8 +42,7 @@ public class BaseControllerExceptionHandler extends ResponseEntityExceptionHandl
     @ResponseBody
     public AjaxResult ajaxResult(BadCredentialsException e) {
         log.error(e.getMessage(), e);
-        return null;
-//        return AjaxResult.accountNotMatch();
+        return AjaxResult.noAuth();
     }
 
     /**
@@ -54,8 +52,7 @@ public class BaseControllerExceptionHandler extends ResponseEntityExceptionHandl
     @ResponseBody
     public AjaxResult ajaxResult(ExpiredJwtException e) {
         log.error(e.getMessage(), e);
-        return null;
-//        return AjaxResult.authExpired();
+        return AjaxResult.noAuth();
     }
 
     /**
@@ -75,8 +72,7 @@ public class BaseControllerExceptionHandler extends ResponseEntityExceptionHandl
     @ResponseBody
     public AjaxResult ajaxResult(InternalAuthenticationServiceException e) {
         log.error(e.getMessage(), e);
-        return null;
-//        return AjaxResult.accountNotMatch();
+        return AjaxResult.noAuth();
     }
 
 

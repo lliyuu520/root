@@ -1,6 +1,8 @@
 package com.lliyuu520.root.core.config;
 
 
+import com.lliyuu520.root.common.content.Global;
+import com.lliyuu520.root.modular.system.service.SysPermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
@@ -10,7 +12,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,17 +19,17 @@ import java.util.List;
 @Slf4j
 public class MyInvocationSecurityMetadataSourceService implements FilterInvocationSecurityMetadataSource {
 
-//    @Autowired
-//    private ISysPermissionService sysPermissionService;
+    @Autowired
+    private SysPermissionService sysPermissionService;
 
 
     /**
-     * 返回请求的资源需要的角色 todo
+     * 返回请求的资源需要的角色
      */
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
         //object 中包含用户请求的request 信息
-        List<UrlRole> list =new ArrayList<>();
+        List<UrlRole> list = Global.urlRoles;
         HttpServletRequest request = ((FilterInvocation) o).getHttpRequest();
 
         for (UrlRole m : list) {
@@ -58,8 +59,8 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
      */
     private void loadResourceDefine() {
         //权限资源 和 角色对应的表  也就是 角色权限 中间表
-//        List<UrlRole> rolePermissions = sysPermissionService.getRolePermission();
-//        Global.urlRoles = rolePermissions;
+        List<UrlRole> rolePermissions = sysPermissionService.getRolePermission();
+        Global.urlRoles = rolePermissions;
 //        PermissionHandler.remove();
 //        PermissionHandler.setPerMission(rolePermissions);
     }

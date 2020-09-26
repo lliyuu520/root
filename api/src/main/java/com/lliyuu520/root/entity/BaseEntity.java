@@ -33,5 +33,9 @@ public class BaseEntity implements Serializable {
     /**
      * 逻辑删除
      */
-    private Integer del;
+    private Integer delFlag;
+    /**
+     * 顺序
+     */
+    private Integer sort;
 }

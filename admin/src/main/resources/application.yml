@@ -2,3 +2,12 @@ server:
   undertow:
     buffer-size: 1024
     direct-buffers: true
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/admin?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: admin
+    password: admin
+  profiles:
+    include:
+      - mybatisPlus

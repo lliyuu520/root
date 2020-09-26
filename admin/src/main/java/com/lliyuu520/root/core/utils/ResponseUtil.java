@@ -1,7 +1,7 @@
 package com.lliyuu520.root.core.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.zmdtech.xlyy.common.response.AjaxResult;
+import com.lliyuu520.root.response.AjaxResult;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -20,27 +20,30 @@ public class ResponseUtil {
     public static void noAuth(HttpServletResponse response) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(200);
-        AjaxResult ajaxResult = AjaxResult.moAuth();
+        AjaxResult ajaxResult = AjaxResult.noAuth();
         response.getWriter().write(JSON.toJSON(ajaxResult).toString());
     }
+
     /**
      * token过期
      */
     public static void authExpired(HttpServletResponse response) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(200);
-        AjaxResult ajaxResult = AjaxResult.authExpired();
+        AjaxResult ajaxResult = AjaxResult.noAuth();
         response.getWriter().write(JSON.toJSON(ajaxResult).toString());
     }
+
     /**
      * token过期
      */
     public static void malformedJwt(HttpServletResponse response) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(200);
-        AjaxResult ajaxResult = AjaxResult.malformedJwt();
+        AjaxResult ajaxResult = AjaxResult.noAuth();
         response.getWriter().write(JSON.toJSON(ajaxResult).toString());
     }
+
     /**
      * token过期
      */
@@ -57,7 +60,7 @@ public class ResponseUtil {
     public static void signatureException(HttpServletResponse response) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(200);
-        AjaxResult ajaxResult = AjaxResult.signatureException();
+        AjaxResult ajaxResult = AjaxResult.noAuth();
         response.getWriter().write(JSON.toJSON(ajaxResult).toString());
     }
 }

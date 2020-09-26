@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.security.access.ConfigAttribute;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author liliangyu

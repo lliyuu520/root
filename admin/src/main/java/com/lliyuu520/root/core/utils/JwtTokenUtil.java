@@ -1,7 +1,8 @@
 package com.lliyuu520.root.core.utils;
 
-import com.lliyuu520.root.entity.SysUser;
-import com.lliyuu520.root.properties.XlyyProperties;
+
+import com.lliyuu520.root.common.properties.XlyyProperties;
+import com.lliyuu520.root.modular.system.entity.SysUser;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

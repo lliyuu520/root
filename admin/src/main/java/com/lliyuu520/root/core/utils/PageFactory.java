@@ -3,7 +3,6 @@ package com.lliyuu520.root.core.utils;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zmdtech.xlyy.common.utils.HttpUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
