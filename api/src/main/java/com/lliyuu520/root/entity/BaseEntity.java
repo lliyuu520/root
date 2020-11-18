@@ -37,5 +37,5 @@ public class BaseEntity implements Serializable {
     /**
      * 顺序
      */
-    private Integer sort;
+    private Integer weight;
 }

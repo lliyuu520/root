@@ -21,5 +21,5 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
      * 根据pid删除
      * @param parentId
      */
-    void removeByPid(@Param("parentId") Long parentId);
+    void removeByParentId(@Param("parentId") Long parentId);
 }

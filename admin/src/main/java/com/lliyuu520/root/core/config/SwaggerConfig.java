@@ -43,8 +43,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("许林英语签单系统swagger接口文档")
-                .description("志明达科技")
+                .title("后台开发swagger接口文档")
+                .description("lliyuu520@gmail.com")
                 .build();
 
 

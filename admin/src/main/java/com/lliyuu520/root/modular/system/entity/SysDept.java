@@ -15,21 +15,13 @@ import lombok.EqualsAndHashCode;
 public class SysDept extends BaseEntity {
 
     /**
-     * 中文名称
+     * 名称
      */
     private String name;
     /**
      * 父ID
      */
     private Long parentId;
-    /**
-     * 排序
-     */
-    private Integer sort;
-    /**
-     * 排序
-     */
-    private String icon;
     /**
      * 备注
      */

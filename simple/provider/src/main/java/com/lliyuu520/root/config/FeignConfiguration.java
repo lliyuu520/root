@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
  * @since 2020/9/1717:11
  */
 @Configuration
-public class FeignConfiguration  implements RequestInterceptor {
+public class FeignConfiguration implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate requestTemplate) {
 
-        requestTemplate.header("xxx","xxxx");
+        requestTemplate.header("xxx", "xxxx");
     }
 }

@@ -1,5 +1,6 @@
 logging:
-  path: D:\\log\\root\\
+  file:
+    path: /Users/liliangyu/logs
 spring:
   application:
     name: seata-stock

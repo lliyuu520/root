@@ -1,6 +1,6 @@
 logging:
   file:
-    path: D:\\log\\root\\
+    path: /User/liliangyu/logs
 spring:
   application:
     name: provider

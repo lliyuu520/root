@@ -5,7 +5,7 @@ package com.lliyuu520.root.common.enums;
  *
  * @author liliagnyu
  */
-public enum DeleteStatusEnum {
+public enum DelFlagEnum {
 
 
     /**
@@ -24,7 +24,7 @@ public enum DeleteStatusEnum {
 
     private String value;
 
-    DeleteStatusEnum(Integer key, String value) {
+    DelFlagEnum(Integer key, String value) {
         this.key = key;
         this.value = value;
     }
@@ -54,7 +54,7 @@ public enum DeleteStatusEnum {
         if (key == null) {
             return "";
         } else {
-            for (DeleteStatusEnum s : DeleteStatusEnum.values()) {
+            for (DelFlagEnum s : DelFlagEnum.values()) {
                 if (s.getKey().equals(key)) {
                     return s.getValue();
                 }

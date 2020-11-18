@@ -8,4 +8,5 @@ spring:
           enabled: true
           lower-case-service-id: true #转小写
 logging:
-  path: D:\\log\\root\\
+  file:
+    path: /Users/liliangyu/log/

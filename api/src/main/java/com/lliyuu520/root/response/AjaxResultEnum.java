@@ -8,7 +8,7 @@ enum AjaxResultEnum {
     /**
      * 成功
      */
-    SUCCESS(0, "SUCCESS"),
+    SUCCESS(200, "SUCCESS"),
     /**
      * 服务器异常
      */

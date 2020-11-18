@@ -5,7 +5,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.lliyuu520.root.modular.seata.entity.SeataAccount;
 import com.lliyuu520.root.modular.seata.service.SeataAccountService;
 import com.lliyuu520.root.vo.AccountVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 @RestController
 @RequestMapping("/seataAccount")
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SeataAccountController {
 
     private final SeataAccountService seataAccountService;

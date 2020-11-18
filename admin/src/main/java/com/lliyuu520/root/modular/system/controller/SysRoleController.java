@@ -3,13 +3,14 @@ package com.lliyuu520.root.modular.system.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.github.pagehelper.PageInfo;
+import com.lliyuu520.root.annotation.ResponseResultBody;
+import com.lliyuu520.root.controller.BaseController;
 import com.lliyuu520.root.core.log.BusinessLog;
 import com.lliyuu520.root.core.log.LogModel;
 import com.lliyuu520.root.core.log.LogType;
-import com.lliyuu520.root.core.utils.PageFactory;
 import com.lliyuu520.root.modular.system.dto.SysRoleDTO;
 import com.lliyuu520.root.modular.system.dto.SysRolePermissionDTO;
 import com.lliyuu520.root.modular.system.entity.SysRole;
@@ -20,7 +21,7 @@ import com.lliyuu520.root.modular.system.vo.SysRoleVO;
 import com.lliyuu520.root.response.AjaxResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,12 +38,14 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/sysRole")
 @Api(tags = {"角色"})
-public class SysRoleController {
+@ResponseResultBody
+@RequiredArgsConstructor
+public class SysRoleController implements BaseController {
 
-    @Autowired
-    private SysRoleService sysRoleService;
-    @Autowired
-    private SysPermissionService sysPermissionService;
+
+    private final SysRoleService sysRoleService;
+
+    private final SysPermissionService sysPermissionService;
 
     /**
      * 用户所有权限
@@ -50,23 +53,16 @@ public class SysRoleController {
     @ApiOperation("角色列表")
     @PostMapping(value = "/list")
     @BusinessLog(model = LogModel.ROLE, type = LogType.LIST)
-    public AjaxResult list(@RequestBody SysRoleQuery sysRoleQuery) {
-        QueryWrapper<SysRole> wrapper = new QueryWrapper<>();
+    public PageInfo<SysRoleVO> list(@RequestBody SysRoleQuery sysRoleQuery) {
+        initPage();
+        final LambdaQueryWrapper<SysRole> query = Wrappers.lambdaQuery(SysRole.class);
         String name = sysRoleQuery.getName();
         if (StrUtil.isNotEmpty(name)) {
-            wrapper.like("name", name);
+            query.like(SysRole::getName, name);
         }
-        IPage<SysRole> page = new PageFactory<SysRole>().defaultPage();
-
-        IPage<SysRoleVO> pageVO = new PageFactory<SysRoleVO>().defaultPage();
-
-        page = sysRoleService.page(page, wrapper);
-        pageVO.setRecords(page.getRecords().stream().map(m -> {
-            SysRoleVO vo = new SysRoleVO();
-            BeanUtil.copyProperties(m, vo);
-            return vo;
-        }).collect(Collectors.toList()));
-        return AjaxResult.success(pageVO);
+        List<SysRole> list = sysRoleService.list(query);
+        final List<SysRoleVO> collect = list.stream().map(m -> BeanUtil.copyProperties(m, SysRoleVO.class)).collect(Collectors.toList());
+        return PageInfo.of(collect);
     }
 
     /**

@@ -26,6 +26,10 @@ public class SeataStock extends BaseEntity {
      * 总库存
      */
     private Integer totalInventory;
+    /**
+     * 名称
+     */
+    private String name;
 
 
 }

@@ -40,6 +40,11 @@ public interface SysUserService extends IService<SysUser> {
      */
     void resetPassword(String userId);
 
+    /**
+     * 初始化用户
+     */
+    void loadDefaultUser();
+
 
     /**
      * 增加用户

@@ -1,4 +1,4 @@
-package com.lliyuu520.root.core.xss;
+package com.lliyuu520.root.xss;
 
 
 import javax.servlet.*;

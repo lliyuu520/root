@@ -1,10 +1,10 @@
 package com.lliyuu520.root.core.config;
 
 
-import com.lliyuu520.root.common.content.Global;
+import com.lliyuu520.root.cache.CacheUtil;
 import com.lliyuu520.root.modular.system.service.SysPermissionService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
@@ -15,12 +15,20 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * 权限
+ *
+ * @author liliangyu
+ */
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class MyInvocationSecurityMetadataSourceService implements FilterInvocationSecurityMetadataSource {
 
-    @Autowired
-    private SysPermissionService sysPermissionService;
+
+    private final SysPermissionService sysPermissionService;
+
+    private final CacheUtil<UrlRole> urlRoleCacheUtil;
 
 
     /**
@@ -29,12 +37,12 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
         //object 中包含用户请求的request 信息
-        List<UrlRole> list = Global.urlRoles;
+        final List<UrlRole> list = urlRoleCacheUtil.rangeAll("url:permission", UrlRole.class);
         HttpServletRequest request = ((FilterInvocation) o).getHttpRequest();
-
         for (UrlRole m : list) {
             String url = m.getUrl();
-            if (new AntPathRequestMatcher(url).matches(request)) {
+            final AntPathRequestMatcher antPathRequestMatcher = new AntPathRequestMatcher(url);
+            if (antPathRequestMatcher.matches(request)) {
                 return m.getRoleName();
             }
         }
@@ -60,9 +68,7 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
     private void loadResourceDefine() {
         //权限资源 和 角色对应的表  也就是 角色权限 中间表
         List<UrlRole> rolePermissions = sysPermissionService.getRolePermission();
-        Global.urlRoles = rolePermissions;
-//        PermissionHandler.remove();
-//        PermissionHandler.setPerMission(rolePermissions);
+        urlRoleCacheUtil.pushAll("url:permission", rolePermissions);
     }
 
 

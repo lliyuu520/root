@@ -2,13 +2,16 @@ package com.lliyuu520.root.modular.system.entity;
 
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.lliyuu520.root.common.enums.DelFlagEnum;
 import com.lliyuu520.root.common.enums.LockFlagEnum;
 import com.lliyuu520.root.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -16,6 +19,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public class SysUser extends BaseEntity implements UserDetails, Serializable {
 
     /**
@@ -68,9 +72,7 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
      */
     @Override
     public boolean isAccountNonLocked() {
-
         return LockFlagEnum.UN_LOCK.getKey().equals(this.lockFlag);
-
     }
 
     /**
@@ -89,4 +91,13 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
         return true;
     }
 
+    public SysUser(String username, String password, String name, Integer lockFlag) {
+        super.setDelFlag(DelFlagEnum.NONE.getKey());
+        super.setCreateTime(LocalDateTime.now());
+        super.setUpdateTime(LocalDateTime.now());
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.lockFlag = lockFlag;
+    }
 }

@@ -16,7 +16,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
 
-
+/**
+ *  权限拦截器
+ * @author liliangyu
+ */
 @Component
 public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 

@@ -1,13 +1,18 @@
 package com.lliyuu520.root.modular.system.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.lang.tree.Tree;
+import cn.hutool.core.lang.tree.TreeNode;
+import cn.hutool.core.lang.tree.TreeNodeConfig;
+import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lliyuu520.root.common.enums.DeleteStatusEnum;
+import com.lliyuu520.root.common.enums.DelFlagEnum;
 import com.lliyuu520.root.modular.system.dto.SysDictDTO;
 import com.lliyuu520.root.modular.system.entity.SysDict;
 import com.lliyuu520.root.modular.system.mapper.SysDictMapper;
@@ -15,11 +20,12 @@ import com.lliyuu520.root.modular.system.query.SysDictQuery;
 import com.lliyuu520.root.modular.system.service.SysDictService;
 import com.lliyuu520.root.modular.system.vo.SysDictNodeVO;
 import com.lliyuu520.root.modular.system.vo.SysDictVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,25 +35,43 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> implements SysDictService {
     /**
      * 查询字典
      *
-     * @param page
      * @param sysDictQuery
      * @return
      */
     @Override
-    public IPage<SysDictVO> selectDict(IPage<SysDict> page, SysDictQuery sysDictQuery) {
-        LambdaQueryWrapper<SysDict> query = Wrappers.lambdaQuery(SysDict.class);
-        String name = sysDictQuery.getName();
-        if(StrUtil.isNotEmpty(name)){
-            query.like(SysDict::getName,name);
+    public List<SysDictVO> selectDict(SysDictQuery sysDictQuery) {
+        final LambdaQueryWrapper<SysDict> query = Wrappers.lambdaQuery(SysDict.class);
+        final String name = sysDictQuery.getName();
+        if (StrUtil.isNotEmpty(name)) {
+            query.like(SysDict::getName, name);
         }
-        this.page(page,query);
-        page
-        return this.baseMapper.selectSysDict(page, sysDictQuery);
+        final List<SysDict> list = this.list(query);
+        List<TreeNode<Long>> nodeList = list.stream().map(sysDict -> {
+            final TreeNode<Long> longTreeNode = new TreeNode<>(sysDict.getId(), sysDict.getParentId(), sysDict.getName(), sysDict.getWeight());
+            final HashMap<String, Object> extra = new HashMap<>();
+            extra.put("code", sysDict.getCode());
+            longTreeNode.setExtra(extra);
+            return longTreeNode;
+
+        }).collect(Collectors.toList());
+        TreeNodeConfig treeNodeConfig = new TreeNodeConfig();
+
+        List<Tree<Long>> treeList = TreeUtil.build(nodeList, 0L, treeNodeConfig,
+                (treeNode, tree) -> {
+                    tree.setId(treeNode.getId());
+                    tree.setParentId(treeNode.getParentId());
+                    tree.setWeight(treeNode.getWeight());
+                    tree.setName(treeNode.getName());
+                    tree.putExtra("code", treeNode.getExtra().get("code"));
+                });
+        final JSONArray objects = JSONArray.parseArray(JSONArray.toJSONString(treeList));
+        final List<SysDictVO> sysDictVOS = JSONObject.parseArray(objects.toJSONString(), SysDictVO.class);
+        return sysDictVOS;
     }
 
     /**
@@ -60,15 +84,15 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     public void addSysDict(SysDictDTO sysDictDTO) {
         SysDict sysDict = new SysDict();
         BeanUtil.copyProperties(sysDictDTO, sysDict);
-        sysDict.setDelFlag(DeleteStatusEnum.NONE.getKey());
+        sysDict.setDelFlag(DelFlagEnum.NONE.getKey());
         sysDict.setParentId(0L);
         this.save(sysDict);
         Long id = sysDict.getId();
-        sysDictDTO.getSysDictDTOList().forEach(m -> {
+        sysDictDTO.getSysDictDTOs().forEach(m -> {
             SysDict son = new SysDict();
             BeanUtil.copyProperties(m, son);
             son.setParentId(id);
-            son.setDelFlag(DeleteStatusEnum.NONE.getKey());
+            son.setDelFlag(DelFlagEnum.NONE.getKey());
             this.save(son);
         });
     }
@@ -82,16 +106,16 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     public void editSysDict(SysDictDTO sysDictDTO) {
         SysDict sysDict = new SysDict();
         BeanUtil.copyProperties(sysDictDTO, sysDict);
-        sysDict.setDelFlag(DeleteStatusEnum.NONE.getKey());
+        sysDict.setDelFlag(DelFlagEnum.NONE.getKey());
         sysDict.setParentId(0L);
         this.updateById(sysDict);
         Long id = sysDict.getId();
-        this.baseMapper.removeByPid(id);
-        sysDictDTO.getSysDictDTOList().forEach(m -> {
+        this.baseMapper.removeByParentId(id);
+        sysDictDTO.getSysDictDTOs().forEach(m -> {
             SysDict son = new SysDict();
             BeanUtil.copyProperties(m, son);
             son.setParentId(id);
-            son.setDelFlag(DeleteStatusEnum.NONE.getKey());
+            son.setDelFlag(DelFlagEnum.NONE.getKey());
             this.save(son);
         });
     }

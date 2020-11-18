@@ -1,10 +1,10 @@
 package com.lliyuu520.root.modular.system.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.github.pagehelper.PageInfo;
+import com.lliyuu520.root.controller.BaseController;
 import com.lliyuu520.root.core.log.BusinessLog;
 import com.lliyuu520.root.core.log.LogModel;
 import com.lliyuu520.root.core.log.LogType;
-import com.lliyuu520.root.core.utils.PageFactory;
 import com.lliyuu520.root.modular.system.dto.SysDictDTO;
 import com.lliyuu520.root.modular.system.query.SysDictQuery;
 import com.lliyuu520.root.modular.system.service.SysDictService;
@@ -13,12 +13,14 @@ import com.lliyuu520.root.modular.system.vo.SysDictVO;
 import com.lliyuu520.root.response.AjaxResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 用户控制器
@@ -29,8 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sysDict")
 @Slf4j
 @Api(tags = {"字典"})
-@AllArgsConstructor
-public class SysDictController {
+@RequiredArgsConstructor
+public class SysDictController implements BaseController {
 
 
     private final SysDictService sysDictService;
@@ -41,11 +43,11 @@ public class SysDictController {
     @ApiOperation("/字典列表")
     @BusinessLog(model = LogModel.DICT, type = LogType.LIST)
     @PostMapping(value = "/list")
-    public AjaxResult list(@RequestBody SysDictQuery sysDictQuery) {
-
-        IPage<SysDictVO> pageVO = new PageFactory<SysDictVO>().defaultPage();
-        pageVO = sysDictService.selectDict(pageVO, sysDictQuery);
-        return AjaxResult.success(pageVO);
+    public PageInfo<SysDictVO> list(@RequestBody SysDictQuery sysDictQuery) {
+        initPage();
+        final List<SysDictVO> sysDictVOS = this.sysDictService.selectDict(sysDictQuery);
+        final PageInfo<SysDictVO> pageInfo = PageInfo.of(sysDictVOS);
+        return pageInfo;
     }
 
     /**
@@ -54,11 +56,8 @@ public class SysDictController {
     @ApiOperation("/字典新增")
     @BusinessLog(model = LogModel.DICT, type = LogType.ADD)
     @PostMapping(value = "/add")
-    public AjaxResult add(@RequestBody SysDictDTO sysDictDTO) {
-
+    public void add(@RequestBody SysDictDTO sysDictDTO) {
         sysDictService.addSysDict(sysDictDTO);
-
-        return AjaxResult.success();
     }
 
     /**

@@ -7,9 +7,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lliyuu520.root.modular.seata.entity.SeataAccount;
 import com.lliyuu520.root.modular.seata.mapper.SeataAccountMapper;
 import com.lliyuu520.root.modular.seata.service.SeataAccountService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -20,7 +21,7 @@ import java.math.BigDecimal;
  */
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SeataAccountServiceImpl extends ServiceImpl<SeataAccountMapper, SeataAccount> implements SeataAccountService {
 
 
@@ -45,6 +46,7 @@ public class SeataAccountServiceImpl extends ServiceImpl<SeataAccountMapper, Sea
      * @return
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void decreaseAccount(Long userId, BigDecimal amount) {
         log.info("执行账户尝试");
         SeataAccount one = this.baseMapper.selectById(userId);

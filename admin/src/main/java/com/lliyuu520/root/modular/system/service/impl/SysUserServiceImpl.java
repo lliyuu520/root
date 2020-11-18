@@ -1,8 +1,8 @@
 package com.lliyuu520.root.modular.system.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.LocalDateTimeUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lliyuu520.root.common.enums.LockFlagEnum;
 import com.lliyuu520.root.common.properties.XlyyProperties;
@@ -11,14 +11,12 @@ import com.lliyuu520.root.modular.system.dto.SysUserDTO;
 import com.lliyuu520.root.modular.system.entity.SysUser;
 import com.lliyuu520.root.modular.system.mapper.SysUserMapper;
 import com.lliyuu520.root.modular.system.service.SysUserService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
 
 /**
  * @author liliangyu
@@ -26,7 +24,7 @@ import java.util.Date;
  */
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
     private final XlyyProperties xlyyProperties;
@@ -64,7 +62,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysUser getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         Object principal = authentication.getPrincipal();
         if (principal instanceof SysUser) {
             return (SysUser) principal;
@@ -88,6 +85,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         this.updateById(userDB);
     }
 
+    /**
+     * 初始化用户
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void loadDefaultUser() {
+        SysUser root = this.loadUserByUsername("root");
+        if (root == null) {
+            String encode = PasswordUtil.encode("123456");
+            SysUser sysUser = new SysUser("root", encode, "root", LockFlagEnum.UN_LOCK.getKey());
+            this.save(sysUser);
+        } else {
+            log.info("用户存在");
+        }
+    }
 
     /**
      * 增加用户
@@ -100,7 +112,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         String defaultPassword = xlyyProperties.getDefaultPassword();
         String encode = PasswordUtil.encode(defaultPassword);
         sysUser.setPassword(encode);
-        sysUser.setCreateTime(new Date());
+        sysUser.setCreateTime(LocalDateTimeUtil.now());
         sysUser.setLockFlag(LockFlagEnum.LOCK.getKey());
         this.save(sysUser);
     }

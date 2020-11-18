@@ -1,7 +1,6 @@
 package com.lliyuu520.root.modular.system.entity;
 
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.lliyuu520.root.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

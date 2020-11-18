@@ -1,9 +1,8 @@
 package com.lliyuu520.root.modular.system.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import cn.hutool.http.HttpUtil;
+import com.lliyuu520.root.entity.BaseEntity;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,7 +15,8 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SysLog implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class SysLog extends BaseEntity {
 
 
     /**
@@ -47,10 +47,6 @@ public class SysLog implements Serializable {
      * 请求参数
      */
     private String param;
-    /**
-     * 操作时间
-     */
-    private Date createTime;
 
 
 }

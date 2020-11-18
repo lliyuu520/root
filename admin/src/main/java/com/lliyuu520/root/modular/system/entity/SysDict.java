@@ -14,10 +14,7 @@ import lombok.EqualsAndHashCode;
 @TableName
 public class SysDict extends BaseEntity {
 
-    /**
-     * 排序
-     */
-    private Integer sort;
+
     /**
      * 父ID
      */
@@ -30,9 +27,6 @@ public class SysDict extends BaseEntity {
      * 字典编码
      */
     private String code;
-    /**
-     * 是否系统字段
-     */
-    private Integer sysFlag;
+
 
 }

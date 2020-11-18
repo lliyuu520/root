@@ -27,7 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * jwa拦截器
+ * jwt拦截器
+ * @author liliangyu
  */
 @Component
 @Slf4j

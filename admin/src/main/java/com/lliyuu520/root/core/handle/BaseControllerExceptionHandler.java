@@ -42,7 +42,7 @@ public class BaseControllerExceptionHandler extends ResponseEntityExceptionHandl
     @ResponseBody
     public AjaxResult ajaxResult(BadCredentialsException e) {
         log.error(e.getMessage(), e);
-        return AjaxResult.noAuth();
+        return AjaxResult.accountNotMatch();
     }
 
     /**
@@ -71,8 +71,8 @@ public class BaseControllerExceptionHandler extends ResponseEntityExceptionHandl
     @ExceptionHandler(InternalAuthenticationServiceException.class)
     @ResponseBody
     public AjaxResult ajaxResult(InternalAuthenticationServiceException e) {
-        log.error(e.getMessage(), e);
-        return AjaxResult.noAuth();
+        log.error(e.getLocalizedMessage(), e);
+        return AjaxResult.accountNotMatch();
     }
 
 

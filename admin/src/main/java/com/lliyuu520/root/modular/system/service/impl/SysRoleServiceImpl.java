@@ -13,7 +13,8 @@ import com.lliyuu520.root.modular.system.mapper.SysRoleMapper;
 import com.lliyuu520.root.modular.system.service.SysPermissionService;
 import com.lliyuu520.root.modular.system.service.SysRolePermissionService;
 import com.lliyuu520.root.modular.system.service.SysRoleService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements SysRoleService {
     private final SysRolePermissionService sysRolePermissionService;
     private final SysPermissionService permissionService;
@@ -45,8 +46,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Override
     public SysRole getByName(String name) {
         LambdaQueryWrapper<SysRole> query = Wrappers.lambdaQuery(SysRole.class);
-        if(StrUtil.isNotBlank(name)){
-            query.like(SysRole::getName,name);
+        if (StrUtil.isNotBlank(name)) {
+            query.like(SysRole::getName, name);
         }
         return this.getOne(query);
     }

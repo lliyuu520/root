@@ -3,7 +3,8 @@ package com.lliyuu520.root.modular.system.service.impl;
 
 import com.lliyuu520.root.core.utils.JwtTokenUtil;
 import com.lliyuu520.root.modular.system.service.AuthService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @author liliangyu
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
     private final AuthenticationManager authenticationManager;

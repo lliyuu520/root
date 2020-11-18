@@ -5,7 +5,7 @@ import com.lliyuu520.root.feign.ProviderIntegralFeign;
 import com.lliyuu520.root.modular.consumer.entity.ConsumerIntegral;
 import com.lliyuu520.root.modular.consumer.mapper.ConsumerIntegralMapper;
 import com.lliyuu520.root.modular.consumer.service.ConsumerIntegralService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ConsumerConsumerIntegralServiceImpl extends ServiceImpl<ConsumerIntegralMapper, ConsumerIntegral> implements ConsumerIntegralService {
 
     private final ProviderIntegralFeign providerIntegralFeign;
 
+    /**
+     * 扣积分
+     * @param integralId
+     * @param frozen
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void reduceIntegral(Long integralId, Integer frozen) {

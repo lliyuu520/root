@@ -9,13 +9,12 @@ import com.lliyuu520.root.modular.system.service.SysDeptService;
 import com.lliyuu520.root.modular.system.service.SysPermissionService;
 import com.lliyuu520.root.modular.system.service.SysRoleService;
 import com.lliyuu520.root.modular.system.service.SysUserService;
-import com.lliyuu520.root.modular.system.vo.MenuNode;
 import com.lliyuu520.root.modular.system.vo.SysPermissionVO;
 import com.lliyuu520.root.modular.system.vo.SysUserVO;
 import com.lliyuu520.root.response.AjaxResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +29,7 @@ import java.util.List;
 @Slf4j
 @Api(tags = {"系统"})
 @RequestMapping("/system")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SystemController {
 
     private final SysPermissionService sysPermissionService;

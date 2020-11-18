@@ -5,7 +5,7 @@ import com.lliyuu520.root.modular.system.entity.SysRole;
 import com.lliyuu520.root.modular.system.entity.SysUser;
 import com.lliyuu520.root.modular.system.service.SysRoleService;
 import com.lliyuu520.root.modular.system.service.SysUserService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +17,7 @@ import java.util.List;
  * 用户权限相关
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SysUserDetailsServiceImpl implements UserDetailsService {
 
     private final SysUserService IUserService;

@@ -1,21 +1,18 @@
 package com.lliyuu520.root.modular.provider.controller;
 
-import cn.hutool.core.util.StrUtil;
+import com.github.pagehelper.PageInfo;
+import com.lliyuu520.root.controller.BaseController;
+import com.lliyuu520.root.modular.provider.entity.ProviderIntegral;
 import com.lliyuu520.root.modular.provider.service.ProviderIntegralService;
-import lombok.AllArgsConstructor;
+import com.lliyuu520.root.query.BaseQuery;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 
 /**
@@ -27,8 +24,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/provider-integral")
 @Slf4j
-@AllArgsConstructor
-public class ProviderIntegralController {
+@RequiredArgsConstructor
+public class ProviderIntegralController implements BaseController {
 
 
     private final ProviderIntegralService providerIntegralService;
@@ -43,9 +40,22 @@ public class ProviderIntegralController {
      */
 
     @PostMapping(value = "/add")
-    @Transactional(rollbackFor = Exception.class)
     public void addIntegral(@RequestParam Long integralId, @RequestParam Integer frozen) {
         providerIntegralService.addProviderIntegral(integralId, frozen);
+    }
+
+    /**
+     * try 写入冻结 加
+     *
+     * @return
+     */
+
+    @PostMapping(value = "/list")
+    public PageInfo<ProviderIntegral> list(BaseQuery baseQuery) {
+        initPage();
+        List<ProviderIntegral> list = this.providerIntegralService.list();
+        PageInfo<ProviderIntegral> page = new PageInfo<>(list);
+        return page;
     }
 
 

@@ -1,4 +1,4 @@
-package com.lliyuu520.root.core.utils;
+package com.lliyuu520.root.utils;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * http工具
+ * @author liliangyu
  */
-public class HttpUtil {
+public class IpUtil {
+
 
     /**
      * 获取真实IP
@@ -17,7 +19,7 @@ public class HttpUtil {
      * @return
      */
     public static String getIp() {
-        HttpServletRequest request = HttpUtil.getRequest();
+        HttpServletRequest request = IpUtil.getRequest();
         String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");

@@ -2,7 +2,7 @@ package com.lliyuu520.root.modular.provider.entity;
 
 
 import com.lliyuu520.root.entity.BaseEntity;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

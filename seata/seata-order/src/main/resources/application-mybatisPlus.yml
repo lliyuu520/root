@@ -5,5 +5,5 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
-      logic-delete-field: del
+      logic-delete-field: del_flag
     banner: false

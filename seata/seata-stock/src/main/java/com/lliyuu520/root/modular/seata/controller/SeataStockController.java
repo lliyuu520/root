@@ -7,7 +7,7 @@ import com.lliyuu520.root.modular.seata.service.SeataStockService;
 import com.lliyuu520.root.vo.InventoryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/seataInventory")
 @Slf4j
 @Api(tags = "{库存}")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SeataStockController {
 
 

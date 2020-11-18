@@ -4,12 +4,11 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.lliyuu520.root.common.controller.BaseController;
+import com.github.pagehelper.PageInfo;
+import com.lliyuu520.root.controller.BaseController;
 import com.lliyuu520.root.core.log.BusinessLog;
 import com.lliyuu520.root.core.log.LogModel;
 import com.lliyuu520.root.core.log.LogType;
-import com.lliyuu520.root.core.utils.PageFactory;
 import com.lliyuu520.root.core.utils.PasswordUtil;
 import com.lliyuu520.root.modular.system.dto.ChangePasswordDTO;
 import com.lliyuu520.root.modular.system.dto.ResetPasswordDTO;
@@ -23,13 +22,14 @@ import com.lliyuu520.root.modular.system.vo.SysUserVO;
 import com.lliyuu520.root.response.AjaxResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/sysUser")
 @Slf4j
 @Api(tags = {"用户"})
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SysUserController implements BaseController {
 
     private final SysUserService userService;
@@ -53,7 +53,8 @@ public class SysUserController implements BaseController {
     @ApiOperation("用户列表")
     @PostMapping(value = "/list")
     @BusinessLog(model = LogModel.USER, type = LogType.LIST)
-    public AjaxResult list(@RequestBody SysUserQuery sysUserQuery) {
+    public PageInfo<SysUserVO> list(@RequestBody SysUserQuery sysUserQuery) {
+        initPage();
         QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
         String username = sysUserQuery.getUsername();
         String name = sysUserQuery.getName();
@@ -71,10 +72,9 @@ public class SysUserController implements BaseController {
         if (StrUtil.isNotEmpty(phone)) {
             wrapper.like("phone", phone);
         }
-        IPage<SysUser> userPage = new PageFactory<SysUser>().defaultPage();
-        IPage<SysUserVO> userPageVO = new PageFactory<SysUserVO>().defaultPage();
-        userPage = userService.page(userPage, wrapper);
-        userPageVO.setRecords(userPage.getRecords().stream().map(m -> {
+        List<SysUser> sysUsers = userService.list(wrapper);
+
+        List<SysUserVO> collect = sysUsers.stream().map(m -> {
 
             SysUserVO sysUserVO = new SysUserVO();
             Long deptId = m.getDeptId();
@@ -85,9 +85,9 @@ public class SysUserController implements BaseController {
             BeanUtil.copyProperties(m, sysUserVO);
             return sysUserVO;
 
-        }).collect(Collectors.toList()));
-        transPage(userPage, userPageVO);
-        return AjaxResult.success(userPageVO);
+        }).collect(Collectors.toList());
+        PageInfo<SysUserVO> pageInfo = new PageInfo<>(collect);
+        return pageInfo;
 
     }
 

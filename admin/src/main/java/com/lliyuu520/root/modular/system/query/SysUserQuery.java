@@ -1,5 +1,6 @@
 package com.lliyuu520.root.modular.system.query;
 
+import com.lliyuu520.root.query.BaseQuery;
 import lombok.Data;
 
 /**
@@ -9,7 +10,7 @@ import lombok.Data;
  * @date 2019-08-05
  */
 @Data
-public class SysUserQuery {
+public class SysUserQuery implements BaseQuery {
 
     /**
      * 账户

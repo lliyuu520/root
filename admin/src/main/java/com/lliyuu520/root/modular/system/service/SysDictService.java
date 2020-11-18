@@ -9,6 +9,8 @@ import com.lliyuu520.root.modular.system.query.SysDictQuery;
 import com.lliyuu520.root.modular.system.vo.SysDictNodeVO;
 import com.lliyuu520.root.modular.system.vo.SysDictVO;
 
+import java.util.List;
+
 /**
  * @author liliangyu
  * @date 2019/6/18
@@ -16,11 +18,10 @@ import com.lliyuu520.root.modular.system.vo.SysDictVO;
 public interface SysDictService extends IService<SysDict> {
     /**
      * 查询字典
-     * @param page
      * @param sysDictQuery
      * @return
      */
-    IPage<SysDictVO> selectDict(IPage<SysDict> page, SysDictQuery sysDictQuery);
+    List<SysDictVO> selectDict(SysDictQuery sysDictQuery);
 
     /**
      * 增加字典

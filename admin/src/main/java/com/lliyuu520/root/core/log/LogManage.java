@@ -1,15 +1,14 @@
 package com.lliyuu520.root.core.log;
 
 
-
-import com.lliyuu520.root.core.utils.HttpUtil;
 import com.lliyuu520.root.modular.system.entity.SysLog;
 import com.lliyuu520.root.modular.system.service.SysLogService;
 import com.lliyuu520.root.modular.system.service.SysUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.lliyuu520.root.utils.IpUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -19,11 +18,10 @@ import java.util.concurrent.CompletableFuture;
  * @date 2019-05-17
  */
 @Component
+@RequiredArgsConstructor
 public class LogManage {
-    @Autowired
-    private SysLogService sysLogService;
-    @Autowired
-    private SysUserService userService;
+    private final SysLogService sysLogService;
+    private final SysUserService userService;
 
     /**
      * 插入日志
@@ -34,12 +32,12 @@ public class LogManage {
 
         SysLog sysOperationLog = new SysLog();
         String currentUser = userService.getCurrentUser().getName();
-        String ip = HttpUtil.getIp();
+        String ip = IpUtil.getIp();
         sysOperationLog.setIp(ip);
         sysOperationLog.setUsername(currentUser);
-        String requestURI = HttpUtil.getRequest().getRequestURI();
+        String requestURI = IpUtil.getRequest().getRequestURI();
         sysOperationLog.setUrl(requestURI);
-        sysOperationLog.setCreateTime(new Date());
+        sysOperationLog.setCreateTime(LocalDateTime.now());
         sysOperationLog.setTitle(log.model().getValue());
         sysOperationLog.setType(log.type().getKey());
         sysOperationLog.setName(LogType.valueOf(log.type().getKey()));

@@ -2,11 +2,8 @@ spring:
   application:
     name: admin
   cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true #转小写
+    nacos:
+      server-addr: 127.0.0.1:8848
 logging:
   file:
-    path: D:\\log\\root\\
+    path: /Users/liliangyu/logs

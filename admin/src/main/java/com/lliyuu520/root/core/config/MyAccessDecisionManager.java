@@ -3,6 +3,7 @@ package com.lliyuu520.root.core.config;
 
 import cn.hutool.core.collection.CollUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -18,7 +19,7 @@ import java.util.Collection;
  *
  * @author liliangyu
  */
-@Component
+@Configuration
 @Slf4j
 public class MyAccessDecisionManager implements AccessDecisionManager {
 
@@ -32,6 +33,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
      */
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
+        log.info("++++++++++权限判断+++++++++");
         if (CollUtil.isNotEmpty(configAttributes)) {
             String needRole;
             for (ConfigAttribute configAttribute : configAttributes) {

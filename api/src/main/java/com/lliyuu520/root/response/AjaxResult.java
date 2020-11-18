@@ -1,27 +1,29 @@
 package com.lliyuu520.root.response;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 自定义返回格式
+ *
  * @author lliyuu520* @date 2017年8月29日
  */
 @Data
-public class AjaxResult {
+@NoArgsConstructor
+public class AjaxResult<T> {
     private Integer code;
     private String message;
-    private Object data;
+    private T data;
 
-    private AjaxResult() {
-    }
 
     /**
      * 成功
      *
      * @return
      */
-    public static AjaxResult success(Object o) {
-        AjaxResult ajaxResult = AjaxResult.success();
+    public static <T> AjaxResult<T> success(T o) {
+        AjaxResult<T> ajaxResult = AjaxResult.newInstance();
+        ajaxResult.setResult(AjaxResultEnum.SUCCESS);
         ajaxResult.setData(o);
         return ajaxResult;
     }
@@ -31,8 +33,8 @@ public class AjaxResult {
      *
      * @return
      */
-    public static AjaxResult success() {
-        AjaxResult ajaxResult = AjaxResult.newInstance();
+    public static AjaxResult<Void> success() {
+        AjaxResult<Void> ajaxResult = AjaxResult.newInstance();
         ajaxResult.setResult(AjaxResultEnum.SUCCESS);
         return ajaxResult;
     }
@@ -41,16 +43,7 @@ public class AjaxResult {
         return new AjaxResult();
     }
 
-    /**
-     * 设置枚举
-     *
-     * @param result
-     * @return
-     */
-    private void setResult(AjaxResultEnum result) {
-        this.setCode(result.getKey());
-        this.setMessage(result.getValue());
-    }
+
 
     /**
      * 服务器异常
@@ -96,8 +89,38 @@ public class AjaxResult {
         return ajaxResult;
     }
 
+    /**
+     * 登录失效
+     *
+     * @return
+     */
+    public static AjaxResult authExpired() {
+        AjaxResult ajaxResult = AjaxResult.newInstance();
+        ajaxResult.setResult(AjaxResultEnum.AUTH_EXPIRED);
+        return ajaxResult;
+    }
 
+    /**
+     * 登录失效
+     *
+     * @return
+     */
+    public static AjaxResult accountNotMatch() {
+        AjaxResult ajaxResult = AjaxResult.newInstance();
+        ajaxResult.setResult(AjaxResultEnum.ACCOUNT_NOT_MATCH);
+        return ajaxResult;
+    }
 
+    /**
+     * 设置枚举
+     *
+     * @param result
+     * @return
+     */
+    private void setResult(AjaxResultEnum result) {
+        this.setCode(result.getKey());
+        this.setMessage(result.getValue());
+    }
 
 
 }

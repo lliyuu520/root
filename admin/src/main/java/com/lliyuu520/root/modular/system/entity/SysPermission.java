@@ -34,9 +34,6 @@ public class SysPermission extends BaseEntity {
      * 图标
      */
     private String icon;
-    /**
-     * 排序
-     */
-    private Integer sort;
+
 
 }

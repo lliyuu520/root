@@ -13,7 +13,7 @@ import com.lliyuu520.root.modular.seata.service.SeataOrderService;
 import com.lliyuu520.root.vo.AccountVO;
 import com.lliyuu520.root.vo.InventoryVO;
 import io.seata.spring.annotation.GlobalTransactional;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +26,7 @@ import java.math.BigDecimal;
  */
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
     private final SeataInventoryFeign seataInventoryFeign;
     private final SeataAccountFeign seataAccountFeign;

@@ -1,0 +1,15 @@
+seata:
+  registry:
+    type: nacos
+    nacos:
+      username: "nacos"
+      password: "nacos"
+      application: DEFAULT_GROUP
+  service:
+    vgroup-mapping:
+      seata-account-seata-service-group: defalut
+  config:
+    type: nacos
+    nacos:
+      username: "nacos"
+      password: "nacos"

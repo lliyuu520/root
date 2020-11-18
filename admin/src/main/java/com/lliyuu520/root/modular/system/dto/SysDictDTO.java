@@ -21,27 +21,17 @@ public class SysDictDTO {
      */
     private String name;
     /**
-     * 英文名称
-     */
-    private String eName;
-    /**
      * 代码
      */
     private String code;
-
-    /**
-     * 是否系统字段
-     */
-    private Integer sysFlag;
-
     /**
      * 排序
      */
-    private Integer order;
+    private Integer weight;
 
     /**
      * 子字典
      */
-    private List<SysDictDTO> sysDictDTOList = new ArrayList<>(0);
+    private List<SysDictDTO> sysDictDTOs = new ArrayList<>(0);
 
 }

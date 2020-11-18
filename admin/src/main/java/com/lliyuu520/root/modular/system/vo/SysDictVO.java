@@ -2,6 +2,8 @@ package com.lliyuu520.root.modular.system.vo;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author liliangyu
  * @date 2019/7/29
@@ -22,11 +24,7 @@ public class SysDictVO {
      */
     private String code;
     /**
-     * 父节点名称
+     * 子字典
      */
-    private String parentName;
-    /**
-     * 父节点编码
-     */
-    private String parentCode;
+    private List<SysDictVO> children;
 }

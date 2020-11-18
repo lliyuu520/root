@@ -13,7 +13,8 @@ import com.lliyuu520.root.modular.system.service.SysPermissionService;
 import com.lliyuu520.root.modular.system.service.SysUserService;
 import com.lliyuu520.root.modular.system.vo.MenuNode;
 import com.lliyuu520.root.modular.system.vo.SysPermissionVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -32,7 +34,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission> implements SysPermissionService {
 
 

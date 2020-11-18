@@ -4,10 +4,10 @@
 
 
 
-    <delete id="removeByPid">
+    <delete id="removeByParentId">
         delete
         from sys_dict
-        where parent_id = #{pid}
+        where parent_id = #{parentId}
 
     </delete>
 </mapper>
