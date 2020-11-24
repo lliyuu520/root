@@ -2,7 +2,7 @@ package com.lliyuu520.root.modular.seata.service.impl;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
-import com.lliyuu520.root.core.exception.AccessException;
+import com.lliyuu520.root.core.exception.BusinessException;
 import com.lliyuu520.root.feign.SeataAccountFeign;
 import com.lliyuu520.root.feign.SeataInventoryFeign;
 import com.lliyuu520.root.modular.seata.dto.OrderDTO;
@@ -39,9 +39,9 @@ public class PaymentServiceImpl implements PaymentService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void createHmilyOrder(OrderDTO orderDTO) {
-        SeataOrder hmilyOrder = buildOrder(orderDTO);
-        seataOrderService.createOrderForm(hmilyOrder);
+    public void createOrder(OrderDTO orderDTO) {
+        SeataOrder seataOrder = buildOrder(orderDTO);
+        seataOrderService.createOrderForm(seataOrder);
     }
 
     /**
@@ -51,24 +51,41 @@ public class PaymentServiceImpl implements PaymentService {
      * @return
      */
     protected SeataOrder buildOrder(OrderDTO orderDTO) {
-        log.info("构建订单对象");
+        log.info("构建订单对象:orderDTO:{}", orderDTO);
+        //产品id
         Long productId = orderDTO.getProductId();
+        //数量
         Integer productNum = orderDTO.getProductNum();
+        //用户
         Long userId = orderDTO.getUserId();
 
-        SeataOrder hmilyOrder = new SeataOrder();
+        SeataOrder seataOrder = new SeataOrder();
+
         InventoryVO inventoryVO = seataInventoryFeign.selectByProductId(productId);
+        log.info("库存:inventoryVO:{}", inventoryVO);
         //单价
         BigDecimal productPrice = inventoryVO.getProductPrice();
-        hmilyOrder.setOrderNum(RandomUtil.randomNumbers(16));
-        hmilyOrder.setProductId(productId);
-        hmilyOrder.setPayStatus(OrderStatusEnum.NOT_PAY.getCode());
+        seataOrder.setOrderNum(RandomUtil.randomNumbers(16));
+        seataOrder.setProductId(productId);
+        seataOrder.setPayStatus(OrderStatusEnum.NOT_PAY.getCode());
         BigDecimal totalMoney = NumberUtil.mul(productPrice, productNum);
-        hmilyOrder.setTotalMoney(totalMoney);
-        hmilyOrder.setProductPrice(productPrice);
-        hmilyOrder.setBuyNum(productNum);
-        hmilyOrder.setUserId(userId);
-        return hmilyOrder;
+        seataOrder.setTotalMoney(totalMoney);
+        seataOrder.setProductPrice(productPrice);
+        seataOrder.setBuyNum(productNum);
+        seataOrder.setUserId(userId);
+        return seataOrder;
+    }
+
+    /**
+     * 支付失败
+     *
+     * @param orderId
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void payFail(Long orderId) {
+        seataOrderService.modifyPayStatusById(orderId, OrderStatusEnum.PAY_FAIL);
+
     }
 
     /**
@@ -79,38 +96,52 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     @GlobalTransactional
     @Transactional(rollbackFor = Exception.class)
-    public void pay(Long orderId) {
+    public void pay(Long orderId) throws BusinessException {
+        SeataOrder seataOrder = seataOrderService.getById(orderId);
+        final Integer payStatus = seataOrder.getPayStatus();
+        if (NumberUtil.equals(OrderStatusEnum.PAYING.getCode(), payStatus)) {
+            //订单支付中
+            throw new BusinessException("订单支付中");
+        }
+        if (NumberUtil.equals(OrderStatusEnum.PAY_SUCCESS.getCode(), payStatus)) {
+            //订单已支付
+            throw new BusinessException("订单已支付");
+        }
 
-        seataOrderService.modifyPayStatusById(orderId, OrderStatusEnum.PAY_SUCCESS.getCode());
-        log.info("=========修改订单状态为{}==========", OrderStatusEnum.PAY_SUCCESS.getDesc());
-        SeataOrder hmilyOrder = seataOrderService.getById(orderId);
-        Long userId = hmilyOrder.getUserId();
+        seataOrderService.modifyPayStatusById(orderId, OrderStatusEnum.PAYING);
+
+        log.info("=========修改订单状态为{}==========", OrderStatusEnum.PAYING.getDesc());
+        /**
+         * 用户ID
+         */
+        Long userId = seataOrder.getUserId();
         /*
          订单金额
          */
-        BigDecimal totalMoney = hmilyOrder.getTotalMoney();
+        BigDecimal totalMoney = seataOrder.getTotalMoney();
         /*
          * 账户余额
          */
         AccountVO accountVO = seataAccountFeign.selectByUserId(userId);
-        BigDecimal voTotalMoney = accountVO.getTotalMoney();
 
-        if (null == voTotalMoney) {
-            voTotalMoney = new BigDecimal("0.00");
+        BigDecimal accountVOTotalMoney = accountVO.getTotalMoney();
+
+        if (null == accountVOTotalMoney) {
+            accountVOTotalMoney = new BigDecimal("0.00");
         }
         /*
          * 余额小于总金额
          */
-        if (voTotalMoney.compareTo(totalMoney) < 1) {
-            log.error("账户余额={},订单金额={}", voTotalMoney, totalMoney);
-            throw new AccessException("余额不足");
+        if (accountVOTotalMoney.compareTo(totalMoney) < 1) {
+            log.error("账户余额={},订单金额={}", accountVOTotalMoney, totalMoney);
+            throw new BusinessException("余额不足");
         }
 
-        Long productId = hmilyOrder.getProductId();
+        Long productId = seataOrder.getProductId();
         /**
          * 订单数量
          */
-        Integer count = hmilyOrder.getBuyNum();
+        Integer count = seataOrder.getBuyNum();
         /**
          * 库存
          */
@@ -121,7 +152,7 @@ public class PaymentServiceImpl implements PaymentService {
         }
         if (totalInventory.compareTo(count) < 1) {
             log.error("库存={},订单数量={}", count, totalInventory);
-            throw new AccessException("库存不足");
+            throw new BusinessException("库存不足");
         }
         /*
         扣余额
@@ -133,6 +164,9 @@ public class PaymentServiceImpl implements PaymentService {
          */
         seataInventoryFeign.decreaseInventory(productId, count);
         log.info("=========执行扣库存==========");
+        //支付成功
+        seataOrderService.modifyPayStatusById(orderId, OrderStatusEnum.PAY_SUCCESS);
+
     }
 
 

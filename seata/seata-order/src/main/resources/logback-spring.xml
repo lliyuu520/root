@@ -9,13 +9,13 @@
 
     <springProperty scope="context" name="loggingPath" source="logging.file.path"/>
 
+
     <!-- 项目的appid -->
     <property name="app_name" value="${springAppName}"/>
 
     <property name="log_path" value="${loggingPath}"/>
 
     <property name="logging_file" value="${log_path}/${app_name}/${app_name}.log"/>
-
 
 
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
@@ -46,12 +46,13 @@
         </encoder>
     </appender>
 
+
     <logger name="org.springframework" level="INFO"/>
-    <logger name="com.lliyuu520.root" level="INFO" />
+    <logger name="java.sql" level="INFO"/>
     <logger name="io.seata" level="INFO" />
 
-    <logger name="java.sql" level="INFO"/>
     <root level="INFO">
         <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
     </root>
 </configuration>

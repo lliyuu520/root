@@ -2,6 +2,7 @@ package com.lliyuu520.root.response;
 
 /**
  * 自定义返回枚举
+ *
  * @author lliyuu520* @date 2019/6/18
  */
 enum AjaxResultEnum {
@@ -68,7 +69,11 @@ enum AjaxResultEnum {
     /**
      * 权限异常
      */
-    ACCESS_EXCEPTION(1013, "权限不足");
+    ACCESS_EXCEPTION(1013, "权限不足"),
+    /**
+     * 业务异常
+     */
+    BUSINESS_EXCEPTION(2001, "操作失败");
     /**
      * key
      */

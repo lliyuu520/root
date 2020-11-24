@@ -1,5 +1,6 @@
 package com.lliyuu520.root;
 
+import com.lliyuu520.root.utils.StartCommand;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
@@ -22,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 public class SeataOrderApplication {
 
     public static void main(String[] args) {
+        new StartCommand(args);
         SpringApplication.run(SeataOrderApplication.class, args);
     }
 

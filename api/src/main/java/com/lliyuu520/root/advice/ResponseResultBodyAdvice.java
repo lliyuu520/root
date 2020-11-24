@@ -64,8 +64,9 @@ public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
         HttpHeaders headers = new HttpHeaders();
         if (ex instanceof ExpiredJwtException) {
             //登录超时
-            return this.handleResultException((ExpiredJwtException) ex, headers, request);
+            return this.handleExpiredJwtException((ExpiredJwtException) ex, headers, request);
         }
+
         // TODO: 2019/10/05 galaxy 这里可以自定义其他的异常拦截
         return this.handleException(ex, headers, request);
     }
@@ -73,7 +74,7 @@ public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
     /**
      * 对ResultException类返回返回结果的处理
      */
-    protected ResponseEntity<AjaxResult<?>> handleResultException(ExpiredJwtException ex, HttpHeaders headers, WebRequest request) {
+    protected ResponseEntity<AjaxResult<?>> handleExpiredJwtException(ExpiredJwtException ex, HttpHeaders headers, WebRequest request) {
         AjaxResult<?> body = AjaxResult.serverException();
         return this.handleExceptionInternal(ex, body, headers, request);
     }
@@ -94,8 +95,7 @@ public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
      * request attribute and creates a {@link ResponseEntity} from the given
      * body, headers, and status.
      */
-    protected ResponseEntity<AjaxResult<?>> handleExceptionInternal(
-            Exception ex, AjaxResult<?> body, HttpHeaders headers, WebRequest request) {
+    protected ResponseEntity<AjaxResult<?>> handleExceptionInternal(Exception ex, AjaxResult<?> body, HttpHeaders headers, WebRequest request) {
 
         request.setAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE, ex, WebRequest.SCOPE_REQUEST);
         return new ResponseEntity<>(body, headers, HttpStatus.OK);

@@ -1,5 +1,6 @@
 package com.lliyuu520.root;
 
+import com.lliyuu520.root.utils.StartCommand;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -19,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 public class SeataStockApplication {
 
     public static void main(String[] args) {
+        new StartCommand(args);
         SpringApplication.run(SeataStockApplication.class, args);
     }
 

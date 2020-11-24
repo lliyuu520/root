@@ -28,11 +28,11 @@ public enum OrderStatusEnum {
     PAY_SUCCESS(4, "支付成功");
 
 
-    private int code;
+    private Integer code;
 
     private String desc;
 
-    OrderStatusEnum(int code, String desc) {
+    OrderStatusEnum(Integer code, String desc) {
         this.code = code;
         this.desc = desc;
     }
@@ -42,7 +42,7 @@ public enum OrderStatusEnum {
      *
      * @return the code
      */
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
@@ -51,7 +51,7 @@ public enum OrderStatusEnum {
      *
      * @param code the code
      */
-    public void setCode(int code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 

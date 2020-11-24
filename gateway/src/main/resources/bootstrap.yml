@@ -7,6 +7,12 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true #转小写
+    nacos:
+      server-addr: 192.168.1.7:8848
+      config:
+        group: SEATA-GROUP
+      discovery:
+        group: SEATA-GROUP
 logging:
   file:
     path: /Users/liliangyu/log/

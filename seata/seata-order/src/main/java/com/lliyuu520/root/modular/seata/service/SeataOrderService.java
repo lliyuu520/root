@@ -2,6 +2,7 @@ package com.lliyuu520.root.modular.seata.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lliyuu520.root.modular.seata.entity.SeataOrder;
+import com.lliyuu520.root.modular.seata.enums.OrderStatusEnum;
 
 /**
  * OrderService
@@ -24,13 +25,7 @@ public interface SeataOrderService extends IService<SeataOrder> {
      * @param id
      * @param payStatus
      */
-    void modifyPayStatusById(Long id, Integer payStatus);
+    void modifyPayStatusById(Long id, OrderStatusEnum payStatus);
 
-    /**
-     * getById
-     *
-     * @param id
-     * @return
-     */
-    SeataOrder getById(Long id);
+
 }

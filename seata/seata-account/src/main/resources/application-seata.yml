@@ -1,15 +1,5 @@
-seata:
-  registry:
-    type: nacos
-    nacos:
-      username: "nacos"
-      password: "nacos"
-      application: DEFAULT_GROUP
-  service:
-    vgroup-mapping:
-      seata-account-seata-service-group: defalut
-  config:
-    type: nacos
-    nacos:
-      username: "nacos"
-      password: "nacos"
+spring:
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: my_test_tx_group

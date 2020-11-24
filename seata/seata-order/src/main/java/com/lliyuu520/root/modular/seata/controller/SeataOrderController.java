@@ -1,9 +1,10 @@
 package com.lliyuu520.root.modular.seata.controller;
 
 
+import com.lliyuu520.root.annotation.ResponseResultBody;
+import com.lliyuu520.root.core.exception.BusinessException;
 import com.lliyuu520.root.modular.seata.dto.OrderDTO;
 import com.lliyuu520.root.modular.seata.service.PaymentService;
-import com.lliyuu520.root.response.AjaxResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Api(tags = {"01.订单"})
 @RequiredArgsConstructor
+@ResponseResultBody
 public class SeataOrderController {
 
 
@@ -38,9 +40,8 @@ public class SeataOrderController {
      */
     @ApiOperation("创建订单")
     @PostMapping("/createSeataOrder")
-    public AjaxResult createHmilyOrder(@RequestBody OrderDTO orderDTO) {
-        paymentService.createHmilyOrder(orderDTO);
-        return AjaxResult.success();
+    public void createOrder(@RequestBody OrderDTO orderDTO) {
+        paymentService.createOrder(orderDTO);
     }
 
     /**
@@ -51,9 +52,16 @@ public class SeataOrderController {
      */
     @ApiOperation("支付订单")
     @PostMapping("/pay")
-    public AjaxResult pay(Long orderId) {
-        paymentService.pay(orderId);
-        return AjaxResult.success();
+    public void pay(Long orderId) {
+        try {
+            paymentService.pay(orderId);
+        } catch (BusinessException businessException) {
+            businessException.printStackTrace();
+            paymentService.payFail(orderId);
+            throw businessException;
+        }
+
+
     }
 
 }

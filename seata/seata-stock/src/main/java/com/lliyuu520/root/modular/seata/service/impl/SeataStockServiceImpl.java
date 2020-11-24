@@ -21,7 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class SeataStockServiceImpl extends ServiceImpl<SeataStockMapper, SeataStock> implements SeataStockService {
 
-
+    /**
+     * 根据产品id查询库存
+     *
+     * @param productId
+     * @return
+     */
     @Override
     public SeataStock selectByProductId(Long productId) {
 

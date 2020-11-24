@@ -2,6 +2,7 @@ package com.lliyuu520.root.modular.seata.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lliyuu520.root.modular.seata.entity.SeataOrder;
+import com.lliyuu520.root.modular.seata.enums.OrderStatusEnum;
 import com.lliyuu520.root.modular.seata.mapper.SeataOrderMapper;
 import com.lliyuu520.root.modular.seata.service.SeataOrderService;
 import lombok.RequiredArgsConstructor;
@@ -28,26 +29,17 @@ public class SeataOrderServiceImpl extends ServiceImpl<SeataOrderMapper, SeataOr
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void createOrderForm(SeataOrder seataOrder) {
-        this.baseMapper.insert(seataOrder);
+        this.save(seataOrder);
 
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void modifyPayStatusById(Long id, Integer payStatus) {
-        SeataOrder seataOrder = this.baseMapper.selectById(id);
-        seataOrder.setPayStatus(payStatus);
-        this.baseMapper.updateById(seataOrder);
+    public void modifyPayStatusById(Long id, OrderStatusEnum payStatus) {
+        SeataOrder seataOrder = this.getById(id);
+        seataOrder.setPayStatus(payStatus.getCode());
+        this.updateById(seataOrder);
     }
 
-    /**
-     * getById
-     *
-     * @param id
-     * @return
-     */
-    @Override
-    public SeataOrder getById(Long id) {
-        return this.baseMapper.selectById(id);
-    }
+
 }

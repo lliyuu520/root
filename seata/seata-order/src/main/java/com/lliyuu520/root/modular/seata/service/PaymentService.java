@@ -1,6 +1,7 @@
 package com.lliyuu520.root.modular.seata.service;
 
 
+import com.lliyuu520.root.core.exception.BusinessException;
 import com.lliyuu520.root.modular.seata.dto.OrderDTO;
 
 /**
@@ -15,12 +16,18 @@ public interface PaymentService {
      *
      * @param orderId 订单实体
      */
-    void pay(Long  orderId);
+    void pay(Long  orderId) throws BusinessException;
 
     /**
      * payOrder
      * @param orderDTO
      */
-    void createHmilyOrder(OrderDTO orderDTO);
+    void createOrder(OrderDTO orderDTO);
+
+    /**
+     * 支付失败
+     * @param orderId
+     */
+    void payFail(Long orderId);
 
 }

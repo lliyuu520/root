@@ -79,6 +79,17 @@ public class AjaxResult<T> {
     }
 
     /**
+     * 权限异常
+     *
+     * @return
+     */
+    public static AjaxResult businessException() {
+        AjaxResult ajaxResult = AjaxResult.newInstance();
+        ajaxResult.setResult(AjaxResultEnum.BUSINESS_EXCEPTION);
+        return ajaxResult;
+    }
+
+    /**
      * 未登录
      *
      * @return
