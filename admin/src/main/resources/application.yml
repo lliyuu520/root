@@ -2,6 +2,7 @@ server:
   undertow:
     buffer-size: 1024
     direct-buffers: true
+  port: 8088
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

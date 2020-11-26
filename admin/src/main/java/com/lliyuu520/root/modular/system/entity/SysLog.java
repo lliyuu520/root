@@ -15,10 +15,11 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class SysLog extends BaseEntity {
-
-
+public class SysLog implements Serializable {
+    /**
+     * id
+     */
+    private Long id;
     /**
      * 操作模块
      */

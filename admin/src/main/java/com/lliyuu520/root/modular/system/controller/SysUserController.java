@@ -6,6 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageInfo;
 import com.lliyuu520.root.controller.BaseController;
+import com.lliyuu520.root.core.exception.BusinessException;
 import com.lliyuu520.root.core.log.BusinessLog;
 import com.lliyuu520.root.core.log.LogModel;
 import com.lliyuu520.root.core.log.LogType;
@@ -152,20 +153,19 @@ public class SysUserController implements BaseController {
     @ApiOperation("用户新增")
     @BusinessLog(model = LogModel.USER, type = LogType.ADD)
     @PostMapping(value = "/add")
-    public AjaxResult add(@RequestBody SysUserDTO sysUserDTO) {
+    public void add(@RequestBody SysUserDTO sysUserDTO) {
         String username = sysUserDTO.getUsername();
         SysUser sysUser = userService.loadUserByUsername(username);
         if (sysUser != null) {
             //账号被使用
-            return AjaxResult.noAuth();
+            throw new BusinessException("用户名已被使用");
         }
         String phone = sysUserDTO.getPhone();
         if (!Validator.isMoney(phone)) {
-            return AjaxResult.noAuth();
+            throw new BusinessException("电话号码格式不正确");
         }
         userService.addUser(sysUserDTO);
 
-        return AjaxResult.success();
     }
 
     /**

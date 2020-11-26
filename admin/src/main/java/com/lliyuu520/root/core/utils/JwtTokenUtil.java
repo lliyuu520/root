@@ -1,7 +1,7 @@
 package com.lliyuu520.root.core.utils;
 
 
-import com.lliyuu520.root.common.properties.XlyyProperties;
+import com.lliyuu520.root.common.properties.ConfigProperties;
 import com.lliyuu520.root.modular.system.entity.SysUser;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class JwtTokenUtil implements Serializable {
 
 
     @Autowired
-    private XlyyProperties xlyyProperties;
+    private ConfigProperties configProperties;
 
     /**
      * 签发JWT
@@ -36,8 +36,8 @@ public class JwtTokenUtil implements Serializable {
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
         return Jwts.builder()
                 .setClaims(claims)
-                .setExpiration(new Date(Instant.now().toEpochMilli() + xlyyProperties.getJwtExpirationTime()))
-                .signWith(SignatureAlgorithm.HS512, xlyyProperties.getJwtSecret())
+                .setExpiration(new Date(Instant.now().toEpochMilli() + configProperties.getJwtExpirationTime()))
+                .signWith(SignatureAlgorithm.HS512, configProperties.getJwtSecret())
                 .compact();
     }
 
@@ -64,7 +64,7 @@ public class JwtTokenUtil implements Serializable {
      */
     private Claims getClaimsFromToken(String token) throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException {
         return Jwts.parser()
-                .setSigningKey(xlyyProperties.getJwtSecret())
+                .setSigningKey(configProperties.getJwtSecret())
                 .parseClaimsJws(token)
                 .getBody();
     }

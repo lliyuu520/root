@@ -5,7 +5,7 @@ import cn.hutool.core.date.LocalDateTimeUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lliyuu520.root.common.enums.LockFlagEnum;
-import com.lliyuu520.root.common.properties.XlyyProperties;
+import com.lliyuu520.root.common.properties.ConfigProperties;
 import com.lliyuu520.root.core.utils.PasswordUtil;
 import com.lliyuu520.root.modular.system.dto.SysUserDTO;
 import com.lliyuu520.root.modular.system.entity.SysUser;
@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
-    private final XlyyProperties xlyyProperties;
+    private final ConfigProperties configProperties;
 
     @Override
     public SysUser loadUserByUsername(String username) {
@@ -73,11 +73,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     }
 
+    /**
+     * 重置密码
+     *
+     * @param userId
+     */
     @Override
     public void resetPassword(String userId) {
         SysUser user = this.getById(userId);
 
-        String defaultPassword = xlyyProperties.getDefaultPassword();
+        String defaultPassword = configProperties.getDefaultPassword();
         String encode = PasswordUtil.encode(defaultPassword);
         user.setPassword(encode);
         SysUser userDB = loadUserByUsername(user.getUsername());
@@ -107,13 +112,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @param sysUserDTO
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addUser(SysUserDTO sysUserDTO) {
         SysUser sysUser = new SysUser();
-        String defaultPassword = xlyyProperties.getDefaultPassword();
+        String defaultPassword = configProperties.getDefaultPassword();
         String encode = PasswordUtil.encode(defaultPassword);
         sysUser.setPassword(encode);
         sysUser.setCreateTime(LocalDateTimeUtil.now());
-        sysUser.setLockFlag(LockFlagEnum.LOCK.getKey());
+        sysUser.setLockFlag(LockFlagEnum.UN_LOCK.getKey());
         this.save(sysUser);
     }
 
