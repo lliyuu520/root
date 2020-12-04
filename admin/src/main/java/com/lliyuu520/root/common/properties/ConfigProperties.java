@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
  * @date 2019-08-05
  */
 @Component
-@RefreshScope
+//@RefreshScope
 @Data
 public class ConfigProperties {
     /**
      * 默认密码
      */
-    @Value("${config.defaultPassword}")
+//    @Value("${config.defaultPassword}")
     private   String defaultPassword="123456";
 
 

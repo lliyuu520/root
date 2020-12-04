@@ -17,24 +17,18 @@
     </modules>
     <properties>
         <seata.version>1.4.0</seata.version>
-        <cloud.seata.version>2.0.0.RELEASE</cloud.seata.version>
+        <alibaba.seata.version>2.2.3.RELEASE</alibaba.seata.version>
     </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-seata</artifactId>
-                <version>${cloud.seata.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.seata</groupId>
-                        <artifactId>seata-all</artifactId>
-                    </exclusion>
-                </exclusions>
+                <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+                <version>${alibaba.seata.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.seata</groupId>
-                <artifactId>seata-all</artifactId>
+                <artifactId>seata-spring-boot-starter</artifactId>
                 <version>${seata.version}</version>
             </dependency>
         </dependencies>

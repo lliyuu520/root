@@ -36,6 +36,7 @@ public class LogManage {
         sysOperationLog.setIp(ip);
         sysOperationLog.setUsername(currentUser);
         String requestURI = IpUtil.getRequest().getRequestURI();
+
         sysOperationLog.setUrl(requestURI);
         sysOperationLog.setCreateTime(LocalDateTime.now());
         sysOperationLog.setTitle(log.model().getValue());

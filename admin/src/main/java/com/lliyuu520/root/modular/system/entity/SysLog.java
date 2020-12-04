@@ -5,6 +5,7 @@ import com.lliyuu520.root.entity.BaseEntity;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -48,6 +49,10 @@ public class SysLog implements Serializable {
      * 请求参数
      */
     private String param;
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
 
 
 }

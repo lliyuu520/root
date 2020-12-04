@@ -1,0 +1,13 @@
+server:
+  undertow:
+    buffer-size: 1024
+    direct-buffers: true
+spring:
+  profiles:
+    include:
+      - redis
+      - wechat
+logging:
+  file:
+    path: /Users/liliangyu/logs/
+

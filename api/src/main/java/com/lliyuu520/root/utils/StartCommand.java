@@ -25,10 +25,10 @@ public class StartCommand {
         //没有指定端口，则随机生成一个可用的端口
         if (!isServerPort) {
             int port = NetUtils.getAvailablePort();
-            log.info("current server.port=" + port);
+            log.info("使用随机端口启动:" + port);
             System.setProperty("server.port", String.valueOf(port));
         } else {//指定了端口，则以指定的端口为准
-            log.info("current server.port=" + serverPort.split("=")[1]);
+            log.info("使用指定端口启动" + serverPort.split("=")[1]);
             System.setProperty("server.port", serverPort.split("=")[1]);
         }
     }
