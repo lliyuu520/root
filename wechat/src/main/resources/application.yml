@@ -9,5 +9,5 @@ spring:
       - wechat
 logging:
   file:
-    path: /Users/liliangyu/logs/
+    path: ${LOG_PATH}
 

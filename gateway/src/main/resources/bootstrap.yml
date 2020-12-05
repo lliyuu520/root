@@ -15,4 +15,4 @@ spring:
         group: SEATA-GROUP
 logging:
   file:
-    path: /Users/liliangyu/log/
+    path: ${LOG_PATH}
