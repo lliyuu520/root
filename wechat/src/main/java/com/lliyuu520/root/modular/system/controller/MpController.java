@@ -1,7 +1,6 @@
 package com.lliyuu520.root.modular.system.controller;
 
 
-import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @Slf4j
-@Api(tags = {"授权"})
 @RequestMapping("/mp/getAccessToken")
 @RequiredArgsConstructor
 public class MpController {
@@ -37,10 +35,6 @@ public class MpController {
                 timestamp, nonce, echostr);
         if (StringUtils.isAnyBlank(signature, timestamp, nonce, echostr)) {
             throw new IllegalArgumentException("请求参数非法，请核实!");
-        }
-        String appid = "wx1f8914e4e7cd1805";
-        if (!this.wxService.switchover(appid)) {
-            throw new IllegalArgumentException(String.format("未找到对应appid=[%s]的配置，请核实！", appid));
         }
 
         if (wxService.checkSignature(timestamp, nonce, signature)) {
@@ -62,10 +56,6 @@ public class MpController {
         log.info("\n接收微信请求：[openid=[{}], [signature=[{}], encType=[{}], msgSignature=[{}],"
                         + " timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ",
                 openid, signature, encType, msgSignature, timestamp, nonce, requestBody);
-        String appid = "wx1f8914e4e7cd1805";
-        if (!this.wxService.switchover(appid)) {
-            throw new IllegalArgumentException(String.format("未找到对应appid=[%s]的配置，请核实！", appid));
-        }
 
         if (!wxService.checkSignature(timestamp, nonce, signature)) {
             throw new IllegalArgumentException("非法请求，可能属于伪造的请求！");

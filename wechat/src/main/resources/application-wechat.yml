@@ -1,8 +1,0 @@
-wx:
-  mp:
-    configs:
-      - appId: wx1f8914e4e7cd1805 # 第一个公众号的appid
-        secret: 1c9eb67abb53f8f934501af1866ec1fd # 公众号的appsecret
-        token: MP200722 # 接口配置里的Token值
-        aesKey: 7IC4ZoSimhSFJdKA0QyG8RDs9kSLYa5CSRobUnuhWXT # 接口配置里的EncodingAESKey值
-

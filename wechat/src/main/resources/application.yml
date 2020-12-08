@@ -7,7 +7,10 @@ spring:
     include:
       - redis
       - wechat
+      - database
+  application:
+    name: wechat
 logging:
   file:
-    path: ${LOG_PATH}
+    path: ${LOGGING_FILE_PATH}
 

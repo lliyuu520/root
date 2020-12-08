@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "datasource.name",
+      "type": "java.lang.String"
+    }
+  ]
+}

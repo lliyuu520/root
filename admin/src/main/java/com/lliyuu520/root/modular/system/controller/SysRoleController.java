@@ -5,8 +5,8 @@ import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lliyuu520.root.annotation.ResponseResultBody;
 import com.lliyuu520.root.controller.BaseController;
 import com.lliyuu520.root.core.log.BusinessLog;
 import com.lliyuu520.root.core.log.LogModel;
@@ -19,8 +19,6 @@ import com.lliyuu520.root.modular.system.service.SysPermissionService;
 import com.lliyuu520.root.modular.system.service.SysRoleService;
 import com.lliyuu520.root.modular.system.vo.SysRoleVO;
 import com.lliyuu520.root.response.AjaxResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,8 +35,6 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/sysRole")
-@Api(tags = {"角色"})
-@ResponseResultBody
 @RequiredArgsConstructor
 public class SysRoleController implements BaseController {
 
@@ -50,11 +46,11 @@ public class SysRoleController implements BaseController {
     /**
      * 用户所有权限
      */
-    @ApiOperation("角色列表")
     @PostMapping(value = "/list")
     @BusinessLog(model = LogModel.ROLE, type = LogType.LIST)
     public PageInfo<SysRoleVO> list(@RequestBody SysRoleQuery sysRoleQuery) {
-        initPage();
+        PageHelper.startPage(pageNum(), pageSize());
+
         final LambdaQueryWrapper<SysRole> query = Wrappers.lambdaQuery(SysRole.class);
         String name = sysRoleQuery.getName();
         if (StrUtil.isNotEmpty(name)) {
@@ -68,7 +64,6 @@ public class SysRoleController implements BaseController {
     /**
      * 角色新增
      */
-    @ApiOperation("角色新增")
     @BusinessLog(model = LogModel.ROLE, type = LogType.ADD)
     @PostMapping(value = "/add")
     public AjaxResult add(@RequestBody SysRoleDTO sysRoleDTO) {
@@ -89,7 +84,6 @@ public class SysRoleController implements BaseController {
     /**
      * 角色编辑 角色名称不允许编辑!!!
      */
-    @ApiOperation("角色编辑")
     @BusinessLog(model = LogModel.ROLE, type = LogType.EDIT)
     @PostMapping(value = "/edit")
     public AjaxResult edit(@RequestBody SysRoleDTO sysRoleDTO) {
@@ -102,7 +96,6 @@ public class SysRoleController implements BaseController {
     /**
      * 角色删除
      */
-    @ApiOperation("角色删除")
     @BusinessLog(model = LogModel.ROLE, type = LogType.DELETE)
     @PostMapping(value = "/delete")
     public AjaxResult delete(String id) {
@@ -113,7 +106,6 @@ public class SysRoleController implements BaseController {
     /**
      * 角色删除
      */
-    @ApiOperation("角色详情")
     @BusinessLog(model = LogModel.ROLE, type = LogType.DELETE)
     @PostMapping(value = "/detail")
     public AjaxResult detail(Long id) {
@@ -124,7 +116,6 @@ public class SysRoleController implements BaseController {
     /**
      * 角色删除
      */
-    @ApiOperation("角色配置")
     @BusinessLog(model = LogModel.ROLE, type = LogType.DELETE)
     @PostMapping(value = "/config")
     public AjaxResult config(@RequestBody List<SysRolePermissionDTO> list) {

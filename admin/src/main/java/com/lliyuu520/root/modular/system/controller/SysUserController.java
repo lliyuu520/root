@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lliyuu520.root.controller.BaseController;
 import com.lliyuu520.root.core.exception.BusinessException;
@@ -21,8 +22,6 @@ import com.lliyuu520.root.modular.system.service.SysDeptService;
 import com.lliyuu520.root.modular.system.service.SysUserService;
 import com.lliyuu520.root.modular.system.vo.SysUserVO;
 import com.lliyuu520.root.response.AjaxResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +40,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/sysUser")
 @Slf4j
-@Api(tags = {"用户"})
 @RequiredArgsConstructor
 public class SysUserController implements BaseController {
 
@@ -51,11 +49,10 @@ public class SysUserController implements BaseController {
     /**
      * 查询列表`
      */
-    @ApiOperation("用户列表")
     @PostMapping(value = "/list")
     @BusinessLog(model = LogModel.USER, type = LogType.LIST)
     public PageInfo<SysUserVO> list(@RequestBody SysUserQuery sysUserQuery) {
-        initPage();
+        PageHelper.startPage(pageNum(), pageSize());
         QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
         String username = sysUserQuery.getUsername();
         String name = sysUserQuery.getName();
@@ -96,7 +93,6 @@ public class SysUserController implements BaseController {
     /**
      * 修改密码
      */
-    @ApiOperation("修改密码")
     @PostMapping(value = "/changePassword")
     @BusinessLog(model = LogModel.USER, type = LogType.CHANGE_PASSWORD)
     public AjaxResult changePassword(@RequestBody ChangePasswordDTO changePasswordDTO) {
@@ -117,7 +113,6 @@ public class SysUserController implements BaseController {
     /**
      * 重置密码
      */
-    @ApiOperation("重置密码")
     @BusinessLog(model = LogModel.USER, type = LogType.RESET_PASSWORD)
     @PostMapping(value = "/resetPassword")
     public AjaxResult resetPassword(@RequestBody ResetPasswordDTO resetPasswordDTO) {
@@ -128,7 +123,6 @@ public class SysUserController implements BaseController {
     /**
      * 解锁用户
      */
-    @ApiOperation("解锁用户")
     @BusinessLog(model = LogModel.USER, type = LogType.RESET_PASSWORD)
     @PostMapping(value = "/unlockUser")
     public AjaxResult unlockUser(String userId) {
@@ -139,7 +133,6 @@ public class SysUserController implements BaseController {
     /**
      * 锁定用户
      */
-    @ApiOperation("锁定用户")
     @BusinessLog(model = LogModel.USER, type = LogType.RESET_PASSWORD)
     @PostMapping(value = "/lockUser")
     public AjaxResult lockUser(String userId) {
@@ -150,7 +143,6 @@ public class SysUserController implements BaseController {
     /**
      * 用户新增
      */
-    @ApiOperation("用户新增")
     @BusinessLog(model = LogModel.USER, type = LogType.ADD)
     @PostMapping(value = "/add")
     public void add(@RequestBody SysUserDTO sysUserDTO) {
@@ -171,7 +163,6 @@ public class SysUserController implements BaseController {
     /**
      * 用户编辑
      */
-    @ApiOperation("用户编辑")
     @BusinessLog(model = LogModel.USER, type = LogType.EDIT)
     @PostMapping(value = "/edit")
     public AjaxResult edit(@RequestBody SysUserDTO sysUserDTO) {

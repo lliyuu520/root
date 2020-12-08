@@ -6,8 +6,6 @@ import com.lliyuu520.root.core.log.LogModel;
 import com.lliyuu520.root.core.log.LogType;
 import com.lliyuu520.root.modular.system.dto.AuthDTO;
 import com.lliyuu520.root.modular.system.service.AuthService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Slf4j
-@Api(tags = {"授权"})
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -33,7 +30,6 @@ public class AuthController {
      * @param authDTO 登录模型
      *                登录
      */
-    @ApiOperation("/获取授权")
     @BusinessLog(model = LogModel.SYSTEM, type = LogType.LOGIN)
     @PostMapping(value = "/auth")
     public String auth(@RequestBody AuthDTO authDTO) {

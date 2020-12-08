@@ -1,10 +1,12 @@
 package com.lliyuu520.root;
 
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -13,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
  * @author lliyuu520
  */
 @SpringCloudApplication
+@EnableTransactionManagement
+@MapperScan("com/lliyuu520/root/modular/system/mapper")
 public class AdminApplication {
 
     public static void main(String[] args) {

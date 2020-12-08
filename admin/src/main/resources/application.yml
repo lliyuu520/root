@@ -1,19 +1,20 @@
+datasource:
+  name: sys_admin
 server:
   undertow:
     buffer-size: 1024
     direct-buffers: true
   port: 8088
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/sys_admin?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password: Mysql$200722
   profiles:
     include:
       - mybatisPlus
       - redis
+      - database
+  application:
+    name: admin
 logging:
   file:
-    path: /Users/liliangyu/logs/
+    path: ${LOGGING_FILE_PATH}
+
 

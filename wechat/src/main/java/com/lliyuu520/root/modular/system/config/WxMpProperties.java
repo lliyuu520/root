@@ -14,23 +14,7 @@ import java.util.List;
 @Data
 @ConfigurationProperties(prefix = "wx.mp")
 public class WxMpProperties {
-    /**
-     * 是否使用redis存储access token
-     */
-    private boolean useRedis;
-    /**
-     * 多个公众号配置信息
-     */
-    private List<MpConfig> configs;
 
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
-    }
-
-
-    @Data
-    public static class MpConfig {
         /**
          * 设置微信公众号的appid
          */
@@ -50,5 +34,4 @@ public class WxMpProperties {
          * 设置微信公众号的EncodingAESKey
          */
         private String aesKey;
-    }
 }

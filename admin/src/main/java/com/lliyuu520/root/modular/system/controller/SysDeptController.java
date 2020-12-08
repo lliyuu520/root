@@ -2,6 +2,7 @@ package com.lliyuu520.root.modular.system.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lliyuu520.root.controller.BaseController;
 import com.lliyuu520.root.core.log.BusinessLog;
@@ -12,8 +13,6 @@ import com.lliyuu520.root.modular.system.entity.SysDept;
 import com.lliyuu520.root.modular.system.query.SysDictQuery;
 import com.lliyuu520.root.modular.system.service.SysDeptService;
 import com.lliyuu520.root.response.AjaxResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +30,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys-dept")
 @Slf4j
-@Api(tags = {"部门"})
 @RequiredArgsConstructor
 public class SysDeptController implements BaseController {
 
@@ -41,11 +39,9 @@ public class SysDeptController implements BaseController {
     /**
      * 字典
      */
-    @ApiOperation("/部门列表")
-    @BusinessLog(model = LogModel.DEPT, type = LogType.LIST)
     @PostMapping(value = "/list")
     public PageInfo<SysDept> list(@RequestBody SysDictQuery sysDictQuery) {
-        initPage();
+        PageHelper.startPage(pageNum(), pageSize());
 
         QueryWrapper<SysDept> wrapper = new QueryWrapper<>();
         String name = sysDictQuery.getName();
@@ -61,8 +57,6 @@ public class SysDeptController implements BaseController {
     /**
      * 部门新增
      */
-    @ApiOperation("/部门新增")
-    @BusinessLog(model = LogModel.DEPT, type = LogType.ADD)
     @PostMapping(value = "/add")
     public AjaxResult add(@RequestBody SysDeptDTO sysDeptDTO) {
 
@@ -74,7 +68,6 @@ public class SysDeptController implements BaseController {
     /**
      * 部门编辑
      */
-    @ApiOperation("/部门编辑")
     @BusinessLog(model = LogModel.DEPT, type = LogType.EDIT)
     @PostMapping(value = "/edit")
     public AjaxResult edit(@RequestBody SysDeptDTO sysDeptDTO) {
@@ -87,7 +80,6 @@ public class SysDeptController implements BaseController {
     /**
      * 部门详情
      */
-    @ApiOperation("/部门详情")
     @BusinessLog(model = LogModel.DEPT, type = LogType.ADD)
     @PostMapping(value = "/detail")
     public AjaxResult detail(String id) {

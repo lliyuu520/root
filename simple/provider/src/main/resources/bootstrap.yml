@@ -1,9 +1,0 @@
-logging:
-  file:
-    path: /User/liliangyu/logs
-spring:
-  application:
-    name: provider
-  cloud:
-    nacos:
-      server-addr: 127.0.0.1:8848

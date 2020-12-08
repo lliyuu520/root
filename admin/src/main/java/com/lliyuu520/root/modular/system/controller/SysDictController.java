@@ -1,5 +1,6 @@
 package com.lliyuu520.root.modular.system.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lliyuu520.root.controller.BaseController;
 import com.lliyuu520.root.core.log.BusinessLog;
@@ -11,8 +12,6 @@ import com.lliyuu520.root.modular.system.service.SysDictService;
 import com.lliyuu520.root.modular.system.vo.SysDictNodeVO;
 import com.lliyuu520.root.modular.system.vo.SysDictVO;
 import com.lliyuu520.root.response.AjaxResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +29,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/sysDict")
 @Slf4j
-@Api(tags = {"字典"})
 @RequiredArgsConstructor
 public class SysDictController implements BaseController {
 
@@ -40,11 +38,10 @@ public class SysDictController implements BaseController {
     /**
      * 字典
      */
-    @ApiOperation("/字典列表")
     @BusinessLog(model = LogModel.DICT, type = LogType.LIST)
     @PostMapping(value = "/list")
     public PageInfo<SysDictVO> list(@RequestBody SysDictQuery sysDictQuery) {
-        initPage();
+        PageHelper.startPage(pageNum(), pageSize());
         final List<SysDictVO> sysDictVOS = this.sysDictService.selectDict(sysDictQuery);
         final PageInfo<SysDictVO> pageInfo = PageInfo.of(sysDictVOS);
         return pageInfo;
@@ -53,7 +50,6 @@ public class SysDictController implements BaseController {
     /**
      * 新增字典
      */
-    @ApiOperation("/字典新增")
     @BusinessLog(model = LogModel.DICT, type = LogType.ADD)
     @PostMapping(value = "/add")
     public void add(@RequestBody SysDictDTO sysDictDTO) {
@@ -63,7 +59,6 @@ public class SysDictController implements BaseController {
     /**
      * 编辑字典
      */
-    @ApiOperation("/字典编辑")
     @BusinessLog(model = LogModel.DICT, type = LogType.EDIT)
     @PostMapping(value = "/edit")
     public AjaxResult edit(@RequestBody SysDictDTO sysDictDTO) {
@@ -76,7 +71,6 @@ public class SysDictController implements BaseController {
     /**
      * 新增字典
      */
-    @ApiOperation("/字典详情")
     @BusinessLog(model = LogModel.DICT, type = LogType.ADD)
     @PostMapping(value = "/detail")
     public AjaxResult detail(String id) {

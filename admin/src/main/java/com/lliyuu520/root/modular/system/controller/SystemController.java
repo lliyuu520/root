@@ -12,8 +12,6 @@ import com.lliyuu520.root.modular.system.service.SysUserService;
 import com.lliyuu520.root.modular.system.vo.SysPermissionVO;
 import com.lliyuu520.root.modular.system.vo.SysUserVO;
 import com.lliyuu520.root.response.AjaxResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +25,6 @@ import java.util.List;
  */
 @RestController
 @Slf4j
-@Api(tags = {"系统"})
 @RequestMapping("/system")
 @RequiredArgsConstructor
 public class SystemController {
@@ -40,7 +37,6 @@ public class SystemController {
     /**
      * 菜单
      */
-    @ApiOperation("/菜单")
     @PostMapping(value = "/menu")
     public AjaxResult menu() {
         List<Tree<String>> menuNodeByUserId = sysPermissionService.getMenuNodeByUserId();
@@ -51,7 +47,6 @@ public class SystemController {
     /**
      * 用户信息
      */
-    @ApiOperation("/用户信息")
     @PostMapping(value = "/userInfo")
     public AjaxResult userInfo() {
         SysUser currentUser = sysUserService.getCurrentUser();
@@ -73,7 +68,6 @@ public class SystemController {
      * 需要加入控制的 结构 url:[role1,role2]
      * 资源权限
      */
-    @ApiOperation("/资源权限")
     @PostMapping(value = "/permission")
     public AjaxResult permission() {
         List<SysPermissionVO> rolePermissions = sysPermissionService.getPermissionRole();

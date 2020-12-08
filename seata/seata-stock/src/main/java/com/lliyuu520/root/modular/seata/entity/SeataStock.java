@@ -2,6 +2,7 @@ package com.lliyuu520.root.modular.seata.entity;
 
 import com.lliyuu520.root.entity.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
  * @author lliyuu520
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class SeataStock extends BaseEntity {
 
     /**

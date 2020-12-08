@@ -1,6 +1,5 @@
 package com.lliyuu520.root.modular.seata.dto;
 
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,7 +10,6 @@ import java.io.Serializable;
  * @date 2020/5/2314:30
  */
 @Data
-@ApiModel("支付订单")
 public class OrderDTO implements Serializable {
     /**
      * 用户ID 人

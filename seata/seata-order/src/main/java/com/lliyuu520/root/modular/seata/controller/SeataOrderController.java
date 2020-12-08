@@ -1,12 +1,9 @@
 package com.lliyuu520.root.modular.seata.controller;
 
 
-import com.lliyuu520.root.annotation.ResponseResultBody;
 import com.lliyuu520.root.core.exception.BusinessException;
 import com.lliyuu520.root.modular.seata.dto.OrderDTO;
 import com.lliyuu520.root.modular.seata.service.PaymentService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/seataOrder")
 @Slf4j
-@Api(tags = {"01.订单"})
 @RequiredArgsConstructor
-@ResponseResultBody
 public class SeataOrderController {
 
 
@@ -38,7 +33,6 @@ public class SeataOrderController {
      * @param orderDTO
      * @return
      */
-    @ApiOperation("创建订单")
     @PostMapping("/createSeataOrder")
     public void createOrder(@RequestBody OrderDTO orderDTO) {
         paymentService.createOrder(orderDTO);
@@ -50,7 +44,6 @@ public class SeataOrderController {
      * @param orderId
      * @return
      */
-    @ApiOperation("支付订单")
     @PostMapping("/pay")
     public void pay(Long orderId) {
         try {

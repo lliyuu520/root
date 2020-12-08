@@ -5,8 +5,6 @@ import cn.hutool.core.bean.BeanUtil;
 import com.lliyuu520.root.modular.seata.entity.SeataStock;
 import com.lliyuu520.root.modular.seata.service.SeataStockService;
 import com.lliyuu520.root.vo.InventoryVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/seataInventory")
 @Slf4j
-@Api(tags = "{库存}")
 @RequiredArgsConstructor
 public class SeataStockController {
 
@@ -36,7 +33,6 @@ public class SeataStockController {
      * @return
      */
     @GetMapping("/selectByProductId/{productId}")
-    @ApiOperation("根据产品id查询库存")
     public InventoryVO selectByProductId(@PathVariable Long productId) {
         log.info("根据产品ID查询库存productId={}", productId);
         SeataStock seataStock = seataStockService.selectByProductId(productId);
@@ -53,7 +49,6 @@ public class SeataStockController {
      * @return
      */
     @PostMapping("/decreaseInventory")
-    @ApiOperation("扣除库存")
     public void decreaseInventory(@RequestParam("productId") Long productId, @RequestParam("productNum") Integer productNum) {
         log.info("扣除库存productId={},productNum={}", productId, productNum);
         seataStockService.decreaseInventory(productId, productNum);
