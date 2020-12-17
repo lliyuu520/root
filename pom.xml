@@ -10,19 +10,13 @@
     <version>1.0.0</version>
     <modules>
 
-        <module>api</module>
         <module>gateway</module>
         <module>seata</module>
-        <module>admin</module>
+        <module>system</module>
+        <module>area</module>
         <module>wechat</module>
 
-        <module>cache</module>
-        <module>datasource</module>
-        <module>cloud</module>
-        <module>network</module>
-        <module>log</module>
-        <module>exception</module>
-        <module>doc</module>
+        <module>base</module>
 
 
     </modules>

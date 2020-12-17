@@ -24,15 +24,4 @@ public class SeataStockApplication {
         SpringApplication.run(SeataStockApplication.class, args);
     }
 
-    /**
-     * 支持Ribbon负载均衡
-     *
-     * @return
-     */
-    @Bean
-    @LoadBalanced
-    public RestTemplate getRestTemplate() {
-
-        return new RestTemplate();
-    }
 }

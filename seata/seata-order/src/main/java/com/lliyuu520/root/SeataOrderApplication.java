@@ -27,15 +27,4 @@ public class SeataOrderApplication {
         SpringApplication.run(SeataOrderApplication.class, args);
     }
 
-    /**
-     * 支持Ribbon负载均衡
-     *
-     * @return
-     */
-    @Bean
-    @LoadBalanced
-    public RestTemplate getRestTemplate() {
-
-        return new RestTemplate();
-    }
 }
