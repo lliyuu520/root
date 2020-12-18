@@ -4,19 +4,20 @@ import com.lliyuu520.root.query.BaseQuery;
 import lombok.Data;
 
 /**
+ * 地址位置信息查询
+ *
  * @author liliangyu
- * @description 字典查询
  * @date 2019-07-31
  */
 @Data
 public class AreaQuery implements BaseQuery {
 
     /**
-     * parentCode
+     * 父编码
      */
     private Long parentCode;
     /**
-     * code
+     * 编码
      */
     private Long code;
 

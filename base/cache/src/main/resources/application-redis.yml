@@ -11,3 +11,7 @@ spring:
         max-idle: 5
         min-idle: 0
     timeout: 10000ms
+  cache:
+    redis:
+      time-to-live: 1d
+      use-key-use-key-prefix: true

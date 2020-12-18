@@ -1,5 +1,3 @@
-datasource:
-  name: area
 server:
   undertow:
     buffer-size: 1024
