@@ -1,3 +1,0 @@
-logging:
-  file:
-    path: ${LOGGING_FILE_PATH}

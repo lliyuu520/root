@@ -3,14 +3,13 @@ server:
     buffer-size: 1024
     direct-buffers: true
 spring:
+  application:
+    name: area
   profiles:
     include:
       - redis
       - mysql
-  application:
-    name: area
-logging:
-  file:
-    path: ${LOGGING_FILE_PATH}
+
+
 
 

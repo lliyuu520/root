@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.lliyuu520.root.modular.system.mapper.SysPermissionMapper">
+<mapper namespace="com.lliyuu520.haozi.modular.system.mapper.SysPermissionMapper">
 
     <select id="getUrl" resultType="string">
         select distinct a.url
@@ -16,7 +16,7 @@
                  left join sys_role c on b.role_id = c.id
         where a.url = #{url}
     </select>
-    <select id="selectByRoleId" resultType="com.lliyuu520.root.modular.system.vo.MenuNode">
+    <select id="selectByRoleId" resultType="com.lliyuu520.haozi.modular.system.vo.MenuNode">
         select a.id              id,
                a.icon            icon,
                a.name            name,
@@ -32,7 +32,7 @@
         from sys_permission a
         order by a.parent_id, a.sort
     </select>
-    <select id="selectByUserId" resultType="com.lliyuu520.root.modular.system.vo.MenuNode">
+    <select id="selectByUserId" resultType="com.lliyuu520.haozi.modular.system.vo.MenuNode">
         select distinct a.id        id,
                         a.icon      icon,
                         a.sort      sort,
