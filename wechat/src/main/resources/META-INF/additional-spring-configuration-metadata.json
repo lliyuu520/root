@@ -1,0 +1,20 @@
+{
+  "properties": [
+    {
+      "name": "wx.mp.app-id",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "wx.mp.secret",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "wx.mp.token",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "wx.mp.aes-key",
+      "type": "java.lang.String"
+    }
+  ]
+}

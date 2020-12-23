@@ -1,0 +1,13 @@
+logging:
+  file:
+    path: /Users/liliangyu/logs
+spring:
+  application:
+    name: seata-stock
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      discovery:
+        group: SEATA-GROUP
+      config:
+        group: SEATA-GROUP

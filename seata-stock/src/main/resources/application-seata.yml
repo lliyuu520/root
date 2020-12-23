@@ -1,0 +1,5 @@
+seata:
+  service:
+    vgroup-mapping:
+      seata-stock-seata-service-group: default
+

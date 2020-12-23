@@ -1,0 +1,17 @@
+server:
+  undertow:
+    buffer-size: 1024
+    direct-buffers: true
+  port: 8088
+spring:
+  profiles:
+    include:
+      - redis
+      - mysql
+  application:
+    name: system
+logging:
+  file:
+    path: ${LOGGING_FILE_PATH}
+
+

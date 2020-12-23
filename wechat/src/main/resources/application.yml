@@ -1,0 +1,16 @@
+server:
+  undertow:
+    buffer-size: 1024
+    direct-buffers: true
+spring:
+  profiles:
+    include:
+      - redis
+      - wechat
+      - database
+  application:
+    name: wechat
+logging:
+  file:
+    path: ${LOGGING_FILE_PATH}
+
