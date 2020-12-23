@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>AreaVO</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/google-code-prettify@1.0.5/bin/prettify.min.css">
+<link href="../style.css" rel="stylesheet" />
+</head>
+<body onload="PR.prettyPrint()">
+<pre class="prettyprint lang-java">
+public class AreaVO implements Serializable{
+
+    private String name; //名称
+    private long code; //code
+    private long parentCode; //parentCode
+    private int level; //等级
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public long getCode(){
+        return code;
+    }
+
+    public void setCode(long code){
+        this.code = code;
+    }
+
+    public long getParentCode(){
+        return parentCode;
+    }
+
+    public void setParentCode(long parentCode){
+        this.parentCode = parentCode;
+    }
+
+    public int getLevel(){
+        return level;
+    }
+
+    public void setLevel(int level){
+        this.level = level;
+    }
+
+}
+</pre>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/google-code-prettify@1.0.5/bin/prettify.min.js"></script>
+</body>
+</html>
