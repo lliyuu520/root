@@ -21,8 +21,5 @@ public @interface BusinessLog {
      */
     LogType type() default LogType.OTHER;
 
-    /**
-     * 是否保存请求的参数
-     */
-    boolean isSaveRequestData() default true;
+    
 }

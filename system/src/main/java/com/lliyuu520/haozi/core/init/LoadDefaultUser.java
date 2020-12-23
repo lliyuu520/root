@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 /**
- * LoadDefaultUser
+ * 构造默认用户
  *
  * @author lliyuu520
  * @since 2020/11/10:15:33

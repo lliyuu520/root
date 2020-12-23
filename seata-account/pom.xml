@@ -41,6 +41,11 @@
             <artifactId>exception</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.lliyuu520</groupId>
+            <artifactId>seata</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

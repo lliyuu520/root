@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 统一权限异常
  * @author liliangyu
  * @date 2019/7/30
  */

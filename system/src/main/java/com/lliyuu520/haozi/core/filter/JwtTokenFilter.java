@@ -48,19 +48,19 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String token = request.getHeader(HEADER_STRING);
 
         String requestURI = request.getRequestURI();
-        boolean b = StrUtil.startWithAny(requestURI, "/swagger-ui", "/swagger-resources", "/images", "/webjars", "/v2", "/configuration", "/auth");
-        if (b) {
-            chain.doFilter(request, response);
-        } else {
+        boolean b = StrUtil.startWithAny(requestURI,  "/auth");
+        if (!b) {
             if (StrUtil.isNotEmpty(token)) {
                 String username;
                 try {
                     username = jwtTokenUtil.getUsernameFromToken(token);
                 } catch (ExpiredJwtException e1) {
+                    //JWT过期
                     logger.error(e1);
                     ResponseUtil.authExpired(response);
                     return;
                 } catch (UnsupportedJwtException e2) {
+                    //格式错误
                     logger.error(e2);
                     ResponseUtil.serverException(response);
                     return;
@@ -69,6 +69,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                     ResponseUtil.malformedJwt(response);
                     return;
                 } catch (SignatureException e4) {
+                    //签名错误
                     logger.error(e4);
                     ResponseUtil.signatureException(response);
                     return;
@@ -93,8 +94,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 ResponseUtil.noAuth(response);
                 return;
             }
-            chain.doFilter(request, response);
         }
+        chain.doFilter(request, response);
     }
 
 }

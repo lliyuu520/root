@@ -19,6 +19,7 @@
         <module>exception</module>
         <module>log</module>
         <module>network</module>
+        <module>seata</module>
     </modules>
 
 </project>

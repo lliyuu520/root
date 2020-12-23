@@ -1,4 +1,4 @@
-package com.lliyuu520.api.response;
+package com.lliyuu520.haozi.response;
 
 /**
  * 自定义返回枚举

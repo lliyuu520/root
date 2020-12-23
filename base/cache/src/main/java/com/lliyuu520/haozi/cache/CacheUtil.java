@@ -34,8 +34,6 @@ public class CacheUtil<T> {
             final T o = jsonObject.toJavaObject(tClass);
             return o;
         }).collect(Collectors.toList());
-
-
         return collect;
     }
 
@@ -51,7 +49,5 @@ public class CacheUtil<T> {
             redisTemplate.opsForList().leftPush(key, m);
 
         });
-        //如果这样写会导致序列化成jsonarray
-//        redisTemplate.opsForList().leftPushAll(key, list);
     }
 }

@@ -50,9 +50,9 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
+            <groupId>com.lliyuu520</groupId>
+            <artifactId>seata</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
     <build>
