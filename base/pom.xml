@@ -16,7 +16,6 @@
         <module>cache</module>
         <module>cloud</module>
         <module>datasource</module>
-        <module>doc</module>
         <module>exception</module>
         <module>log</module>
         <module>network</module>

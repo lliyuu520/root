@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 部门控制器
+ * 行政区划
  *
  * @author liliangyu
  */
@@ -41,7 +41,7 @@ public class AreaController implements BaseController {
     }
 
     /**
-     * listByParentCode
+     * 根据code查询全名称
      */
     @PostMapping(value = "/getName")
     @Cacheable("getName")

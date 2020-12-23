@@ -11,7 +11,9 @@
     <modules>
 
         <module>gateway</module>
-        <module>seata</module>
+        <module>seata-account</module>
+        <module>seata-order</module>
+        <module>seata-stock</module>
         <module>system</module>
         <module>area</module>
         <module>wechat</module>
