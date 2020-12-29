@@ -14,15 +14,12 @@ import com.lliyuu520.haozi.modular.system.vo.SysDictVO;
 import com.lliyuu520.haozi.response.AjaxResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
- * 用户控制器
+ * 字典控制器
  *
  * @author liliangyu
  */
@@ -39,7 +36,7 @@ public class SysDictController implements BaseController {
      * 字典
      */
     @BusinessLog(model = LogModel.DICT, type = LogType.LIST)
-    @PostMapping(value = "/list")
+    @PostMapping("/list")
     public PageInfo<SysDictVO> list(@RequestBody SysDictQuery sysDictQuery) {
         PageHelper.startPage(pageNum(), pageSize());
         final List<SysDictVO> sysDictVOS = this.sysDictService.selectDict(sysDictQuery);
@@ -51,7 +48,7 @@ public class SysDictController implements BaseController {
      * 新增字典
      */
     @BusinessLog(model = LogModel.DICT, type = LogType.ADD)
-    @PostMapping(value = "/add")
+    @PostMapping("/add")
     public void add(@RequestBody SysDictDTO sysDictDTO) {
         sysDictService.addSysDict(sysDictDTO);
     }
@@ -60,7 +57,7 @@ public class SysDictController implements BaseController {
      * 编辑字典
      */
     @BusinessLog(model = LogModel.DICT, type = LogType.EDIT)
-    @PostMapping(value = "/edit")
+    @PutMapping(value = "/edit")
     public AjaxResult edit(@RequestBody SysDictDTO sysDictDTO) {
 
         sysDictService.editSysDict(sysDictDTO);
@@ -69,11 +66,14 @@ public class SysDictController implements BaseController {
     }
 
     /**
-     * 新增字典
+     * 查看字典详情
+     *
+     * @param id id
+     * @return AjaxResult
      */
-    @BusinessLog(model = LogModel.DICT, type = LogType.ADD)
-    @PostMapping(value = "/detail")
-    public AjaxResult detail(String id) {
+    @BusinessLog(model = LogModel.DICT, type = LogType.DETAIL)
+    @GetMapping(value = "/{id}")
+    public AjaxResult detail(@PathVariable Long id) {
 
         SysDictNodeVO byId = sysDictService.selectSysDictNode(id);
 

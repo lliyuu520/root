@@ -7,11 +7,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lliyuu520.haozi.controller.BaseController;
-import com.lliyuu520.haozi.core.exception.BusinessException;
 import com.lliyuu520.haozi.core.log.BusinessLog;
 import com.lliyuu520.haozi.core.log.LogModel;
 import com.lliyuu520.haozi.core.log.LogType;
 import com.lliyuu520.haozi.core.utils.PasswordUtil;
+import com.lliyuu520.haozi.exception.BusinessException;
 import com.lliyuu520.haozi.modular.system.dto.ChangePasswordDTO;
 import com.lliyuu520.haozi.modular.system.dto.ResetPasswordDTO;
 import com.lliyuu520.haozi.modular.system.dto.SysUserDTO;
@@ -148,14 +148,6 @@ public class SysUserController implements BaseController {
     public void add(@RequestBody SysUserDTO sysUserDTO) {
         String username = sysUserDTO.getUsername();
         SysUser sysUser = userService.loadUserByUsername(username);
-        if (sysUser != null) {
-            //账号被使用
-            throw new BusinessException("用户名已被使用");
-        }
-        String phone = sysUserDTO.getPhone();
-        if (!Validator.isMoney(phone)) {
-            throw new BusinessException("电话号码格式不正确");
-        }
         userService.addUser(sysUserDTO);
 
     }

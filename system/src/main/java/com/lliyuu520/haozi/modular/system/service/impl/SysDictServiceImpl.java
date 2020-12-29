@@ -9,7 +9,6 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lliyuu520.haozi.enums.DelFlagEnum;
@@ -127,20 +126,18 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
      * @return
      */
     @Override
-    public SysDictNodeVO selectSysDictNode(String id) {
+    public SysDictNodeVO selectSysDictNode(Long id) {
         SysDict sysDict = this.getById(id);
         SysDictNodeVO sysDictNodeVO = new SysDictNodeVO();
 
         BeanUtil.copyProperties(sysDict, sysDictNodeVO);
-        QueryWrapper<SysDict> wrapper = new QueryWrapper<>();
-        wrapper.eq("pid", id);
+        final LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysDict::getParentId, id);
         List<SysDict> list = this.list(wrapper);
         List<SysDictNodeVO> collect = list.stream().map(m -> {
             SysDictNodeVO son = new SysDictNodeVO();
-
             BeanUtil.copyProperties(m, son);
             return son;
-
         }).collect(Collectors.toList());
         sysDictNodeVO.setChildren(collect);
         return sysDictNodeVO;

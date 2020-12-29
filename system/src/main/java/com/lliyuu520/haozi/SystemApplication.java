@@ -8,19 +8,17 @@ import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
- * gateway
  *
+ *启动器
  * @author lliyuu520
  */
 @SpringCloudApplication
-public class AreaApplication {
+public class SystemApplication {
 
     public static void main(String[] args) {
         new StartUtil(args);
-
-        final ConfigurableApplicationContext run = SpringApplication.run(AreaApplication.class, args);
-        final String applicationName = run.getApplicationName();
-        ApiUtil.initApDoc(applicationName);
+        final ConfigurableApplicationContext run = SpringApplication.run(SystemApplication.class, args);
+        ApiUtil.initApDoc(run.getApplicationName());
     }
 
 

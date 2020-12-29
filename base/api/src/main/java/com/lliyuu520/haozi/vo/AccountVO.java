@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * account
+ * 账户
  *
  * @author lliyuu520
  */

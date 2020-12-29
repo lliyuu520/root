@@ -5,11 +5,11 @@ package com.lliyuu520.haozi.response;
  * @author liliangyu
  * @date 2019/6/18
  */
-enum AjaxResultEnum {
+public enum AjaxResultEnum {
     /**
      * 成功
      */
-    SUCCESS(0, "SUCCESS"),
+    SUCCESS(200, "操作成功"),
     /**
      * 服务器异常
      */
@@ -39,14 +39,6 @@ enum AjaxResultEnum {
      */
     REPEAT_ACCOUNT(1004, "账号被使用"),
     /**
-     * 电话号码错误
-     */
-    ERROR_PHONE(1005, "电话格式错误"),
-    /**
-     * 邮箱格式错误
-     */
-    ERROR_MAIL(1007, "邮箱格式错误"),
-    /**
      * 未登录
      */
     NO_AUTH(1008, "未登录"),
@@ -63,7 +55,7 @@ enum AjaxResultEnum {
      */
     MALFORMED_JWT(1011, "token格式错误"),
     /**
-     * token格式错误
+     * 无法查询到数据
      */
     NO_DATA(1012, "无数据");
     /**

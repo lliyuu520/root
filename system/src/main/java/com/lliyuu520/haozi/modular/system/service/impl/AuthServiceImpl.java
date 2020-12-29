@@ -27,7 +27,12 @@ public class AuthServiceImpl implements AuthService {
 
     private final JwtTokenUtil jwtTokenUtil;
 
-
+    /**
+     * 登录
+     * @param username 账号
+     * @param password 密码
+     * @return token
+     */
     @Override
     public String login(String username, String password) {
         UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(username, password);

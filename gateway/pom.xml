@@ -21,11 +21,7 @@
             <artifactId>cloud</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.lliyuu520</groupId>
-            <artifactId>log</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>

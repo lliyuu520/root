@@ -1,116 +1,96 @@
 package com.lliyuu520.haozi.response;
 
+import cn.hutool.core.lang.Singleton;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
  * 自定义返回格式
  *
- * @author lliyuu520* @date 2017年8月29日
+ * @author lliyuu520
  */
 @Data
 @NoArgsConstructor
-public class AjaxResult<T> {
+public class AjaxResult {
+    /**
+     * 响应代码
+     */
     private Integer code;
+    /**
+     * 响应消息
+     */
     private String message;
-    private T data;
-
+    /**
+     * 响应体
+     */
+    private Object data;
 
     /**
-     * 成功
-     *
      * @return
      */
-    public static <T> AjaxResult<T> success(T o) {
-        AjaxResult<T> ajaxResult = AjaxResult.newInstance();
-        ajaxResult.setResult(AjaxResultEnum.SUCCESS);
+    private static  AjaxResult getInstance() {
+        return Singleton.get(AjaxResult.class);
+    }
+
+    /**
+     * 操作成功并返回数据
+     *
+     * @param o
+     * @return
+     */
+    public static AjaxResult success(Object o) {
+        final AjaxResult ajaxResult = AjaxResult.setResult(AjaxResultEnum.SUCCESS);
         ajaxResult.setData(o);
         return ajaxResult;
+
     }
 
     /**
-     * 成功
+     * 操作成功
      *
-     * @return
+     * @return AjaxResult
      */
-    public static AjaxResult<Void> success() {
-        AjaxResult<Void> ajaxResult = AjaxResult.newInstance();
-        ajaxResult.setResult(AjaxResultEnum.SUCCESS);
-        return ajaxResult;
+    public static AjaxResult success() {
+        return AjaxResult.setResult(AjaxResultEnum.SUCCESS);
     }
-
-    private static AjaxResult newInstance() {
-        return new AjaxResult();
-    }
-
 
 
     /**
      * 服务器异常
      *
-     * @return
+     * @return AjaxResult
      */
     public static AjaxResult serverException() {
-        AjaxResult ajaxResult = AjaxResult.newInstance();
-        ajaxResult.setResult(AjaxResultEnum.SERVER_EXCEPTION);
-        return ajaxResult;
+        return AjaxResult.setResult(AjaxResultEnum.SERVER_EXCEPTION);
     }
 
     /**
      * 权限异常
      *
-     * @return
+     * @return AjaxResult
      */
     public static AjaxResult accessDeniedException() {
-        AjaxResult ajaxResult = AjaxResult.newInstance();
-        ajaxResult.setResult(AjaxResultEnum.ACCESS_DENIED_EXCEPTION);
-        return ajaxResult;
+        return AjaxResult.setResult(AjaxResultEnum.ACCESS_DENIED_EXCEPTION);
     }
-
-    /**
-     * 权限异常
-     *
-     * @return
-     */
-    public static AjaxResult accessException() {
-        AjaxResult ajaxResult = AjaxResult.newInstance();
-        ajaxResult.setResult(AjaxResultEnum.ACCESS_DENIED_EXCEPTION);
-        return ajaxResult;
-    }
-
 
 
     /**
      * 未登录
      *
-     * @return
+     * @return AjaxResult
      */
     public static AjaxResult noAuth() {
-        AjaxResult ajaxResult = AjaxResult.newInstance();
-        ajaxResult.setResult(AjaxResultEnum.NO_AUTH);
-        return ajaxResult;
+        return AjaxResult.setResult(AjaxResultEnum.NO_AUTH);
     }
 
-    /**
-     * 登录失效
-     *
-     * @return
-     */
-    public static AjaxResult authExpired() {
-        AjaxResult ajaxResult = AjaxResult.newInstance();
-        ajaxResult.setResult(AjaxResultEnum.AUTH_EXPIRED);
-        return ajaxResult;
-    }
 
     /**
-     * 登录失效
+     * 账户密码不正确
      *
-     * @return
+     * @return AjaxResult
      */
     public static AjaxResult accountNotMatch() {
-        AjaxResult ajaxResult = AjaxResult.newInstance();
-        ajaxResult.setResult(AjaxResultEnum.ACCOUNT_NOT_MATCH);
-        return ajaxResult;
+        return AjaxResult.setResult(AjaxResultEnum.ACCOUNT_NOT_MATCH);
     }
 
     /**
@@ -119,9 +99,11 @@ public class AjaxResult<T> {
      * @param result
      * @return
      */
-    private void setResult(AjaxResultEnum result) {
-        this.setCode(result.getKey());
-        this.setMessage(result.getValue());
+    private static AjaxResult setResult(AjaxResultEnum result) {
+        AjaxResult ajaxResult = AjaxResult.getInstance();
+        ajaxResult.setCode(result.getKey());
+        ajaxResult.setMessage(result.getValue());
+        return ajaxResult;
     }
 
 

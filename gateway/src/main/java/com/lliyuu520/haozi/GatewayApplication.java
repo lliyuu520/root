@@ -12,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
  * gateway
  *
  * @author lliyuu520*/
-@EnableHystrix
 @SpringCloudApplication
 public class GatewayApplication {
 

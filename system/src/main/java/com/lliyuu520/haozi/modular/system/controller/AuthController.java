@@ -6,6 +6,7 @@ import com.lliyuu520.haozi.core.log.LogModel;
 import com.lliyuu520.haozi.core.log.LogType;
 import com.lliyuu520.haozi.modular.system.dto.AuthDTO;
 import com.lliyuu520.haozi.modular.system.service.AuthService;
+import com.lliyuu520.haozi.response.AjaxResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,19 +28,18 @@ public class AuthController {
 
 
     /**
+     * 用户登录
+     *
      * @param authDTO 登录模型
-     *                登录
      */
     @BusinessLog(model = LogModel.SYSTEM, type = LogType.LOGIN)
     @PostMapping(value = "/auth")
-    public String auth(@RequestBody AuthDTO authDTO) {
+    public AjaxResult auth(@RequestBody AuthDTO authDTO) {
         // 登录成功会返回Token给用户
         String username = authDTO.getUsername();
         String password = authDTO.getPassword();
         String login = authService.login(username, password);
-        return login;
-
-
+        return AjaxResult.success(login);
     }
 
 

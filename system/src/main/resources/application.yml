@@ -2,7 +2,6 @@ server:
   undertow:
     buffer-size: 1024
     direct-buffers: true
-  port: 8088
 spring:
   profiles:
     include:
@@ -10,8 +9,6 @@ spring:
       - mysql
   application:
     name: system
-logging:
-  file:
-    path: ${LOGGING_FILE_PATH}
+
 
 

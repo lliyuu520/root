@@ -40,5 +40,5 @@ public interface SysDictService extends IService<SysDict> {
      * @param id
      * @return
      */
-    SysDictNodeVO selectSysDictNode(String id);
+    SysDictNodeVO selectSysDictNode(Long id);
 }
