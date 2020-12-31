@@ -1,9 +1,12 @@
 package com.lliyuu520.haozi.controller;
 
 import cn.hutool.core.util.StrUtil;
+import com.lliyuu520.haozi.response.AjaxResult;
+import com.lliyuu520.haozi.response.ErrorEnum;
 import com.lliyuu520.haozi.utils.IpUtil;
 
 import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * BaseController
@@ -45,5 +48,34 @@ public interface BaseController {
         return j;
 
     }
+
+    /**
+     * 返回成功 不带数据
+     * @return
+     */
+   default AjaxResult<Void> success(){
+        return  AjaxResult.success();
+    }
+
+    /**
+     * 返回成功 带数据
+     * @param t
+     * @param <T>
+     * @return
+     */
+    default <T> AjaxResult<T> success(T t){
+        return  AjaxResult.success(t);
+    }
+
+    /**
+     * 返回错误 不带参数
+     * @param errorEnum
+     * @return
+     */
+    default AjaxResult<Void> failed(ErrorEnum errorEnum){
+        return  AjaxResult.failed(errorEnum);
+    }
+
+
 
 }

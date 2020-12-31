@@ -1,5 +1,7 @@
 package com.lliyuu520.haozi.modular.system.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
 import java.io.Serializable;
@@ -17,19 +19,17 @@ public class SysLog implements Serializable {
     /**
      * id
      */
+    @TableId(type=IdType.AUTO)
     private Long id;
     /**
      * 操作模块
      */
-    private String title;
+    private Integer model;
     /**
      * 业务类型（0其它 1新增 2修改 3删除）
      */
     private Integer type;
-    /**
-     * 业务类型
-     */
-    private String name;
+
     /**
      * 操作人员
      */

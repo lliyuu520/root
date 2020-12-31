@@ -2,10 +2,11 @@ package com.lliyuu520.haozi.response;
 
 /**
  * 自定义返回枚举
+ *
  * @author liliangyu
  * @date 2019/6/18
  */
-public enum AjaxResultEnum {
+public enum ErrorEnum implements ErrorCode {
     /**
      * 成功
      */
@@ -61,30 +62,25 @@ public enum AjaxResultEnum {
     /**
      * key
      */
-    private Integer key;
+    private final Integer code;
     /**
      * value
      */
-    private String value;
+    private final String msg;
 
-    AjaxResultEnum(Integer key, String value) {
-        this.key = key;
-        this.value = value;
+    ErrorEnum(Integer code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+    @Override
+    public Integer getCode() {
+        return code;
     }
 
-    public Integer getKey() {
-        return key;
+    @Override
+    public String getMsg() {
+        return msg;
     }
 
-    public void setKey(Integer key) {
-        this.key = key;
-    }
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

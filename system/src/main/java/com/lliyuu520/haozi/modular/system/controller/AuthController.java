@@ -34,7 +34,7 @@ public class AuthController {
      */
     @BusinessLog(model = LogModel.SYSTEM, type = LogType.LOGIN)
     @PostMapping(value = "/auth")
-    public AjaxResult auth(@RequestBody AuthDTO authDTO) {
+    public AjaxResult<String> auth(@RequestBody AuthDTO authDTO) {
         // 登录成功会返回Token给用户
         String username = authDTO.getUsername();
         String password = authDTO.getPassword();

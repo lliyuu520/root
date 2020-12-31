@@ -31,11 +31,7 @@
             <artifactId>datasource</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.lliyuu520</groupId>
-            <artifactId>network</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+
         <dependency>
             <groupId>com.lliyuu520</groupId>
             <artifactId>exception</artifactId>

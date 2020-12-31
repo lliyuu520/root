@@ -49,7 +49,7 @@ start() {
       echo "================================"
    else
       echo -n "Starting $APP_NAME ..."
-      nohup java -Xms128m -Xmx256m -jar  $APP_NAME >/dev/null 2>&1 &
+      nohup java -Xms128m -Xmx256m -jar  $APP_NAME --spring.prifiles.active=prod >/dev/null 2>&1 &
       checkpid
       if [ $psid -ne 0 ]; then
          echo "(pid=$psid) [OK]"
@@ -77,7 +77,7 @@ stop() {
 
    if [ $psid -ne 0 ]; then
       echo -n "Stopping $APP_NAME ...(pid=$psid) "
-      su - $RUNNING_USER -c "kill -9 $psid"
+      kill -9 $psid
       if [ $? -eq 0 ]; then
          echo "[STOP ]${APP_NAME} SUCCESS"
       else

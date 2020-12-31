@@ -37,20 +37,21 @@ public class SysDictController implements BaseController {
      */
     @BusinessLog(model = LogModel.DICT, type = LogType.LIST)
     @PostMapping("/list")
-    public PageInfo<SysDictVO> list(@RequestBody SysDictQuery sysDictQuery) {
+    public AjaxResult<PageInfo<SysDictVO>> list(@RequestBody SysDictQuery sysDictQuery) {
         PageHelper.startPage(pageNum(), pageSize());
         final List<SysDictVO> sysDictVOS = this.sysDictService.selectDict(sysDictQuery);
         final PageInfo<SysDictVO> pageInfo = PageInfo.of(sysDictVOS);
-        return pageInfo;
+        return AjaxResult.success(pageInfo);
     }
 
     /**
      * 新增字典
      */
-    @BusinessLog(model = LogModel.DICT, type = LogType.ADD)
+    @BusinessLog(model = LogModel.DICT, type = LogType.INSERT)
     @PostMapping("/add")
-    public void add(@RequestBody SysDictDTO sysDictDTO) {
+    public AjaxResult<Void> add(@RequestBody SysDictDTO sysDictDTO) {
         sysDictService.addSysDict(sysDictDTO);
+        return AjaxResult.success();
     }
 
     /**
@@ -58,7 +59,7 @@ public class SysDictController implements BaseController {
      */
     @BusinessLog(model = LogModel.DICT, type = LogType.EDIT)
     @PutMapping(value = "/edit")
-    public AjaxResult edit(@RequestBody SysDictDTO sysDictDTO) {
+    public AjaxResult<Void> edit(@RequestBody SysDictDTO sysDictDTO) {
 
         sysDictService.editSysDict(sysDictDTO);
 
@@ -73,7 +74,7 @@ public class SysDictController implements BaseController {
      */
     @BusinessLog(model = LogModel.DICT, type = LogType.DETAIL)
     @GetMapping(value = "/{id}")
-    public AjaxResult detail(@PathVariable Long id) {
+    public AjaxResult<SysDictNodeVO> detail(@PathVariable Long id) {
 
         SysDictNodeVO byId = sysDictService.selectSysDictNode(id);
 

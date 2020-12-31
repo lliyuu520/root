@@ -17,7 +17,6 @@
         <module>cloud</module>
         <module>datasource</module>
         <module>exception</module>
-        <module>network</module>
         <module>seata</module>
     </modules>
 

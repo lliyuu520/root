@@ -5,7 +5,6 @@ import lombok.Data;
 
 /**
  * @author liliangyu
- * @description 字典查询
  * @date 2019-07-31
  */
 @Data

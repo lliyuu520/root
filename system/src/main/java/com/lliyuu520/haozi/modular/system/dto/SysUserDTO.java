@@ -13,7 +13,7 @@ public class SysUserDTO {
     /**
      * ID
      */
-    private String id;
+    private Long id;
     /**
      * 账户
      */
@@ -22,10 +22,6 @@ public class SysUserDTO {
      * 中文名称
      */
     private String name;
-    /**
-     * 英文名称
-     */
-    private String eName;
     /**
      * 电话号码
      */

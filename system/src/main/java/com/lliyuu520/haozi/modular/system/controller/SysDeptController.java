@@ -40,7 +40,7 @@ public class SysDeptController implements BaseController {
      * 字典
      */
     @PostMapping(value = "/list")
-    public PageInfo<SysDept> list(@RequestBody SysDictQuery sysDictQuery) {
+    public AjaxResult<PageInfo<SysDept>> list(@RequestBody SysDictQuery sysDictQuery) {
         PageHelper.startPage(pageNum(), pageSize());
 
         QueryWrapper<SysDept> wrapper = new QueryWrapper<>();
@@ -51,18 +51,18 @@ public class SysDeptController implements BaseController {
         wrapper.orderByAsc("order");
         List<SysDept> list = sysDeptService.list(wrapper);
         PageInfo<SysDept> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        return success(pageInfo);
     }
 
     /**
      * 部门新增
      */
     @PostMapping(value = "/add")
-    public AjaxResult add(@RequestBody SysDeptDTO sysDeptDTO) {
+    public AjaxResult<Void> add(@RequestBody SysDeptDTO sysDeptDTO) {
 
         sysDeptService.saveDept(sysDeptDTO);
 
-        return AjaxResult.success();
+        return success();
     }
 
     /**
@@ -70,7 +70,7 @@ public class SysDeptController implements BaseController {
      */
     @BusinessLog(model = LogModel.DEPT, type = LogType.EDIT)
     @PostMapping(value = "/edit")
-    public AjaxResult edit(@RequestBody SysDeptDTO sysDeptDTO) {
+    public AjaxResult<Void> edit(@RequestBody SysDeptDTO sysDeptDTO) {
 
         sysDeptService.editDept(sysDeptDTO);
 
@@ -80,10 +80,9 @@ public class SysDeptController implements BaseController {
     /**
      * 部门详情
      */
-    @BusinessLog(model = LogModel.DEPT, type = LogType.ADD)
+    @BusinessLog(model = LogModel.DEPT, type = LogType.INSERT)
     @PostMapping(value = "/detail")
-    public AjaxResult detail(String id) {
-
+    public AjaxResult<SysDept> detail(String id) {
         SysDept sysDept = sysDeptService.getById(id);
 
         return AjaxResult.success(sysDept);

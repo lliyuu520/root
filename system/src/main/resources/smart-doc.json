@@ -1,0 +1,6 @@
+{
+  "allInOne": true,
+  "isStrict": false,
+  "outPath": "src/main/resources/static/doc",
+  "ignoreRequestParams": ["com.github.pagehelper.PageInfo"]
+}

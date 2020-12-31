@@ -16,7 +16,7 @@ public enum LogType {
     /**
      * 新增
      */
-    ADD(1, "新增"),
+    INSERT(1, "新增"),
 
     /**
      * 修改
@@ -27,10 +27,6 @@ public enum LogType {
      * 删除
      */
     DELETE(4, "删除"),
-    /**
-     * 批量删除
-     */
-    BATCH_DELETE(5, "批量删除"),
     /**
      * 查看列表
      */
@@ -62,11 +58,11 @@ public enum LogType {
     /**
      * 锁定账户
      */
-    LOCK_USER(12, "重置密码"),
+    LOCK_USER(12, "锁定用户"),
     /**
      * 解锁账户
      */
-    UN_LOCK_USER(13, "重置密码");
+    UN_LOCK_USER(13, "解锁用户");
     /**
      * key
      */

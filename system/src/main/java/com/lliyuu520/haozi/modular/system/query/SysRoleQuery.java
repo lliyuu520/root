@@ -4,8 +4,8 @@ import com.lliyuu520.haozi.query.BaseQuery;
 import lombok.Data;
 
 /**
+ * 角色查询
  * @author liliangyu
- * @description 字典查询
  * @date 2019-07-31
  */
 @Data

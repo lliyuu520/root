@@ -38,7 +38,7 @@ public class SystemController {
      * 菜单
      */
     @PostMapping(value = "/menu")
-    public AjaxResult menu() {
+    public AjaxResult<List<Tree<String>>> menu() {
         List<Tree<String>> menuNodeByUserId = sysPermissionService.getMenuNodeByUserId();
         return AjaxResult.success(menuNodeByUserId);
 
@@ -48,7 +48,7 @@ public class SystemController {
      * 用户信息
      */
     @PostMapping(value = "/userInfo")
-    public AjaxResult userInfo() {
+    public AjaxResult<SysUserVO> userInfo() {
         SysUser currentUser = sysUserService.getCurrentUser();
         Long userId = currentUser.getId();
         Long deptId = currentUser.getDeptId();
@@ -69,7 +69,7 @@ public class SystemController {
      * 资源权限
      */
     @PostMapping(value = "/permission")
-    public AjaxResult permission() {
+    public AjaxResult<List<SysPermissionVO>> permission() {
         List<SysPermissionVO> rolePermissions = sysPermissionService.getPermissionRole();
         return AjaxResult.success(rolePermissions);
 

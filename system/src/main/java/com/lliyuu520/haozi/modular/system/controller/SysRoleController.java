@@ -19,6 +19,7 @@ import com.lliyuu520.haozi.modular.system.service.SysPermissionService;
 import com.lliyuu520.haozi.modular.system.service.SysRoleService;
 import com.lliyuu520.haozi.modular.system.vo.SysRoleVO;
 import com.lliyuu520.haozi.response.AjaxResult;
+import com.lliyuu520.haozi.response.ErrorEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,7 +49,7 @@ public class SysRoleController implements BaseController {
      */
     @PostMapping(value = "/list")
     @BusinessLog(model = LogModel.ROLE, type = LogType.LIST)
-    public PageInfo<SysRoleVO> list(@RequestBody SysRoleQuery sysRoleQuery) {
+    public AjaxResult<PageInfo<SysRoleVO>> list(@RequestBody SysRoleQuery sysRoleQuery) {
         PageHelper.startPage(pageNum(), pageSize());
 
         final LambdaQueryWrapper<SysRole> query = Wrappers.lambdaQuery(SysRole.class);
@@ -58,22 +59,23 @@ public class SysRoleController implements BaseController {
         }
         List<SysRole> list = sysRoleService.list(query);
         final List<SysRoleVO> collect = list.stream().map(m -> BeanUtil.copyProperties(m, SysRoleVO.class)).collect(Collectors.toList());
-        return PageInfo.of(collect);
+        final PageInfo<SysRoleVO> of = PageInfo.of(collect);
+        return AjaxResult.success(of);
     }
 
     /**
      * 角色新增
      */
-    @BusinessLog(model = LogModel.ROLE, type = LogType.ADD)
+    @BusinessLog(model = LogModel.ROLE, type = LogType.INSERT)
     @PostMapping(value = "/add")
-    public AjaxResult add(@RequestBody SysRoleDTO sysRoleDTO) {
+    public AjaxResult<Void> add(@RequestBody SysRoleDTO sysRoleDTO) {
         String name = sysRoleDTO.getName();
         SysRole query = new SysRole();
         query.setName(name);
         SysRole sysRoleDB = sysRoleService.getByName(name);
         if (sysRoleDB != null) {
             //角色名称被使用
-            return AjaxResult.noAuth();
+            return AjaxResult.failed(ErrorEnum.REPEAT_ACCOUNT);
         }
         SysRole sysRole = new SysRole();
         BeanUtil.copyProperties(sysRoleDTO, sysRole);
@@ -86,7 +88,7 @@ public class SysRoleController implements BaseController {
      */
     @BusinessLog(model = LogModel.ROLE, type = LogType.EDIT)
     @PostMapping(value = "/edit")
-    public AjaxResult edit(@RequestBody SysRoleDTO sysRoleDTO) {
+    public AjaxResult<Void> edit(@RequestBody SysRoleDTO sysRoleDTO) {
         SysRole sysRole = new SysRole();
         BeanUtil.copyProperties(sysRoleDTO, sysRole);
         sysRoleService.updateById(sysRole);
@@ -98,7 +100,7 @@ public class SysRoleController implements BaseController {
      */
     @BusinessLog(model = LogModel.ROLE, type = LogType.DELETE)
     @PostMapping(value = "/delete")
-    public AjaxResult delete(String id) {
+    public AjaxResult<Void> delete(String id) {
         sysRoleService.removeById(id);
         return AjaxResult.success();
     }
@@ -108,7 +110,7 @@ public class SysRoleController implements BaseController {
      */
     @BusinessLog(model = LogModel.ROLE, type = LogType.DELETE)
     @PostMapping(value = "/detail")
-    public AjaxResult detail(Long id) {
+    public AjaxResult<List<Tree<String>>> detail(Long id) {
         List<Tree<String>> list = sysPermissionService.getMenuNodeByRoleId(id);
         return AjaxResult.success(list);
     }
@@ -118,7 +120,7 @@ public class SysRoleController implements BaseController {
      */
     @BusinessLog(model = LogModel.ROLE, type = LogType.DELETE)
     @PostMapping(value = "/config")
-    public AjaxResult config(@RequestBody List<SysRolePermissionDTO> list) {
+    public AjaxResult<Void> config(@RequestBody List<SysRolePermissionDTO> list) {
         sysRoleService.config(list);
         return AjaxResult.success();
     }

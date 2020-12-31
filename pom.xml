@@ -13,6 +13,7 @@
         <module>gateway</module>
         <module>system</module>
         <module>area</module>
+        <module>hero</module>
         <module>wechat</module>
 
         <module>base</module>

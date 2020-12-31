@@ -1,8 +1,6 @@
 package com.lliyuu520.haozi.response;
 
-import cn.hutool.core.lang.Singleton;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * 自定义返回格式
@@ -10,8 +8,7 @@ import lombok.NoArgsConstructor;
  * @author lliyuu520
  */
 @Data
-@NoArgsConstructor
-public class AjaxResult {
+public class AjaxResult<T> {
     /**
      * 响应代码
      */
@@ -19,30 +16,31 @@ public class AjaxResult {
     /**
      * 响应消息
      */
-    private String message;
+    private String msg;
     /**
      * 响应体
      */
-    private Object data;
+    private T data;
 
     /**
-     * @return
+     * 私有化构造方法
      */
-    private static  AjaxResult getInstance() {
-        return Singleton.get(AjaxResult.class);
+    private AjaxResult() {
+
     }
 
     /**
      * 操作成功并返回数据
      *
-     * @param o
+     * @param t
+     * @param <T>
      * @return
      */
-    public static AjaxResult success(Object o) {
-        final AjaxResult ajaxResult = AjaxResult.setResult(AjaxResultEnum.SUCCESS);
-        ajaxResult.setData(o);
+    public static <T> AjaxResult<T> success(T t) {
+        final AjaxResult<T> ajaxResult = new AjaxResult<>();
+        ajaxResult.setResult(ErrorEnum.SUCCESS);
+        ajaxResult.setData(t);
         return ajaxResult;
-
     }
 
     /**
@@ -50,47 +48,23 @@ public class AjaxResult {
      *
      * @return AjaxResult
      */
-    public static AjaxResult success() {
-        return AjaxResult.setResult(AjaxResultEnum.SUCCESS);
-    }
-
-
-    /**
-     * 服务器异常
-     *
-     * @return AjaxResult
-     */
-    public static AjaxResult serverException() {
-        return AjaxResult.setResult(AjaxResultEnum.SERVER_EXCEPTION);
+    public static <Void> AjaxResult<Void> success() {
+        final AjaxResult<Void> ajaxResult = new AjaxResult<>();
+        ajaxResult.setResult(ErrorEnum.SUCCESS);
+        return ajaxResult;
     }
 
     /**
-     * 权限异常
+     * 返回失败
      *
-     * @return AjaxResult
+     * @param errorEnum
+     * @return
      */
-    public static AjaxResult accessDeniedException() {
-        return AjaxResult.setResult(AjaxResultEnum.ACCESS_DENIED_EXCEPTION);
-    }
+    public static AjaxResult<Void> failed(ErrorEnum errorEnum) {
+        final AjaxResult<Void> ajaxResult = new AjaxResult<>();
+        ajaxResult.setResult(errorEnum);
+        return ajaxResult;
 
-
-    /**
-     * 未登录
-     *
-     * @return AjaxResult
-     */
-    public static AjaxResult noAuth() {
-        return AjaxResult.setResult(AjaxResultEnum.NO_AUTH);
-    }
-
-
-    /**
-     * 账户密码不正确
-     *
-     * @return AjaxResult
-     */
-    public static AjaxResult accountNotMatch() {
-        return AjaxResult.setResult(AjaxResultEnum.ACCOUNT_NOT_MATCH);
     }
 
     /**
@@ -99,11 +73,9 @@ public class AjaxResult {
      * @param result
      * @return
      */
-    private static AjaxResult setResult(AjaxResultEnum result) {
-        AjaxResult ajaxResult = AjaxResult.getInstance();
-        ajaxResult.setCode(result.getKey());
-        ajaxResult.setMessage(result.getValue());
-        return ajaxResult;
+    private void setResult(ErrorEnum result) {
+        this.setCode(result.getCode());
+        this.setMsg(result.getMsg());
     }
 
 

@@ -1,0 +1,14 @@
+server:
+  undertow:
+    buffer-size: 1024
+    direct-buffers: true
+spring:
+  profiles:
+    include:
+      - redis
+      - mysql
+  application:
+    name: hero
+
+
+

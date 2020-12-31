@@ -11,7 +11,6 @@ import com.lliyuu520.haozi.core.log.BusinessLog;
 import com.lliyuu520.haozi.core.log.LogModel;
 import com.lliyuu520.haozi.core.log.LogType;
 import com.lliyuu520.haozi.core.utils.PasswordUtil;
-import com.lliyuu520.haozi.exception.BusinessException;
 import com.lliyuu520.haozi.modular.system.dto.ChangePasswordDTO;
 import com.lliyuu520.haozi.modular.system.dto.ResetPasswordDTO;
 import com.lliyuu520.haozi.modular.system.dto.SysUserDTO;
@@ -22,6 +21,7 @@ import com.lliyuu520.haozi.modular.system.service.SysDeptService;
 import com.lliyuu520.haozi.modular.system.service.SysUserService;
 import com.lliyuu520.haozi.modular.system.vo.SysUserVO;
 import com.lliyuu520.haozi.response.AjaxResult;
+import com.lliyuu520.haozi.response.ErrorEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,9 +61,7 @@ public class SysUserController implements BaseController {
         if (StrUtil.isNotEmpty(username)) {
             wrapper.like("username", username);
         }
-        if (StrUtil.isNotEmpty(eName)) {
-            wrapper.like("eName", eName);
-        }
+
         if (StrUtil.isNotEmpty(name)) {
             wrapper.like("name", name);
         }
@@ -84,8 +82,7 @@ public class SysUserController implements BaseController {
             return sysUserVO;
 
         }).collect(Collectors.toList());
-        PageInfo<SysUserVO> pageInfo = new PageInfo<>(collect);
-        return pageInfo;
+        return new PageInfo<>(collect);
 
     }
 
@@ -95,14 +92,14 @@ public class SysUserController implements BaseController {
      */
     @PostMapping(value = "/changePassword")
     @BusinessLog(model = LogModel.USER, type = LogType.CHANGE_PASSWORD)
-    public AjaxResult changePassword(@RequestBody ChangePasswordDTO changePasswordDTO) {
+    public AjaxResult<Void> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO) {
 
         // 登录成功会返回Token给用户
         String newPassword = changePasswordDTO.getNewPassword();
         String oldPassword = changePasswordDTO.getOldPassword();
         boolean equals = StrUtil.equals(newPassword, oldPassword);
         if (equals) {
-            return AjaxResult.noAuth();
+            return AjaxResult.failed(ErrorEnum.REPEAT_PASSWORD);
         }
         String encode = PasswordUtil.encode(newPassword);
         userService.changePassword(encode);
@@ -115,7 +112,7 @@ public class SysUserController implements BaseController {
      */
     @BusinessLog(model = LogModel.USER, type = LogType.RESET_PASSWORD)
     @PostMapping(value = "/resetPassword")
-    public AjaxResult resetPassword(@RequestBody ResetPasswordDTO resetPasswordDTO) {
+    public AjaxResult<Void> resetPassword(@RequestBody ResetPasswordDTO resetPasswordDTO) {
         userService.resetPassword(resetPasswordDTO.getUserId());
         return AjaxResult.success();
     }
@@ -125,7 +122,7 @@ public class SysUserController implements BaseController {
      */
     @BusinessLog(model = LogModel.USER, type = LogType.RESET_PASSWORD)
     @PostMapping(value = "/unlockUser")
-    public AjaxResult unlockUser(String userId) {
+    public AjaxResult<Void> unlockUser(String userId) {
         userService.unLockUser(userId);
         return AjaxResult.success();
     }
@@ -135,7 +132,7 @@ public class SysUserController implements BaseController {
      */
     @BusinessLog(model = LogModel.USER, type = LogType.RESET_PASSWORD)
     @PostMapping(value = "/lockUser")
-    public AjaxResult lockUser(String userId) {
+    public AjaxResult<Void> lockUser(String userId) {
         userService.lockUser(userId);
         return AjaxResult.success();
     }
@@ -143,13 +140,13 @@ public class SysUserController implements BaseController {
     /**
      * 用户新增
      */
-    @BusinessLog(model = LogModel.USER, type = LogType.ADD)
+    @BusinessLog(model = LogModel.USER, type = LogType.INSERT)
     @PostMapping(value = "/add")
-    public void add(@RequestBody SysUserDTO sysUserDTO) {
+    public AjaxResult<Void> add(@RequestBody SysUserDTO sysUserDTO) {
         String username = sysUserDTO.getUsername();
         SysUser sysUser = userService.loadUserByUsername(username);
         userService.addUser(sysUserDTO);
-
+        return AjaxResult.success();
     }
 
     /**
@@ -157,19 +154,19 @@ public class SysUserController implements BaseController {
      */
     @BusinessLog(model = LogModel.USER, type = LogType.EDIT)
     @PostMapping(value = "/edit")
-    public AjaxResult edit(@RequestBody SysUserDTO sysUserDTO) {
+    public AjaxResult<Void> edit(@RequestBody SysUserDTO sysUserDTO) {
         String username = sysUserDTO.getUsername();
-        String id = sysUserDTO.getId();
+        Long id = sysUserDTO.getId();
         SysUser sysUser = userService.loadUserByUsername(username);
         if (sysUser != null) {
             if (!sysUser.getId().equals(id)) {
-                return AjaxResult.noAuth();
+                return AjaxResult.failed(ErrorEnum.REPEAT_PASSWORD);
             }
         }
 
         String phone = sysUserDTO.getPhone();
         if (!Validator.isMoney(phone)) {
-            return AjaxResult.noAuth();
+            return AjaxResult.failed(ErrorEnum.REPEAT_PASSWORD);
         }
         userService.editUser(sysUserDTO);
 

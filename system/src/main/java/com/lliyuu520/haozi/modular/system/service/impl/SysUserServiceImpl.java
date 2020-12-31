@@ -62,6 +62,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysUser getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication==null){
+            SysUser sysUser = new SysUser();
+            return sysUser;
+        }
         Object principal = authentication.getPrincipal();
         if (principal instanceof SysUser) {
             return (SysUser) principal;
@@ -130,7 +134,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public void editUser(SysUserDTO sysUserDTO) {
-        String id = sysUserDTO.getId();
+        Long id = sysUserDTO.getId();
         SysUser sysUser = this.getById(id);
         BeanUtil.copyProperties(sysUserDTO, sysUser);
         this.updateById(sysUser);

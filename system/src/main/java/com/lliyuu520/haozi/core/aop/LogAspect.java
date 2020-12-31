@@ -2,7 +2,7 @@ package com.lliyuu520.haozi.core.aop;
 
 
 import com.lliyuu520.haozi.core.log.BusinessLog;
-import com.lliyuu520.haozi.core.log.LogManage;
+import com.lliyuu520.haozi.modular.system.service.SysLogService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -27,7 +27,7 @@ import java.lang.reflect.Method;
 public class LogAspect {
     private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
     @Autowired
-    private LogManage logManage;
+    private SysLogService sysLogService;
 
     // 配置织入点
     @Pointcut("@annotation(com.lliyuu520.haozi.core.log.BusinessLog)")
@@ -50,7 +50,7 @@ public class LogAspect {
             if (log == null) {
                 return;
             }
-            logManage.insert(log);
+            sysLogService.insertLog(log);
         } catch (Exception exp) {
             // 记录本地异常日志
             log.error("异常信息:{}", exp.getMessage());
