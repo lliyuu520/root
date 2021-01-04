@@ -66,6 +66,19 @@ public class AjaxResult<T> {
         return ajaxResult;
 
     }
+    /**
+     * 返回失败
+     *
+     * @param errorEnum
+     * @return
+     */
+    public static AjaxResult<Void> failed(String  msg) {
+        final AjaxResult<Void> ajaxResult = new AjaxResult<>();
+        ajaxResult.setCode(10010);
+        ajaxResult.setMsg(msg);
+        return ajaxResult;
+
+    }
 
     /**
      * 设置枚举

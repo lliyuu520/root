@@ -41,4 +41,12 @@ public interface SysDictService extends IService<SysDict> {
      * @return
      */
     SysDictNodeVO selectSysDictNode(Long id);
+
+    /**
+     * 查询字典值
+     * @param dict
+     * @param key
+     * @return
+     */
+    String getValueByKey(String dict,String key);
 }

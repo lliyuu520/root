@@ -1,7 +1,9 @@
 package com.lliyuu520.haozi.modular.system.entity;
 
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.lliyuu520.haozi.enums.DelFlagEnum;
 import com.lliyuu520.haozi.enums.LockFlagEnum;
 import com.lliyuu520.haozi.entity.BaseEntity;
@@ -23,6 +25,29 @@ import java.util.List;
 public class SysUser extends BaseEntity implements UserDetails, Serializable {
 
     /**
+     * id
+     */
+    @TableId
+    private Long id;
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    /**
+     * 更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
+    /**
+     * 逻辑删除
+     */
+    private Integer delFlag;
+    /**
+     * 顺序
+     */
+    private Integer weight;
+    /**
      * 账号
      */
     private String username;
@@ -31,10 +56,13 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
      */
     private String password;
     /**
-     * 中文名称
+     * 名称
      */
     private String name;
-
+    /**
+     * 电话号码
+     */
+    private String phone;
     /**
      * 部门ID
      */
@@ -43,6 +71,10 @@ public class SysUser extends BaseEntity implements UserDetails, Serializable {
      * 锁定状态 0正常 1锁定
      */
     private Integer lockFlag;
+    /**
+     * 性别
+     */
+    private String sex;
     /**
      * 角色集合
      */

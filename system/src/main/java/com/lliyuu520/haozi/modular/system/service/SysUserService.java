@@ -4,6 +4,10 @@ package com.lliyuu520.haozi.modular.system.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lliyuu520.haozi.modular.system.dto.SysUserDTO;
 import com.lliyuu520.haozi.modular.system.entity.SysUser;
+import com.lliyuu520.haozi.modular.system.query.SysUserQuery;
+import com.lliyuu520.haozi.modular.system.vo.SysUserVO;
+
+import java.util.List;
 
 /**
  * @author liliangyu
@@ -38,7 +42,7 @@ public interface SysUserService extends IService<SysUser> {
      *
      * @param userId
      */
-    void resetPassword(String userId);
+    void resetPassword(Long userId);
 
     /**
      * 初始化用户
@@ -65,12 +69,24 @@ public interface SysUserService extends IService<SysUser> {
      *
      * @param id
      */
-    void lockUser(String id);
+    void lockUser(Long id);
 
     /**
      * 解锁账户
      *
      * @param id
      */
-    void unLockUser(String id);
+    void unLockUser(Long id);
+
+    /**
+     * 查询列表
+     *
+     * @param sysUserQuery
+     * @return
+     */
+    List<SysUserVO> listByQuery(SysUserQuery sysUserQuery);
+
+
+
+
 }

@@ -33,5 +33,5 @@ public class SysUserDTO {
     /**
      * 部门ID
      */
-    private String deptId;
+    private Long deptId;
 }

@@ -75,6 +75,14 @@ public interface BaseController {
     default AjaxResult<Void> failed(ErrorEnum errorEnum){
         return  AjaxResult.failed(errorEnum);
     }
+    /**
+     * 返回错误 不带参数
+     * @param msg
+     * @return
+     */
+    default AjaxResult<Void> failed(String msg){
+        return  AjaxResult.failed(msg);
+    }
 
 
 

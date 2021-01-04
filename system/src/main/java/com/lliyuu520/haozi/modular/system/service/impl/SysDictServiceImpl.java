@@ -142,4 +142,30 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         sysDictNodeVO.setChildren(collect);
         return sysDictNodeVO;
     }
+
+    /**
+     * 查询字典值
+     *
+     * @param dict
+     * @param key
+     * @return
+     */
+    @Override
+    public String getValueByKey(String dict, String key) {
+        String value = "";
+        final LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysDict::getCode, dict);
+        final SysDict sysDict = this.getOne(wrapper);
+        if (sysDict != null) {
+            final Long parentId = sysDict.getId();
+            final LambdaQueryWrapper<SysDict> wrapper1 = Wrappers.lambdaQuery();
+            wrapper1.eq(SysDict::getCode, key);
+            wrapper1.eq(SysDict::getParentId, parentId);
+            final SysDict sysDict1 = this.getOne(wrapper1);
+            if (sysDict1 != null) {
+                value = sysDict1.getName();
+            }
+        }
+        return value;
+    }
 }

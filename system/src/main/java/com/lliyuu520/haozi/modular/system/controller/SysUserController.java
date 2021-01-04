@@ -1,9 +1,7 @@
 package com.lliyuu520.haozi.modular.system.controller;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lliyuu520.haozi.controller.BaseController;
@@ -12,25 +10,18 @@ import com.lliyuu520.haozi.core.log.LogModel;
 import com.lliyuu520.haozi.core.log.LogType;
 import com.lliyuu520.haozi.core.utils.PasswordUtil;
 import com.lliyuu520.haozi.modular.system.dto.ChangePasswordDTO;
-import com.lliyuu520.haozi.modular.system.dto.ResetPasswordDTO;
 import com.lliyuu520.haozi.modular.system.dto.SysUserDTO;
-import com.lliyuu520.haozi.modular.system.entity.SysDept;
 import com.lliyuu520.haozi.modular.system.entity.SysUser;
 import com.lliyuu520.haozi.modular.system.query.SysUserQuery;
-import com.lliyuu520.haozi.modular.system.service.SysDeptService;
 import com.lliyuu520.haozi.modular.system.service.SysUserService;
 import com.lliyuu520.haozi.modular.system.vo.SysUserVO;
 import com.lliyuu520.haozi.response.AjaxResult;
 import com.lliyuu520.haozi.response.ErrorEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 用户控制器
@@ -44,7 +35,6 @@ import java.util.stream.Collectors;
 public class SysUserController implements BaseController {
 
     private final SysUserService userService;
-    private final SysDeptService deptService;
 
     /**
      * 查询列表`
@@ -53,36 +43,8 @@ public class SysUserController implements BaseController {
     @BusinessLog(model = LogModel.USER, type = LogType.LIST)
     public PageInfo<SysUserVO> list(@RequestBody SysUserQuery sysUserQuery) {
         PageHelper.startPage(pageNum(), pageSize());
-        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
-        String username = sysUserQuery.getUsername();
-        String name = sysUserQuery.getName();
-        String eName = sysUserQuery.getEName();
-        String phone = sysUserQuery.getPhone();
-        if (StrUtil.isNotEmpty(username)) {
-            wrapper.like("username", username);
-        }
-
-        if (StrUtil.isNotEmpty(name)) {
-            wrapper.like("name", name);
-        }
-        if (StrUtil.isNotEmpty(phone)) {
-            wrapper.like("phone", phone);
-        }
-        List<SysUser> sysUsers = userService.list(wrapper);
-
-        List<SysUserVO> collect = sysUsers.stream().map(m -> {
-
-            SysUserVO sysUserVO = new SysUserVO();
-            Long deptId = m.getDeptId();
-            SysDept sysDept = deptService.getById(deptId);
-            if (sysDept != null) {
-                sysUserVO.setDeptName(sysDept.getName());
-            }
-            BeanUtil.copyProperties(m, sysUserVO);
-            return sysUserVO;
-
-        }).collect(Collectors.toList());
-        return new PageInfo<>(collect);
+        final List<SysUserVO> sysUserVOS = this.userService.listByQuery(sysUserQuery);
+        return new PageInfo<>(sysUserVOS);
 
     }
 
@@ -99,40 +61,49 @@ public class SysUserController implements BaseController {
         String oldPassword = changePasswordDTO.getOldPassword();
         boolean equals = StrUtil.equals(newPassword, oldPassword);
         if (equals) {
-            return AjaxResult.failed(ErrorEnum.REPEAT_PASSWORD);
+            return failed(ErrorEnum.REPEAT_PASSWORD);
         }
         String encode = PasswordUtil.encode(newPassword);
         userService.changePassword(encode);
-        return AjaxResult.success();
+        return success();
 
     }
 
     /**
      * 重置密码
+     *
+     * @param userId
+     * @return
      */
     @BusinessLog(model = LogModel.USER, type = LogType.RESET_PASSWORD)
-    @PostMapping(value = "/resetPassword")
-    public AjaxResult<Void> resetPassword(@RequestBody ResetPasswordDTO resetPasswordDTO) {
-        userService.resetPassword(resetPasswordDTO.getUserId());
+    @PostMapping(value = "/resetPassword/{userId}")
+    public AjaxResult<Void> resetPassword(@PathVariable Long userId) {
+        userService.resetPassword(userId);
         return AjaxResult.success();
     }
 
     /**
      * 解锁用户
+     *
+     * @param userId
+     * @return
      */
     @BusinessLog(model = LogModel.USER, type = LogType.RESET_PASSWORD)
-    @PostMapping(value = "/unlockUser")
-    public AjaxResult<Void> unlockUser(String userId) {
+    @PostMapping(value = "/unlockUser/{userId}")
+    public AjaxResult<Void> unlockUser(@PathVariable Long userId) {
         userService.unLockUser(userId);
         return AjaxResult.success();
     }
 
     /**
      * 锁定用户
+     *
+     * @param userId
+     * @return
      */
     @BusinessLog(model = LogModel.USER, type = LogType.RESET_PASSWORD)
-    @PostMapping(value = "/lockUser")
-    public AjaxResult<Void> lockUser(String userId) {
+    @PostMapping(value = "/lockUser/{userId}")
+    public AjaxResult<Void> lockUser(@PathVariable Long userId) {
         userService.lockUser(userId);
         return AjaxResult.success();
     }
@@ -144,9 +115,16 @@ public class SysUserController implements BaseController {
     @PostMapping(value = "/add")
     public AjaxResult<Void> add(@RequestBody SysUserDTO sysUserDTO) {
         String username = sysUserDTO.getUsername();
+        String phone = sysUserDTO.getPhone();
+        if (!Validator.isMobile(phone)) {
+            return failed("电话号码格式错误!");
+        }
         SysUser sysUser = userService.loadUserByUsername(username);
+        if (sysUser != null) {
+            return failed(ErrorEnum.REPEAT_ACCOUNT);
+        }
         userService.addUser(sysUserDTO);
-        return AjaxResult.success();
+        return success();
     }
 
     /**
@@ -160,13 +138,13 @@ public class SysUserController implements BaseController {
         SysUser sysUser = userService.loadUserByUsername(username);
         if (sysUser != null) {
             if (!sysUser.getId().equals(id)) {
-                return AjaxResult.failed(ErrorEnum.REPEAT_PASSWORD);
+                return AjaxResult.failed(ErrorEnum.REPEAT_ACCOUNT);
             }
         }
 
         String phone = sysUserDTO.getPhone();
-        if (!Validator.isMoney(phone)) {
-            return AjaxResult.failed(ErrorEnum.REPEAT_PASSWORD);
+        if (!Validator.isMobile(phone)) {
+            return failed("电话号码格式错误!");
         }
         userService.editUser(sysUserDTO);
 

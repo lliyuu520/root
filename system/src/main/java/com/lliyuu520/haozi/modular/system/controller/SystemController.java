@@ -59,7 +59,7 @@ public class SystemController {
             sysUserVO.setDeptName(sysDept.getName());
         }
         List<SysRole> roles = sysRoleService.getRolesByUserId(userId);
-        sysUserVO.setRoles(roles);
+//        sysUserVO.setRoles(roles);
         return AjaxResult.success(sysUserVO);
 
     }

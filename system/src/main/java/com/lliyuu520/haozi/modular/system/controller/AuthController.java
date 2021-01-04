@@ -1,6 +1,7 @@
 package com.lliyuu520.haozi.modular.system.controller;
 
 
+import com.lliyuu520.haozi.controller.BaseController;
 import com.lliyuu520.haozi.core.log.BusinessLog;
 import com.lliyuu520.haozi.core.log.LogModel;
 import com.lliyuu520.haozi.core.log.LogType;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements BaseController {
 
 
     private final AuthService authService;
@@ -39,7 +40,7 @@ public class AuthController {
         String username = authDTO.getUsername();
         String password = authDTO.getPassword();
         String login = authService.login(username, password);
-        return AjaxResult.success(login);
+        return success(login);
     }
 
 

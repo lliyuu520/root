@@ -31,6 +31,7 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
     private final CacheUtil<UrlRole> urlRoleCacheUtil;
 
 
+
     /**
      * 返回请求的资源需要的角色
      */

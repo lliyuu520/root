@@ -21,7 +21,7 @@ public class ResponseUtil {
     public static void noAuth(HttpServletResponse response) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(200);
-        AjaxResult ajaxResult = AjaxResult.failed(ErrorEnum.ACCESS_DENIED_EXCEPTION);
+        AjaxResult<Void> ajaxResult = AjaxResult.failed("noAuth");
         response.getWriter().write(JSON.toJSON(ajaxResult).toString());
     }
 
@@ -31,7 +31,7 @@ public class ResponseUtil {
     public static void authExpired(HttpServletResponse response) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(200);
-        AjaxResult ajaxResult = AjaxResult.failed(ErrorEnum.ACCESS_DENIED_EXCEPTION);
+        AjaxResult ajaxResult = AjaxResult.failed("authExpired");
         response.getWriter().write(JSON.toJSON(ajaxResult).toString());
     }
 
@@ -41,7 +41,7 @@ public class ResponseUtil {
     public static void malformedJwt(HttpServletResponse response) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(200);
-        AjaxResult ajaxResult = AjaxResult.failed(ErrorEnum.ACCESS_DENIED_EXCEPTION);
+        AjaxResult ajaxResult = AjaxResult.failed("malformedJwt");
         response.getWriter().write(JSON.toJSON(ajaxResult).toString());
     }
 
@@ -51,7 +51,7 @@ public class ResponseUtil {
     public static void serverException(HttpServletResponse response) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(200);
-        AjaxResult ajaxResult = AjaxResult.failed(ErrorEnum.ACCESS_DENIED_EXCEPTION);
+        AjaxResult ajaxResult = AjaxResult.failed("serverException");
         response.getWriter().write(JSON.toJSON(ajaxResult).toString());
     }
 
@@ -61,7 +61,7 @@ public class ResponseUtil {
     public static void signatureException(HttpServletResponse response) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(200);
-        AjaxResult ajaxResult = AjaxResult.failed(ErrorEnum.ACCESS_DENIED_EXCEPTION);
+        AjaxResult<Void> ajaxResult = AjaxResult.failed("signatureException");
         response.getWriter().write(JSON.toJSON(ajaxResult).toString());
     }
 }

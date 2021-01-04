@@ -21,10 +21,6 @@ public class SysUserQuery implements BaseQuery {
      */
     private String name;
     /**
-     * 英文名称
-     */
-    private String eName;
-    /**
      * 电话号码
      */
     private String phone;
