@@ -13,6 +13,7 @@
         <module>gateway</module>
         <module>system</module>
         <module>area</module>
+        <module>admin</module>
         <module>hero</module>
         <module>wechat</module>
 
@@ -25,6 +26,7 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>2.3.2.RELEASE</spring.boot.version>
+        <spring.admin.version>2.3.0</spring.admin.version>
         <spring.cloud.version>Hoxton.SR8</spring.cloud.version>
         <swagger.version>2.7.0</swagger.version>
         <druid.version>1.1.22</druid.version>
@@ -95,6 +97,16 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-logging</artifactId>
                 <version>${spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${spring.admin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring.admin.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
