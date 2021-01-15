@@ -11,13 +11,12 @@
     <modules>
 
         <module>gateway</module>
-        <module>system</module>
         <module>area</module>
         <module>admin</module>
-        <module>hero</module>
         <module>wechat</module>
-
+        <module>auth</module>
         <module>base</module>
+        <module>haozi-service</module>
 
 
     </modules>

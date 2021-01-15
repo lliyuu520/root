@@ -1,0 +1,15 @@
+server:
+  undertow:
+    buffer-size: 1024
+    direct-buffers: true
+spring:
+  application:
+    name: area
+  profiles:
+    include:
+      - redis
+      - mysql
+
+
+
+
